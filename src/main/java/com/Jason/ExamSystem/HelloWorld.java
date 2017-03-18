@@ -11,11 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloWorld extends HttpServlet {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        out.println("<html><head><title>Hello World</title></head>< body><p>hello world</p>< /body></html>");
+        out.println("<html><head><title>Hello World</title></head><body><p>hello world</p></body></html>");
         
 	}
 
