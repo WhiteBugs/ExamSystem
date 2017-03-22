@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+.main_box {
+    position: absolute; top:50%; left:50%; margin-top:-150px; margin-left: -200px; padding: 30px; 
+	width:300px; height:220px;
+	background:#C6E2FF;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+}
+.gdut_logo { padding-left: 30px}
+.login_form { margin-top: 20px;}
+.form_group {padding-left:70px}
+.g2 {padding-top:15px}
+.g3 {padding-top:15px}
+.g4 {padding-top:15px}
+.user_password {margin-top:500px}
+.select_count_class{margin-left:50px}
+.submit_btn{margin-left:80px}
