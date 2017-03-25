@@ -12,6 +12,7 @@
 	<servlet>
 	   <servlet-name>LoginCheck</servlet-name>
 	   <servlet-class>com.gdut.ExamSystem.servlet.LoginCheck</servlet-class>
+	   <load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 	   <servlet-name>LoginCheck</servlet-name>
