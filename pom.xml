@@ -70,11 +70,11 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>4.3.7.RELEASE</version>
-		</dependency>
+		<dependency>  
+            <groupId>org.springframework</groupId>  
+            <artifactId>spring-core</artifactId>  
+            <version>${spring-framework.version}</version>  
+        </dependency>  
         <dependency>  
             <groupId>org.springframework</groupId>  
             <artifactId>spring-web</artifactId>  
@@ -107,11 +107,7 @@
             <artifactId>spring-aop</artifactId>  
             <version>${spring-framework.version}</version>  
         </dependency>  
-        <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId>
-			<version>4.3.7.RELEASE</version>
-		</dependency>
+  
         <dependency>  
             <groupId>org.springframework</groupId>  
             <artifactId>spring-context-support</artifactId>  
@@ -151,21 +147,6 @@
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>1.2.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis-spring</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-autoconfigure</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis</groupId>
-			<artifactId>mybatis</artifactId>
-			<version>3.4.2</version>
-		</dependency>
 		
 		<!-- Test Artifacts -->
 		<dependency>
@@ -181,14 +162,10 @@
 			<scope>test</scope>
 		</dependency>
 
-
-
-
-
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.2</version>
 		</dependency>
 	</dependencies>	
 	<build>
