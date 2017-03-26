@@ -28,31 +28,4 @@
       </if>
     </trim>
   </insert>
-  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.Student">
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-  </resultMap>
-  <insert id="insert" parameterType="com.gdut.ExamSystem.model.Student">
-    insert into USERS (NAME, PASSWORD)
-    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.Student">
-    insert into USERS
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        NAME,
-      </if>
-      <if test="password != null">
-        PASSWORD,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
 </mapper>
