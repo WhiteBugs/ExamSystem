@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <img src="/ExamSystem/images/gdut_logo.png">
         </div>
         <div class="login_form">
-            <form id="login_form" action="LoginCheck.action"   method="post">
+            <form id="login_form" action="LoginCheck"   method="post">
                   <div class="form_group g1">
                       <label for="user_name" class="info">账号</label>
                       <input id="user_name" type="text" value="" class="user_name_input" placeholder="请输入账号">
