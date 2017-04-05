@@ -1,14 +1,14 @@
 com\gdut\ExamSystem\service\serviceImpl\TeacherServiecImp.class
-com\gdut\ExamSystem\servlet\LoginCheck.class
 com\gdut\ExamSystem\service\base\BaseService.class
 com\gdut\ExamSystem\MyBatisSqlSessionFactory.class
+com\gdut\ExamSystem\studentWER\Student.class
 com\gdut\ExamSystem\service\serviceImpl\StudentServiceImp.class
 com\gdut\ExamSystem\service\TeacherService.class
 com\gdut\ExamSystem\dao\StudentMapper.class
 com\gdut\ExamSystem\Sex.class
 com\gdut\ExamSystem\service\AdminService.class
 com\gdut\ExamSystem\controller\LoginController.class
-com\gdut\ExamSystem\student\Student.class
+com\gdut\ExamSystem\daoImp\StudentDaoImp.class
 com\gdut\ExamSystem\service\serviceImpl\AdminServiceImp.class
 com\gdut\ExamSystem\model\Student.class
 com\gdut\ExamSystem\service\StudentService.class

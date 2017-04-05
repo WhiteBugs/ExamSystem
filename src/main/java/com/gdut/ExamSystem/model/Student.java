@@ -1,7 +1,6 @@
 package com.gdut.ExamSystem.model;
 
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicInterface2;
-import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
+
 
 public class Student {
     private String name;

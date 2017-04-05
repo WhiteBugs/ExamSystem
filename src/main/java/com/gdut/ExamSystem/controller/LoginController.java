@@ -3,12 +3,15 @@ package com.gdut.ExamSystem.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdut.ExamSystem.service.AdminService;
@@ -20,36 +23,40 @@ import com.gdut.ExamSystem.service.base.BaseService;
 
 @Controller
 public class LoginController {
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-    @Resource(name="StudentServiceImp")
+    @Resource(name="StudentService")
     private StudentService studentService;
     
-    @Resource(name="AdminServiceImp")
+    @Resource(name="AdminService")
     private AdminService adminService;
     
-    @Resource(name="TeacherServiecImp")
+    @Resource(name="TeacherService")
     private TeacherService teacherService;
     
 
-	@RequestMapping("/LoginCheck")
+	@RequestMapping(value="/LoginCheck", method=RequestMethod.POST)
 	public String checkAccount(
 		   @RequestParam (value="user_name") String userName,
            @RequestParam(value="user_password") String userPassword,
            @RequestParam(value="select_count") String countType){
+		System.out.println(userName+userPassword+countType);
+		logger.debug("进入loginController");
 		switch (countType) {
-		   case "管理员":
+		   case "admin":
 			   if(Search(userName,userPassword,adminService)==0){
 				   return "login/admin";
 			   }
                return "login/loginFailed";
 			   
-		   case "学生":
+		   case "student":
+			   logger.info("跳转到学生选择");
 			   if(Search(userName,userPassword,studentService)==0){
 				   return "login/student";
 			   }
 			   return "login/loginFailed";
 			   
-		   case "监考老师":
+		   case "teacher":
 			   if(Search(userName,userPassword,teacherService)==0){
 				   return "login/teacher";
 			   }

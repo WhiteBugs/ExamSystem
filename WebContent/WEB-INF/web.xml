@@ -6,7 +6,7 @@
 	<display-name>ExamSystem</display-name>
   	<!-- 主页欢迎页面 -->
 	<welcome-file-list>
-		<welcome-file>/jsp/login.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 	
 	
@@ -33,12 +33,7 @@
     <listener>
        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <context-param>  
-        <param-name>contextConfigLocation</param-name>  
-        <param-value>  
-            <!-- 配置文件的路径 -->
-        </param-value>  
-    </context-param>  
+      
     <!-- 防止Spring内存溢出监听器 -->
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
@@ -57,15 +52,19 @@
      </servlet>
      <servlet-mapping>
          <servlet-name>dispatcherServlet</servlet-name>
-         <url-pattern>/*</url-pattern>
+         <url-pattern>/</url-pattern>
      </servlet-mapping>
 
-    
 	<!-- 加载spring配置文件 -->
 	<context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:spring-application-config.xml,
+            classpath:spring-*-config.xml,
         </param-value>
     </context-param>
+    
+    <!-- 会话超时（分钟） -->
+    <session-config> 
+         <session-timeout>10</session-timeout> 
+    </session-config> 
 </web-app>

@@ -7,6 +7,6 @@ public interface StudentMapper {
 
     int insertSelective(Student record);
    
-    Student getStudent(long studentId);
+    Student getStudent(String studentId);
     
 }

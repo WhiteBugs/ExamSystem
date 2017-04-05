@@ -28,7 +28,13 @@
       </if>
     </trim>
   </insert>
-  <select id="select" resultType="com.gdut.ExamSystem.model.Student">
+  
+  <resultMap type="com.gdut.ExamSystem.model.Student" id="student">
+      <id column="studentid" property="name" />
+      <id column="studentpassword" property="password"/>
+  </resultMap>
+  <select id="select" parameterType="String" resultMap="student">
     select * from Student where StudentId = #{StudentId}
   </select>
+  
 </mapper>

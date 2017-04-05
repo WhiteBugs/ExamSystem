@@ -1,15 +1,14 @@
+D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\studentWER\Student.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\service\AdminService.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\service\serviceImpl\TeacherServiecImp.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\model\Student.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\service\StudentService.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\controller\LoginController.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\Sex.java
-D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\student\Student.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\dao\StudentMapper.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\service\serviceImpl\AdminServiceImp.java
-D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\dao\daoImp\StudentDaoImp.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\service\serviceImpl\StudentServiceImp.java
+D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\daoImp\StudentDaoImp.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\service\base\BaseService.java
-D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\servlet\LoginCheck.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\MyBatisSqlSessionFactory.java
 D:\eclipse_workspace\ExamSystem\src\main\java\com\gdut\ExamSystem\service\TeacherService.java
