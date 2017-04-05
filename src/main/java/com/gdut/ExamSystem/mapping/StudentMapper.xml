@@ -6,25 +6,77 @@
     <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
   </resultMap>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.Student">
-    insert into USERS (NAME, PASSWORD)
-    values (#{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    insert into STUDENT (STUDENTID,EXAMINEENUMBER,ID,NAME,SEX,GRADE,MAJOR,PASSWORD,SCORE)
+    values (
+            #{studentid,jabcType=NUMBER},
+            #{examineeNumber,jdbcType=NUMBER},
+            #{ID,jdbcType=NUMBER},
+            #{name,jdbcType=VARCHAR},
+            #{sex,jdbcType=VARCHAR},
+            #{grade,jdbcType=Number},
+            #{major,jdbcType=VARCHAR}, 
+            #{password,jdbcType=VARCHAR},
+            #{score,jdbcType=NUMBER}
+            )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.Student">
-    insert into USERS
+    insert into STUDENT
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentid != null">
+        studentid,
+      </if>
+      <if test="examineeNumber!= null">
+        examineeNumber,
+      </if>
+      <if test="ID != null">
+        ID,
+      </if>
       <if test="name != null">
         NAME,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="grade != null">
+        GRADE,
+      </if>
+      <if test="major != null">
+        MAJOR,
       </if>
       <if test="password != null">
         PASSWORD,
       </if>
+      <if test="score != null">
+        SCORE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentid != null">
+        #{studentid,jabcType=NUMBER},
+      </if>
+      <if test="examineeNumber!= null">
+        #{examineeNumber,jdbcType=NUMBER},
+      </if>
+      <if test="ID != null">
+        #{ID,jdbcType=NUMBER},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=Number},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=NUMBER}
       </if>
     </trim>
   </insert>
