@@ -14,29 +14,40 @@ public class StudentDaoImp implements StudentMapper {
 	private SqlSession sqlSession;
 
 	@Override
-	public int insert(Student record) {
-		sqlSession.insert("com.gdut.ExamSystem.dao.StudentMapper.insert", record);
+	public int insert(Student student) {
+		logger.debug("进入学生Dao层");
+		sqlSession.insert("com.gdut.ExamSystem.dao.StudentMapper.insert", student);
 		return 0;
 	}
 
 	@Override
-	public int insertSelective(Student record) {
-		// TODO Auto-generated method stub
+	public int insertSelective(Student student) {
+		logger.debug("进入学生Dao层");
+		int i = sqlSession.insert("com.gdut.ExamSystem.dao.StudentMapper.insertSelective",student);
+		return i;
+	}
+
+	@Override
+	public int deleteOne(Student student) {
+		logger.debug("进入学生Dao层");
+		sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.delete",student);
 		return 0;
 	}
 
 	@Override
-	public Student getStudent(String studentId) {
-		// TODO Auto-generated method stub
-        logger.debug("dao层根据学号查询学生");
-        Student student=(Student)sqlSession.selectOne("com.gdut.ExamSystem.dao.StudentMapper.select",studentId);
-		if(student==null){
-			logger.error("查询不到此学生");
-		}else{
-			logger.debug("查询学生成功");
+	public Student selectOne(Student student) {
+		logger.debug("进入学生Dao层");
+		Student stu=sqlSession.selectOne("com.gdut.ExamSystem.dao.StudentMapper.select",student);
+		if(stu==null){
+			logger.error("搜索返回空学生");
 		}
-        return student; 
+		return stu;
 	}
 
-	
+	@Override
+	public int update(Student student) {
+		logger.debug("进入学生Dao层");
+		sqlSession.update("com.gdut.ExamSystem.dao.StudentMapper.update",student);
+		return 0;
+	}	
 }

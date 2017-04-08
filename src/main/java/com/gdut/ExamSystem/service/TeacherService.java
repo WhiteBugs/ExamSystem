@@ -1,9 +1,8 @@
 package com.gdut.ExamSystem.service;
 
 import com.gdut.ExamSystem.model.Teacher;
-import com.gdut.ExamSystem.service.base.BaseService;
 
-public interface TeacherService extends BaseService {
+public interface TeacherService {
 	
 	public void addTeacher(Teacher teacher);
 	

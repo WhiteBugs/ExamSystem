@@ -2,33 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdut.ExamSystem.dao.StudentMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.Student">
+    <result column="STUDENTID" jdbcType="DECIMAL" property="studentid" />
+    <result column="EXAMINEENUMBER" jdbcType="DECIMAL" property="examineenumber" />
+    <result column="ID" jdbcType="DECIMAL" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+    <result column="GRADE" jdbcType="DECIMAL" property="grade" />
+    <result column="MAJOR" jdbcType="VARCHAR" property="major" />
+    <result column="CLASSES" jdbcType="DECIMAL" property="classes" />
     <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="SCORE" jdbcType="DECIMAL" property="score" />
   </resultMap>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.Student">
-    insert into STUDENT (STUDENTID,EXAMINEENUMBER,ID,NAME,SEX,GRADE,MAJOR,PASSWORD,SCORE)
+    insert into STUDENT (STUDENTID, EXAMINEENUMBER, ID, 
+      NAME, SEX, GRADE, MAJOR, 
+      CLASSES, PASSWORD, SCORE
+      )
     values (
-            #{studentid,jabcType=NUMBER},
-            #{examineeNumber,jdbcType=NUMBER},
-            #{ID,jdbcType=NUMBER},
-            #{name,jdbcType=VARCHAR},
-            #{sex,jdbcType=VARCHAR},
-            #{grade,jdbcType=Number},
-            #{major,jdbcType=VARCHAR}, 
-            #{password,jdbcType=VARCHAR},
-            #{score,jdbcType=NUMBER}
-            )
+        #{studentid,jdbcType=DECIMAL},
+        #{examineenumber,jdbcType=DECIMAL},
+        #{id,jdbcType=DECIMAL}, 
+        #{name,jdbcType=VARCHAR}, 
+        #{sex,jdbcType=VARCHAR}, 
+        #{grade,jdbcType=DECIMAL}, 
+        #{major,jdbcType=VARCHAR}, 
+        #{classes,jdbcType=DECIMAL},
+        #{password,jdbcType=VARCHAR},
+        #{score,jdbcType=DECIMAL}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.Student">
     insert into STUDENT
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="studentid != null">
-        studentid,
+        STUDENTID,
       </if>
-      <if test="examineeNumber!= null">
-        examineeNumber,
+      <if test="examineenumber != null">
+        EXAMINEENUMBER,
       </if>
-      <if test="ID != null">
+      <if test="id != null">
         ID,
       </if>
       <if test="name != null">
@@ -43,6 +55,9 @@
       <if test="major != null">
         MAJOR,
       </if>
+      <if test="classes != null">
+        CLASSES,
+      </if>
       <if test="password != null">
         PASSWORD,
       </if>
@@ -52,13 +67,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="studentid != null">
-        #{studentid,jabcType=NUMBER},
+        #{studentid,jdbcType=DECIMAL},
       </if>
-      <if test="examineeNumber!= null">
-        #{examineeNumber,jdbcType=NUMBER},
+      <if test="examineenumber != null">
+        #{examineenumber,jdbcType=DECIMAL},
       </if>
-      <if test="ID != null">
-        #{ID,jdbcType=NUMBER},
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -67,26 +82,44 @@
         #{sex,jdbcType=VARCHAR},
       </if>
       <if test="grade != null">
-        #{grade,jdbcType=Number},
+        #{grade,jdbcType=DECIMAL},
       </if>
       <if test="major != null">
         #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null">
+        #{classes,jdbcType=DECIMAL},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
-        #{score,jdbcType=NUMBER}
+        #{score,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
   
-  <resultMap type="com.gdut.ExamSystem.model.Student" id="student">
-      <id column="studentid" property="name" />
-      <id column="studentpassword" property="password"/>
-  </resultMap>
-  <select id="select" parameterType="String" resultMap="student">
-    select * from Student where StudentId = #{StudentId}
-  </select>
+  <update id="update" parameterType="com.gdut.ExamSystem.model.Student">
+           update Student set 
+              examineenumber = #{examineenumber},
+              id=#{id},
+              name = #{name},
+              sex=#{sex},
+              grade=#{grade},
+              major=#{major},
+              classes=#{classes},
+              password = #{password}, 
+              score=#{score}
+            where studentID = #{studentID};
+  </update>
+  <update id="updateSelective" parameterType="com.gdut.ExamSystem.model.Student">
+     
+  </update>
   
+  <delete id="delete" parameterType="com.gdut.ExamSystem.model.Student">
+           delete * from student where studentID = #{studentID};
+  </delete>
+  <select id="select" parameterType="com.gdut.ExamSystem.model.Student">
+           select * from student where studentID=#{studentID};
+  </select>  
 </mapper>

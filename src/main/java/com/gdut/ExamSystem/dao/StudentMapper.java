@@ -3,10 +3,12 @@ package com.gdut.ExamSystem.dao;
 import com.gdut.ExamSystem.model.Student;
 
 public interface StudentMapper {
-    int insert(Student record);
+    int insert(Student student);
 
-    int insertSelective(Student record);
-   
-    Student getStudent(String studentId);
-    
+    int insertSelective(Student student);
+
+    int deleteOne(Student student);
+    Student selectOne(Student student);
+    int update(Student student);
+
 }

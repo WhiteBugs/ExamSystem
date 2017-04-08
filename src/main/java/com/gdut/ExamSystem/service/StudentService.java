@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import com.gdut.ExamSystem.enums.Major;
 import com.gdut.ExamSystem.enums.Sex;
 import com.gdut.ExamSystem.model.Student;
-import com.gdut.ExamSystem.service.base.BaseService;
 
-public interface StudentService extends BaseService {
+
+public interface StudentService {
+	
      public void add(Student student);
      
      public void delete(Student student);

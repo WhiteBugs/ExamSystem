@@ -6,11 +6,6 @@ import com.gdut.ExamSystem.service.TeacherService;
 public class TeacherServiceImp implements TeacherService {
 	
 
-	@Override
-	public int search(String userName, String userPassword) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public void addTeacher(Teacher teacher) {

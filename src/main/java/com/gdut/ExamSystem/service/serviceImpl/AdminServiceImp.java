@@ -1,15 +1,22 @@
 package com.gdut.ExamSystem.service.serviceImpl;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gdut.ExamSystem.dao.AdminstratorMapper;
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.service.AdminService;
 
-public class AdminServiceImp implements AdminService {
 
-	@Override
-	public int search(String userName, String userPassword) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+@Service  
+@Transactional
+public class AdminServiceImp implements AdminService {
+	
+	@Resource(name="AdminMapper")
+	private AdminstratorMapper adminMapper;
+
 
 	@Override
 	public Adminstrator findAdminByCount(String count) {
@@ -40,5 +47,7 @@ public class AdminServiceImp implements AdminService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }

@@ -37,20 +37,20 @@ public class LoginController {
 		logger.debug("进入loginController");
 		switch (countType) {
 		   case "admin":
-			   if(Search(userName,userPassword,adminService)==0){
+			   if(){
 				   return "login/admin";
 			   }
                return "login/loginFailed";
 			   
 		   case "student":
 			   logger.info("跳转到学生选择");
-			   if(Search(userName,userPassword,studentService)==0){
+			   if(){
 				   return "login/student";
 			   }
 			   return "login/loginFailed";
 			   
 		   case "teacher":
-			   if(Search(userName,userPassword,teacherService)==0){
+			   if(){
 				   return "login/teacher";
 			   }
 			   return "login/loginFailed";
@@ -60,7 +60,7 @@ public class LoginController {
 		return "login/loginFailed";
 	}
 	
-	private int Search(String userName,String userPassword,BaseService service){
+	private int Search(String userName,String userPassword){
 	    int returnId = service.search(userName,userPassword);
 		if(returnId==0){
 			return 0;

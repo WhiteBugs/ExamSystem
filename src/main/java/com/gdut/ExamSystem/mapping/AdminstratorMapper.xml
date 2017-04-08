@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.AdminstratorMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.Adminstrator">
+    <result column="COUNT" jdbcType="VARCHAR" property="count" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.AdminstratorWithBLOBs">
+    <result column="SAFEQUESTION" jdbcType="BLOB" property="safequestion" />
+    <result column="SAFEANSWER" jdbcType="BLOB" property="safeanswer" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    SAFEQUESTION, SAFEANSWER
+  </sql>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.AdminstratorWithBLOBs">
+    insert into ADMIN (COUNT, PASSWORD, SAFEQUESTION, 
+      SAFEANSWER)
+    values (#{count,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{safequestion,jdbcType=BLOB}, 
+      #{safeanswer,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.AdminstratorWithBLOBs">
+    insert into ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="count != null">
+        COUNT,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="safequestion != null">
+        SAFEQUESTION,
+      </if>
+      <if test="safeanswer != null">
+        SAFEANSWER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="count != null">
+        #{count,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="safequestion != null">
+        #{safequestion,jdbcType=BLOB},
+      </if>
+      <if test="safeanswer != null">
+        #{safeanswer,jdbcType=BLOB},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="delete" parameterType="com.gdut.ExamSystem.model.Adminstrator">
+       delete * from admin where count = #{count}; 
+  </delete>
+  
+  <select id="select" parameterType="com.gdut.ExamSystem.model.Adminstrator">
+       select * from admin where count = #{count};
+  </select>
+  
+  <update id="update" parameterType="com.gdut.ExamSystem.model.Adminstrator">
+       update admin set
+          password=#{password},
+          safeQuestion = #{safequestion},
+          safeAnswer = #{safeanswer}
+       where count = #{count};
+  </update>
+</mapper>
