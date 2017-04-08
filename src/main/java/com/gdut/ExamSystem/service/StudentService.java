@@ -1,8 +1,8 @@
 package com.gdut.ExamSystem.service;
 
 import java.util.ArrayList;
-import com.gdut.ExamSystem.Major;
-import com.gdut.ExamSystem.Sex;
+import com.gdut.ExamSystem.enums.Major;
+import com.gdut.ExamSystem.enums.Sex;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.service.base.BaseService;
 
@@ -16,7 +16,6 @@ public interface StudentService extends BaseService {
      public Student findStudentByID(String ID);
      public Student findStudentByExamineeNumber(long ExamineeNumber);
      public ArrayList<Student> findStudentByName(String name);
-     public ArrayList<Student> findStudentByClass(String classes);
      public ArrayList<Student> findStudentByClasses(int classes);
      public ArrayList<Student> findStudentByMajor(Major major);
      public ArrayList<Student> findStudentScoreBelow(int score);

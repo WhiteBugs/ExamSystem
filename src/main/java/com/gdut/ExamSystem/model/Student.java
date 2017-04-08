@@ -1,6 +1,6 @@
 package com.gdut.ExamSystem.model;
 
-import com.gdut.ExamSystem.Sex;
+import com.gdut.ExamSystem.enums.Sex;
 
 public class Student {
 	//学生：学号 考生号 身份证号 姓名 性别 年级 专业 密码  成绩 

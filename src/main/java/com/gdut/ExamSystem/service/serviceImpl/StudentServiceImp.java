@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gdut.ExamSystem.Major;
-import com.gdut.ExamSystem.Sex;
+import com.gdut.ExamSystem.enums.Major;
+import com.gdut.ExamSystem.enums.Sex;
 import com.gdut.ExamSystem.dao.StudentMapper;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.service.StudentService;
@@ -87,12 +87,7 @@ public class StudentServiceImp implements StudentService {
 		return null;
 	}
 
-	@Override
-	public ArrayList<Student> findStudentByClass(String classes) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public ArrayList<Student> findStudentByClasses(int classes) {
 		// TODO Auto-generated method stub
@@ -176,5 +171,6 @@ public class StudentServiceImp implements StudentService {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

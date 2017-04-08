@@ -1,4 +1,4 @@
-package com.gdut.ExamSystem;
+package com.gdut.ExamSystem.enums;
 
 public enum Sex {
    male, female;

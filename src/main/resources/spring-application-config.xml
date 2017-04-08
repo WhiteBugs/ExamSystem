@@ -14,13 +14,17 @@
     </bean>
     <bean id="StudentMapper" class = "com.gdut.ExamSystem.daoImp.StudentDaoImp">
     </bean>
-    
+     
     <!-- 注入管理员 -->
     <bean id="AdminService" class="com.gdut.ExamSystem.service.serviceImpl.AdminServiceImp">
+    </bean>
+    <bean id="AdminMapper" class="com.gdut.ExamSystem.daoImp.AdminDaoImp">
     </bean>
     
     <!-- 注入考官 -->
     <bean id="TeacherService" class="com.gdut.ExamSystem.service.serviceImpl.TeacherServiceImp">
+    </bean>
+    <bean id="TeacherServiceImp" class="com.gdut.ExamSystem.daoImp.TeacherDaoImp">
     </bean>
 
 </beans>
