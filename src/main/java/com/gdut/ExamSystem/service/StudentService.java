@@ -1,37 +1,43 @@
 package com.gdut.ExamSystem.service;
 
 import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.gdut.ExamSystem.enums.Major;
-import com.gdut.ExamSystem.enums.Sex;
 import com.gdut.ExamSystem.model.Student;
 
-
+@Service 
+@Transactional
 public interface StudentService {
 	
      public void add(Student student);
      
      public void delete(Student student);
-     public void deleteByID(String ID);
-     public void deleteByExamineeNumber(String ExamineeNumber);
+     public void deleteByGrade(int grade);
+     public void deleteByStudentID(long studentID);
+     public void deleteByExamineeNumber(long examineeNumber);
+     public void delettByClass(int classes);
      
-     public Student findStudentByID(String ID);
-     public Student findStudentByExamineeNumber(long ExamineeNumber);
+     public Student findStudentByStudentID(long studentID);
+     public Student findStudentByExamineeNumber(long examineeNumber);
      public ArrayList<Student> findStudentByName(String name);
      public ArrayList<Student> findStudentByClasses(int classes);
      public ArrayList<Student> findStudentByMajor(Major major);
      public ArrayList<Student> findStudentScoreBelow(int score);
      public ArrayList<Student> findStudentScoreHigerThanScore(int score);
-     public ArrayList<Student> findStudentScoreBetweenScore(int higerScore,int lowScore);
+     public ArrayList<Student> findStudentScoreBetweenScore(@Param("higerScore")int higerScore,@Param("lowScore")int lowScore);
      
      
-     public void changeStudentID(String ID);
-     public void changeStudentExamineeNumber(long ExamineeNumber);
-     public void changeStudentName(String name);
-     public void changeStudentSex(Sex sex);
-     public void changeStudentGrade(int grade);
-     public void changeStudentClasses(int classes);
-     public void changeStudentMajor(Major major);
-     public void changeStudentPassword(String password);
-     public void changeStudentScore(int score);
+     public void changeStudentExamineeNumber(long ExamineeNumber,Student student);
+     public void changeStudentName(String name,Student student);
+     public void changeStudentSex(String sex,Student student);
+     public void changeStudentGrade(int grade,Student student);
+     public void changeStudentClasses(int classes,Student student);
+     public void changeStudentMajor(String major,Student student);
+     public void changeStudentPassword(String password,Student student);
+     public void changeStudentScore(int score,Student student);
      
 }

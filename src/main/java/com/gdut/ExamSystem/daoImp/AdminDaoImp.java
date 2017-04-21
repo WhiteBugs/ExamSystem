@@ -10,8 +10,10 @@ import com.gdut.ExamSystem.dao.AdminstratorMapper;
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.AdminstratorWithBLOBs;
 
+import antlr.collections.List;
+
 public class AdminDaoImp implements AdminstratorMapper {
-	private static final Logger logger = LoggerFactory.getLogger(StudentDaoImp.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminDaoImp.class);
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
 	
@@ -65,6 +67,18 @@ public class AdminDaoImp implements AdminstratorMapper {
 		logger.debug("进入管理员Dao层");
 		sqlSession.update("com.gdut.ExamSystem.dao.AdminstratorMapper.update",admin);
 		return 0;
+	}
+
+	@Override
+	public List findAllTeacher() {
+		logger.debug("进入管理员Dao层");
+		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.TeacherMapper.selectAll");
+	}
+
+	@Override
+	public List findAllStudent() {
+		logger.debug("进入管理员Dao层");
+		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.Student.Mapper.selectAll");
 	}
 
 }

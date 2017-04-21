@@ -51,11 +51,11 @@
   </insert>
   
   <delete id="delete" parameterType="com.gdut.ExamSystem.model.Adminstrator">
-       delete * from admin where count = #{count}; 
+       delete * from admin where count = #{count}
   </delete>
   
-  <select id="select" parameterType="com.gdut.ExamSystem.model.Adminstrator">
-       select * from admin where count = #{count};
+  <select id="selectAll">
+       select * from admin
   </select>
   
   <update id="update" parameterType="com.gdut.ExamSystem.model.Adminstrator">
@@ -63,6 +63,6 @@
           password=#{password},
           safeQuestion = #{safequestion},
           safeAnswer = #{safeanswer}
-       where count = #{count};
+       where count = #{count}
   </update>
 </mapper>

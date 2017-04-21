@@ -1,50 +1,49 @@
 package com.gdut.ExamSystem.model;
 
-import java.math.BigDecimal;
 
 public class Student {
 	//学生：学号 考生号 身份证号 姓名 性别 年级 专业 密码  成绩 
-    private Short studentid;
+    private long studentid;
 
-    private Short examineenumber;
+    private long examineenumber;
 
-    private Short id;
+    private long id;
 
     private String name;
 
     private String sex;
 
-    private BigDecimal grade;
+    private int grade;
 
     private String major;
 
-    private BigDecimal classes;
+    private int classes;
 
     private String password;
 
-    private BigDecimal score;
+    private int score;
 
-    public Short getStudentid() {
+    public long getStudentid() {
         return studentid;
     }
 
-    public void setStudentid(Short studentid) {
+    public void setStudentid(long studentid) {
         this.studentid = studentid;
     }
 
-    public Short getExamineenumber() {
+    public long getExamineenumber() {
         return examineenumber;
     }
 
-    public void setExamineenumber(Short examineenumber) {
+    public void setExamineenumber(long examineenumber) {
         this.examineenumber = examineenumber;
     }
 
-    public Short getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -64,11 +63,11 @@ public class Student {
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public BigDecimal getGrade() {
+    public int getGrade() {
         return grade;
     }
 
-    public void setGrade(BigDecimal grade) {
+    public void setGrade(int grade) {
         this.grade = grade;
     }
 
@@ -80,11 +79,11 @@ public class Student {
         this.major = major == null ? null : major.trim();
     }
 
-    public BigDecimal getClasses() {
+    public int getClasses() {
         return classes;
     }
 
-    public void setClasses(BigDecimal classes) {
+    public void setClasses(int classes) {
         this.classes = classes;
     }
 
@@ -96,11 +95,11 @@ public class Student {
         this.password = password == null ? null : password.trim();
     }
 
-    public BigDecimal getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(BigDecimal score) {
+    public void setScore(int score) {
         this.score = score;
     }
 }

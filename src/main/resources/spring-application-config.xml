@@ -8,7 +8,7 @@
 	                       http://www.springframework.org/schema/beans/spring-beans.xsd
 		                   http://www.springframework.org/schema/context 
 		                   http://www.springframework.org/schema/context/spring-context.xsd">
-		                   
+   	                   
 	<!-- 注入学生 -->	                   
     <bean id="StudentService" class="com.gdut.ExamSystem.service.serviceImpl.StudentServiceImp">
     </bean>

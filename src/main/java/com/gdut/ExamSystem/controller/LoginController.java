@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.gdut.ExamSystem.model.Adminstrator;
+import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.service.AdminService;
 import com.gdut.ExamSystem.service.StudentService;
 import com.gdut.ExamSystem.service.TeacherService;
-import com.gdut.ExamSystem.service.base.BaseService;
 
 
 
@@ -33,24 +36,29 @@ public class LoginController {
 		   @RequestParam (value="user_name") String userName,
            @RequestParam(value="user_password") String userPassword,
            @RequestParam(value="select_count") String countType){
+		
 		System.out.println(userName+userPassword+countType);
 		logger.debug("进入loginController");
 		switch (countType) {
 		   case "admin":
-			   if(){
+			   Adminstrator adminstrator=adminService.findAdminByCount(userName);
+			   if(adminstrator!=null){
 				   return "login/admin";
 			   }
                return "login/loginFailed";
 			   
 		   case "student":
-			   logger.info("跳转到学生选择");
-			   if(){
+			   long studentID = Long.parseLong(userName);
+			   logger.debug("学号为"+studentID);
+			   Student student=studentService.findStudentByStudentID(studentID);
+			   if(student!=null){
 				   return "login/student";
 			   }
 			   return "login/loginFailed";
 			   
 		   case "teacher":
-			   if(){
+			   Teacher teacher = teacherService.findTeacherByCount(userName);
+			   if(teacher!=null){
 				   return "login/teacher";
 			   }
 			   return "login/loginFailed";
@@ -59,17 +67,4 @@ public class LoginController {
 		}
 		return "login/loginFailed";
 	}
-	
-	private int Search(String userName,String userPassword){
-	    int returnId = service.search(userName,userPassword);
-		if(returnId==0){
-			return 0;
-		}else if(returnId==-1){
-			System.out.print("账号错误");
-		}else if(returnId==-2){
-			System.out.print("密码错误");
-		}
-		return -1;
-	}
-	
 }

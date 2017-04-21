@@ -10,6 +10,8 @@ import com.gdut.ExamSystem.dao.TeacherMapper;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
+import antlr.collections.List;
+
 public class TeacherDaoImp implements TeacherMapper {
 	private static final Logger logger = LoggerFactory.getLogger(StudentDaoImp.class);
 	@Resource(name="sqlSession")
@@ -52,8 +54,13 @@ public class TeacherDaoImp implements TeacherMapper {
 	public int update(Teacher teacher) {
 		logger.debug("进入teacher_Dao层");
 		logger.debug("更新考官信息");
-		sqlSession.update("com.gdut.ExamSystem.dao.TeacherMapper.update",teacher);
-		return 0;
+		return sqlSession.update("com.gdut.ExamSystem.dao.TeacherMapper.update",teacher);
+	}
+
+	@Override
+	public List selectAll() {
+		logger.debug("进入teacher_Dao层");
+		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.TeacherMapper.selectAll");
 	}
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdut.ExamSystem.dao.StudentMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.Student">
-    <result column="STUDENTID" jdbcType="DECIMAL" property="studentid" />
+    <result column="STUDENTID" jdbcType="BIGINT" property="studentid" />
     <result column="EXAMINEENUMBER" jdbcType="DECIMAL" property="examineenumber" />
     <result column="ID" jdbcType="DECIMAL" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
@@ -110,16 +110,96 @@
               classes=#{classes},
               password = #{password}, 
               score=#{score}
-            where studentID = #{studentID};
+            where studentid = #{studentid}
   </update>
   <update id="updateSelective" parameterType="com.gdut.ExamSystem.model.Student">
-     
+    update Student set
+     <trim suffix=" " suffixOverrides=",">
+        <if test="studentid != null">
+          STUDENTID=#{studentid,jdbcType=DECIMAL},
+        </if>      
+        <if test="examineenumber != null">
+          EXAMINEENUMBER=#{examineenumber,jdbcType=DECIMAL},
+        </if>
+        <if test="id != null">
+          ID=#{id,jdbcType=DECIMAL},
+        </if>
+        <if test="name != null">
+          NAME=#{name,jdbcType=VARCHAR},
+        </if>
+        <if test="sex != null">
+          SEX=#{sex,jdbcType=VARCHAR},
+        </if>
+        <if test="grade != null">
+          GRADE= #{grade,jdbcType=DECIMAL},
+        </if>
+        <if test="major != null">
+          MAJOR=#{major,jdbcType=VARCHAR},
+        </if>
+        <if test="classes != null">
+          CLASSES=#{classes,jdbcType=DECIMAL},
+        </if>
+        <if test="password != null">
+          PASSWORD=#{password,jdbcType=VARCHAR},
+        </if>
+        <if test="score != null">
+          SCORE=#{score,jdbcType=DECIMAL},
+        </if>
+      </trim>
   </update>
   
   <delete id="delete" parameterType="com.gdut.ExamSystem.model.Student">
-           delete * from student where studentID = #{studentID};
+           delete * from student where STUDENTID = #{studentid}
+                                 AND NAME = #{name}
   </delete>
-  <select id="select" parameterType="com.gdut.ExamSystem.model.Student">
-           select * from student where studentID=#{studentID};
-  </select>  
+  <delete id="deleteByStudentId" parameterType="java.lang.Long">
+           delete * from student where STUDENTID = #{studentid}
+  </delete>
+  <delete id="deleteByExamineeNumber" parameterType="java.lang.Long">
+           delete * from student where EXAMINEENUMBER=#{examineenumber}
+  </delete>
+  <delete id="deleteByName" parameterType="java.lang.String">
+           delete * from student where NAME = #{name}
+  </delete>
+  <delete id="deleteByMajor" parameterType="java.lang.String">
+           delete * from student where MAJOR = #{major}
+  </delete>
+  <delete id="deleteByClass" parameterType="java.lang.Integer">
+           delete * from student where CLASSES=#{classes}
+  </delete>
+  <delete id="deleteByGrade" parameterType="java.lang.Integer">
+           delete * from student where GRADE=#{grade}
+  </delete>
+  
+  <select id="selectAll">
+           select * from student
+  </select>
+  <select id="selectByClass" parameterType="java.lang.Integer">
+           select * from student where classes=#{classes}
+  </select>
+  <select id="selectByName" parameterType="java.lang.String">
+           select * from student where name=#{name}
+  </select>
+  <select id="selectByStudentId" parameterType="java.lang.Long"
+          resultType="com.gdut.ExamSystem.model.Student">
+           select * from student where studentid=#{studentid}
+  </select>
+  <select id="selectByExamineeNumber" parameterType="java.lang.Long">
+           select * from student where examineenumber=#{examineenumber}
+  </select>
+  <select id="selectByGrade" parameterType="java.lang.Integer">
+           select * from student where grade = #{grade}
+  </select>
+  <select id="selectByMajor" parameterType="java.lang.String">
+           select * from student where major = #{major}
+  </select>
+  <select id="selectStudentScoreBelow" parameterType="java.lang.Integer">
+           select * from student where score&lt;=#{score} order by studentid
+  </select>
+  <select id="selectStudentScoreHiger" parameterType="java.lang.Integer">
+           select * from student where score&gt;=#{score} order by studentid
+  </select>
+  <select id="selectStudentScoreBetween" >
+           select * from student where score&lt;=#{higerScore} AND score&gt;=#{lowScore}
+  </select>
 </mapper>
