@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentJunctionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
+    <result column="Orders" jdbcType="INTEGER" property="orders" />
+    <result column="Score" jdbcType="INTEGER" property="score" />
+    <result column="Student_ID" jdbcType="BIGINT" property="studentId" />
+    <result column="Exam_ID" jdbcType="INTEGER" property="examId" />
+    <result column="blank_filling_answer_of_student_Blank_Filling_Answer_ID" jdbcType="INTEGER" property="blankFillingAnswerOfStudentBlankFillingAnswerId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
+    insert into blank_filling_answer_of_student_junction (Orders, Score, Student_ID, 
+      Exam_ID, blank_filling_answer_of_student_Blank_Filling_Answer_ID
+      )
+    values (#{orders,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{studentId,jdbcType=BIGINT}, 
+      #{examId,jdbcType=INTEGER}, #{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
+    insert into blank_filling_answer_of_student_junction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orders != null">
+        Orders,
+      </if>
+      <if test="score != null">
+        Score,
+      </if>
+      <if test="studentId != null">
+        Student_ID,
+      </if>
+      <if test="examId != null">
+        Exam_ID,
+      </if>
+      <if test="blankFillingAnswerOfStudentBlankFillingAnswerId != null">
+        blank_filling_answer_of_student_Blank_Filling_Answer_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="examId != null">
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="blankFillingAnswerOfStudentBlankFillingAnswerId != null">
+        #{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

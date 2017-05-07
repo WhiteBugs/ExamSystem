@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.ChoiceAnswerOfStudentMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.ChoiceAnswerOfStudent">
+    <result column="Answer" jdbcType="VARCHAR" property="answer" />
+    <result column="Orders" jdbcType="INTEGER" property="orders" />
+    <result column="Score" jdbcType="INTEGER" property="score" />
+    <result column="Exam_ID" jdbcType="INTEGER" property="examId" />
+    <result column="Student_ID" jdbcType="BIGINT" property="studentId" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudent">
+    insert into choice_answer_of_student (Answer, Orders, Score, 
+      Exam_ID, Student_ID)
+    values (#{answer,jdbcType=VARCHAR}, #{orders,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{examId,jdbcType=INTEGER}, #{studentId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudent">
+    insert into choice_answer_of_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="answer != null">
+        Answer,
+      </if>
+      <if test="orders != null">
+        Orders,
+      </if>
+      <if test="score != null">
+        Score,
+      </if>
+      <if test="examId != null">
+        Exam_ID,
+      </if>
+      <if test="studentId != null">
+        Student_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="examId != null">
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

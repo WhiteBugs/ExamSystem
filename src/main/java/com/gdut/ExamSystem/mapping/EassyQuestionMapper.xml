@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.EassyQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.EassyQuestion">
+    <id column="Eassy_Question_ID" jdbcType="INTEGER" property="eassyQuestionId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.EassyQuestion">
+    <result column="Tittle" jdbcType="LONGVARCHAR" property="tittle" />
+    <result column="Answer" jdbcType="LONGVARCHAR" property="answer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Eassy_Question_ID
+  </sql>
+  <sql id="Blob_Column_List">
+    Tittle, Answer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eassy_question
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from eassy_question
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
+    insert into eassy_question (Eassy_Question_ID, Tittle, Answer
+      )
+    values (#{eassyQuestionId,jdbcType=INTEGER}, #{tittle,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
+    insert into eassy_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eassyQuestionId != null">
+        Eassy_Question_ID,
+      </if>
+      <if test="tittle != null">
+        Tittle,
+      </if>
+      <if test="answer != null">
+        Answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eassyQuestionId != null">
+        #{eassyQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="tittle != null">
+        #{tittle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
+    update eassy_question
+    <set>
+      <if test="tittle != null">
+        Tittle = #{tittle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="answer != null">
+        Answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
+    update eassy_question
+    set Tittle = #{tittle,jdbcType=LONGVARCHAR},
+      Answer = #{answer,jdbcType=LONGVARCHAR}
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+  </update>
+</mapper>

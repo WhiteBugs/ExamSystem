@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.TestPaperMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.TestPaper">
+    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
+    <id column="Exam_Name" jdbcType="VARCHAR" property="examName" />
+    <result column="Count" jdbcType="VARCHAR" property="count" />
+    <result column="Begin_Time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="End_Time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Exam_ID, Exam_Name, Count, Begin_Time, End_Time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.TestPaperKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test_paper
+    where Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_Name = #{examName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.TestPaperKey">
+    delete from test_paper
+    where Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_Name = #{examName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.TestPaper">
+    insert into test_paper (Exam_ID, Exam_Name, Count, 
+      Begin_Time, End_Time)
+    values (#{examId,jdbcType=INTEGER}, #{examName,jdbcType=VARCHAR}, #{count,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.TestPaper">
+    insert into test_paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examId != null">
+        Exam_ID,
+      </if>
+      <if test="examName != null">
+        Exam_Name,
+      </if>
+      <if test="count != null">
+        Count,
+      </if>
+      <if test="beginTime != null">
+        Begin_Time,
+      </if>
+      <if test="endTime != null">
+        End_Time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examId != null">
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="examName != null">
+        #{examName,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.TestPaper">
+    update test_paper
+    <set>
+      <if test="count != null">
+        Count = #{count,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        Begin_Time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        End_Time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_Name = #{examName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.TestPaper">
+    update test_paper
+    set Count = #{count,jdbcType=VARCHAR},
+      Begin_Time = #{beginTime,jdbcType=TIMESTAMP},
+      End_Time = #{endTime,jdbcType=TIMESTAMP}
+    where Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_Name = #{examName,jdbcType=VARCHAR}
+  </update>
+</mapper>

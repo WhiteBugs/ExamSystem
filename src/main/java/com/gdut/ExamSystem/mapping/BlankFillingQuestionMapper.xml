@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.BlankFillingQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.BlankFillingQuestion">
+    <id column="Blank_Filling_Question_ID" jdbcType="INTEGER" property="blankFillingQuestionId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.BlankFillingQuestion">
+    <result column="Tittle" jdbcType="LONGVARCHAR" property="tittle" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Blank_Filling_Question_ID
+  </sql>
+  <sql id="Blob_Column_List">
+    Tittle
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blank_filling_question
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blank_filling_question
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
+    insert into blank_filling_question (Blank_Filling_Question_ID, Tittle
+      )
+    values (#{blankFillingQuestionId,jdbcType=INTEGER}, #{tittle,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
+    insert into blank_filling_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blankFillingQuestionId != null">
+        Blank_Filling_Question_ID,
+      </if>
+      <if test="tittle != null">
+        Tittle,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blankFillingQuestionId != null">
+        #{blankFillingQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="tittle != null">
+        #{tittle,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
+    update blank_filling_question
+    <set>
+      <if test="tittle != null">
+        Tittle = #{tittle,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
+    update blank_filling_question
+    set Tittle = #{tittle,jdbcType=LONGVARCHAR}
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+  </update>
+</mapper>

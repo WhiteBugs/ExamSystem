@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.BlankFillingAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.BlankFillingAnswer">
+    <result column="orders" jdbcType="INTEGER" property="orders" />
+    <result column="Blank_Filling_Question_ID" jdbcType="INTEGER" property="blankFillingQuestionId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.BlankFillingAnswer">
+    <result column="Answer" jdbcType="LONGVARCHAR" property="answer" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    Answer
+  </sql>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswer">
+    insert into blank_filling_answer (orders, Blank_Filling_Question_ID, Answer
+      )
+    values (#{orders,jdbcType=INTEGER}, #{blankFillingQuestionId,jdbcType=INTEGER}, #{answer,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswer">
+    insert into blank_filling_answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orders != null">
+        orders,
+      </if>
+      <if test="blankFillingQuestionId != null">
+        Blank_Filling_Question_ID,
+      </if>
+      <if test="answer != null">
+        Answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="blankFillingQuestionId != null">
+        #{blankFillingQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

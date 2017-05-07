@@ -10,7 +10,6 @@ import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.service.StudentService;
 
 
- 
 
 public class StudentServiceImp implements StudentService {
 	
@@ -19,153 +18,153 @@ public class StudentServiceImp implements StudentService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(StudentServiceImp.class);
 
-	
-
 	@Override
 	public void add(Student student) {
-		logger.debug("进入service层学生");
+		logger.debug("进入service层");
 		mapper.insert(student);
+		
 	}
 
 	@Override
 	public void delete(Student student) {
-		logger.debug("进入service层学生");
+		logger.debug("进入service层");
 		mapper.deleteOne(student);
+		
+	}
+
+	@Override
+	public void deleteByGrade(int grade) {
+		logger.debug("进入service层");
+		mapper.deleteByGrade(grade);
 	}
 
 	@Override
 	public void deleteByStudentID(long studentID) {
-		logger.debug("进入service层学生");
-		
+		logger.debug("进入service层");
+		mapper.deleteByPrimaryKey(studentID);
 	}
 
 	@Override
 	public void deleteByExamineeNumber(long examineeNumber) {
-		logger.debug("进入service层学生");
-		
+		logger.debug("进入service层");
+		mapper.deleteByExamineeNumber(examineeNumber);
+	}
+
+	@Override
+	public void delettByClass(int classes) {
+		logger.debug("进入service层");
+		mapper.deleteByClass(classes);
 	}
 
 	@Override
 	public Student findStudentByStudentID(long studentID) {
-		logger.debug("进入service层学生");
+		logger.debug("进入service层");
 		return mapper.selectByStudentId(studentID);
 	}
 
 	@Override
 	public Student findStudentByExamineeNumber(long examineeNumber) {
-		logger.debug("进入service层学生");
+		logger.debug("进入service层");
 		return mapper.selectByExamineeNumber(examineeNumber);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Student> findStudentByName(String name) {
-		logger.debug("进入service层学生");
-		return (ArrayList<Student>) mapper.selectByName(name);
+		logger.debug("进入service层");
+		return (ArrayList<Student>)mapper.selectByName(name);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Student> findStudentByClasses(int classes) {
-		logger.debug("进入service层学生");
-		return (ArrayList<Student>) mapper.selectByClass(classes);
+		logger.debug("进入service层");
+		return (ArrayList<Student>)mapper.selectByClass(classes);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Student> findStudentByMajor(Major major) {
-		logger.debug("进入service层学生");
-		return (ArrayList<Student>) mapper.selectByMajor(major.toString());
+		logger.debug("进入service层");
+		return (ArrayList<Student>)mapper.selectByMajor(major.toString());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Student> findStudentScoreBelow(int score) {
-		logger.debug("进入service层学生");
-		return (ArrayList<Student>) mapper.selectStudentScoreBelow(score);
+		logger.debug("进入service层");
+		return (ArrayList<Student>)mapper.selectStudentScoreBelow(score);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Student> findStudentScoreHigerThanScore(int score) {
-		logger.debug("进入service层学生");
-		return (ArrayList<Student>) mapper.selectStudentScoreHiger(score);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public ArrayList<Student> findStudentScoreBetweenScore(int higerScore, int lowScore) {
-		logger.debug("进入service层学生");
-		return (ArrayList<Student>) mapper.selectStudentScoreBetween(higerScore, lowScore);
+		logger.debug("进入service层");
+		return (ArrayList<Student>)mapper.selectStudentScoreHiger(score);
 	}
 
 	@Override
-	public void changeStudentExamineeNumber(long examineeNumber,Student student) {
-		logger.debug("进入service层学生");
-		student.setExamineenumber(examineeNumber);
-		mapper.updateSelective(student);
+	public ArrayList<Student> findStudentScoreBetweenScore(int higherScore, int lowScore) {
+		logger.debug("进入service层");
+		return (ArrayList<Student>)mapper.selectStudentScoreBetween(higherScore, lowScore);
 	}
 
 	@Override
-	public void changeStudentName(String name,Student student) {
-		logger.debug("进入service层学生");
-		student.setName(name);
-		mapper.updateSelective(student);
+	public void changeStudentExamineeNumber(long ExamineeNumber, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setExamineeNumber(ExamineeNumber);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
 
 	@Override
-	public void changeStudentSex(String sex,Student student) {
-		logger.debug("进入service层学生");
-		student.setSex(sex);
-		mapper.updateSelective(student);
+	public void changeStudentName(String name, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setName(name);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
 
 	@Override
-	public void changeStudentGrade(int grade,Student student) {
-		logger.debug("进入service层学生");
-		student.setGrade(grade);
-		mapper.updateSelective(student);
+	public void changeStudentSex(String sex, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setSex(sex);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
 
 	@Override
-	public void changeStudentClasses(int classes,Student student) {
-		logger.debug("进入service层学生");
-		student.setClasses(classes);
-		mapper.updateSelective(student);
+	public void changeStudentGrade(int grade, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setGrade(grade);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
 
 	@Override
-	public void changeStudentMajor(String major,Student student) {
-		logger.debug("进入service层学生");
-		student.setMajor(major);
-		mapper.updateSelective(student);
+	public void changeStudentClasses(int classes, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setClasses(classes);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
 
 	@Override
-	public void changeStudentPassword(String password,Student student) {
-		logger.debug("进入service层学生");
-		student.setPassword(password);
-		mapper.updateSelective(student);
+	public void changeStudentMajor(String major, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setMajor(major);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
 
 	@Override
-	public void changeStudentScore(int score,Student student) {
-		logger.debug("进入service层学生");
-		student.setScore(score);
-		mapper.updateSelective(student);
+	public void changeStudentPassword(String password, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setPassword(password);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
 
 	@Override
-	public void deleteByGrade(int grade) {
-		logger.debug("进入service层学生");
-	    mapper.deleteByGrade(grade);
-		
+	public void changeStudentScore(int score, Student student) {
+		logger.debug("进入service层");
+		Student student2 = mapper.selectByPrimaryKey(student.getStudentId());
+		student2.setScore(score);
+		mapper.updateByPrimaryKeySelective(student2);
 	}
-
-	@Override
-	public void delettByClass(int classes) {
-		logger.debug("进入service层学生");
-		mapper.deleteByClass(classes);
-	}
-
 }
