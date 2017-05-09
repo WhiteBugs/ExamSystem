@@ -6,4 +6,6 @@ public interface StudentExamJunctionMapper {
     int insert(StudentExamJunction record);
 
     int insertSelective(StudentExamJunction record);
+    
+    int deleteOne(StudentExamJunction record);
 }

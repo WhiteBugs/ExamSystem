@@ -20,6 +20,6 @@ public interface TeacherMapper {
 
     int updateByPrimaryKey(Teacher record);
     
-    List selectAll();
+    List<Teacher> selectAll();
  
 }

@@ -7,8 +7,6 @@ public interface ChoiceQuestionMapper {
 
     int insert(ChoiceQuestion record);
 
-    int insertSelective(ChoiceQuestion record);
-
     ChoiceQuestion selectByPrimaryKey(Integer choiceQuestionId);
 
     int updateByPrimaryKeySelective(ChoiceQuestion record);
@@ -16,8 +14,5 @@ public interface ChoiceQuestionMapper {
     int updateByPrimaryKeyWithBLOBs(ChoiceQuestion record);
 
     int updateByPrimaryKey(ChoiceQuestion record);
-    
-	int findByNumber(int number);
-	int deleteByNumber(int number);
-	int changerQuestion(ChoiceQuestion choiceQuestion);
+
 }

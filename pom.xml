@@ -21,9 +21,6 @@
 		<!-- Spring -->
 		<spring-framework.version>4.0.4.RELEASE</spring-framework.version>
 
-		<!-- Hibernate / JPA -->
-		<hibernate.version>4.2.1.Final</hibernate.version>
-
         <!-- myibatis -->
         <mybatis.version>3.2.6</mybatis.version>  
         

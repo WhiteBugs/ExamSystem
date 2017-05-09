@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.AdminstratorWithBLOBs;
+import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.Teacher;
 
 public interface AdminstratorMapper {
     int deleteByPrimaryKey(String count);
@@ -20,12 +22,6 @@ public interface AdminstratorMapper {
 
     int updateByPrimaryKey(Adminstrator record);
     
-
-    List findAllTeacher();
-    List findAllStudent();
-    int insert(Adminstrator admin);
-    int insertSelective(Adminstrator admin);
-    int delete(Adminstrator admin);
-    Adminstrator selectOne(Adminstrator admin);
-    int update(Adminstrator admin);
+    List<Teacher> findAllTeacher();
+    List<Student> findAllStudent();
 }

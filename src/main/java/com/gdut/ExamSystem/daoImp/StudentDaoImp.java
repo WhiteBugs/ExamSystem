@@ -155,7 +155,5 @@ public class StudentDaoImp implements StudentMapper {
 		map.put("higherScore", higherScore);
 		map.put("lowScore", lowScore);
 		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectScoreBetween",map);
-	}
-
-	
+	}	
 }
