@@ -1,6 +1,6 @@
 package com.gdut.ExamSystem.model;
 
-public class StudentExamJunction {
+public class StudentExamJunctionKey {
     private Long studentId;
 
     private Integer examId;

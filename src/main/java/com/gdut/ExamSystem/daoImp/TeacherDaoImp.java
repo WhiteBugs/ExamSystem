@@ -12,58 +12,51 @@ import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
 
 public class TeacherDaoImp implements TeacherMapper {
-	private static final Logger logger = LoggerFactory.getLogger(StudentDaoImp.class);
+	private static final Logger logger = LoggerFactory.getLogger(TeacherDaoImp.class);
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
+	private static final String NAME_SPACE = "com.gdut.ExamSystem.dao.TeacherMapper.";
 	
 	
 	
 	@Override
 	public int deleteByPrimaryKey(String count) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAME_SPACE+"deleteByPrimaryKey",count);
 	}
 
 	@Override
 	public TeacherWithBLOBs selectByPrimaryKey(String count) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",count);
 	}
 
 	@Override
 	public int updateByPrimaryKeySelective(TeacherWithBLOBs record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeySelective",record);
 	}
 
 	@Override
 	public int updateByPrimaryKeyWithBLOBs(TeacherWithBLOBs record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeyWithBLOBs",record);
 	}
 
 	@Override
 	public int updateByPrimaryKey(Teacher record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
 	}
 
 	@Override
 	public int insert(TeacherWithBLOBs record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAME_SPACE+"insert",record);
 	}
 
 	@Override
 	public int insertSelective(TeacherWithBLOBs record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAME_SPACE+"insertSelective",record);
 	}
 
 	@Override
-	public java.util.List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public java.util.List<Teacher> selectAll() {
+		return sqlSession.selectList(NAME_SPACE+"selectAllStudent");
 	}
 
 }

@@ -4,9 +4,8 @@ import java.util.List;
 
 import com.gdut.ExamSystem.model.Student;
 
-
 public interface StudentMapper {
-    int deleteByPrimaryKey(Long studentId);
+	int deleteByPrimaryKey(Long studentId);
 
     int insert(Student record);
 
@@ -51,6 +50,4 @@ public interface StudentMapper {
     
     List<Student> selectStudentScoreHiger(int score);
     
-    List<Student> selectStudentScoreBetween(int higherScore , int lowScore);
-    
-}
+    List<Student> selectStudentScoreBetween(int higherScore , int lowScore);}

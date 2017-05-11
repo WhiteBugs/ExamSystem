@@ -14,5 +14,4 @@ public interface ChoiceQuestionMapper {
     int updateByPrimaryKeyWithBLOBs(ChoiceQuestion record);
 
     int updateByPrimaryKey(ChoiceQuestion record);
-
 }

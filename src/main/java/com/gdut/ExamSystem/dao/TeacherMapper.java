@@ -19,7 +19,6 @@ public interface TeacherMapper {
     int updateByPrimaryKeyWithBLOBs(TeacherWithBLOBs record);
 
     int updateByPrimaryKey(Teacher record);
-    
-    List<Teacher> selectAll();
- 
+
+	List<Teacher> selectAll();
 }

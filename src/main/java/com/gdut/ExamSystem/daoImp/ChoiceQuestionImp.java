@@ -9,7 +9,7 @@ import com.gdut.ExamSystem.dao.ChoiceQuestionMapper;
 
 
 public class ChoiceQuestionImp implements ChoiceQuestionMapper {
-	private static final Logger logger = LoggerFactory.getLogger(AdminDaoImp.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChoiceQuestionImp.class);
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
 	
@@ -46,4 +46,5 @@ public class ChoiceQuestionImp implements ChoiceQuestionMapper {
 		logger.debug("进入dao层");
 		return sqlSession.update("com.gdut.ExamSystem.dao.ChoiceQuestionMapper.updateByPrimaryKey",record);
 	}
+
 }

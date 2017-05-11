@@ -2,39 +2,70 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdut.ExamSystem.dao.EassyQuestionJunctionMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.EassyQuestionJunction">
+    <id column="Eassy_Question_ID" jdbcType="INTEGER" property="eassyQuestionId" />
+    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
     <result column="orders" jdbcType="INTEGER" property="orders" />
-    <result column="Eassy_Question_ID" jdbcType="INTEGER" property="eassyQuestionId" />
-    <result column="Exam_ID" jdbcType="INTEGER" property="examId" />
   </resultMap>
+  <sql id="Base_Column_List">
+    Eassy_Question_ID, Exam_ID, orders
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunctionKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from eassy_question_junction
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunctionKey">
+    delete from eassy_question_junction
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction">
-    insert into eassy_question_junction (orders, Eassy_Question_ID, Exam_ID
+    insert into eassy_question_junction (Eassy_Question_ID, Exam_ID, orders
       )
-    values (#{orders,jdbcType=INTEGER}, #{eassyQuestionId,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}
+    values (#{eassyQuestionId,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, #{orders,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction">
     insert into eassy_question_junction
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orders != null">
-        orders,
-      </if>
       <if test="eassyQuestionId != null">
         Eassy_Question_ID,
       </if>
       <if test="examId != null">
         Exam_ID,
       </if>
+      <if test="orders != null">
+        orders,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orders != null">
-        #{orders,jdbcType=INTEGER},
-      </if>
       <if test="eassyQuestionId != null">
         #{eassyQuestionId,jdbcType=INTEGER},
       </if>
       <if test="examId != null">
         #{examId,jdbcType=INTEGER},
       </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction">
+    update eassy_question_junction
+    <set>
+      <if test="orders != null">
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction">
+    update eassy_question_junction
+    set orders = #{orders,jdbcType=INTEGER}
+    where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </update>
 </mapper>

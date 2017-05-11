@@ -1,13 +1,9 @@
 package com.gdut.ExamSystem.model;
 
-public class EassyAnswerOfStudent {
+public class EassyAnswerOfStudent extends EassyAnswerOfStudentKey {
     private Integer orders;
 
     private Integer score;
-
-    private Long studentId;
-
-    private Integer examId;
 
     private String answer;
 
@@ -25,22 +21,6 @@ public class EassyAnswerOfStudent {
 
     public void setScore(Integer score) {
         this.score = score;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public Integer getExamId() {
-        return examId;
-    }
-
-    public void setExamId(Integer examId) {
-        this.examId = examId;
     }
 
     public String getAnswer() {

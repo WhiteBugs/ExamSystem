@@ -15,6 +15,7 @@ import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.AdminstratorWithBLOBs;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.StudentExamJunction;
+import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.model.TestPaperKey;
@@ -74,7 +75,7 @@ public class AdminServiceImp implements AdminService {
 	@Override
 	public void addStudent(TestPaper testPaper, Student student) {
 		studentMapper.insert(student);
-		StudentExamJunction studentExamJunction = new StudentExamJunction();
+		StudentExamJunctionKey studentExamJunction = new StudentExamJunctionKey();
 		studentExamJunction.setExamId(testPaper.getExamId());
 		studentExamJunction.setStudentId(student.getStudentId());
 		studentExamJunctionMapper.insert(studentExamJunction);
@@ -88,10 +89,10 @@ public class AdminServiceImp implements AdminService {
 	@Override
 	public void deleteStudent(TestPaper testPaper, Student student) {
 		studentMapper.deleteOne(student);
-		StudentExamJunction studentExamJunction = new StudentExamJunction();
-		studentExamJunction.setExamId(testPaper.getExamId());
-		studentExamJunction.setStudentId(student.getStudentId());
-		studentExamJunctionMapper.deleteOne(studentExamJunction);
+		StudentExamJunctionKey studentExamJunctionkey = new StudentExamJunctionKey();
+		studentExamJunctionkey.setExamId(testPaper.getExamId());
+		studentExamJunctionkey.setStudentId(student.getStudentId());
+		studentExamJunctionMapper.deleteByPrimaryKey(studentExamJunctionkey);
 	}
 
 	@Override

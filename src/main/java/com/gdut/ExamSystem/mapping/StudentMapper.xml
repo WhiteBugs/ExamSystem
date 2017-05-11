@@ -16,7 +16,7 @@
   <sql id="Base_Column_List">
     Student_ID, Examinee_Number, ID, Name, SEX, grade, Major, classes, Password, score
   </sql>
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAllStudent" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from student
@@ -85,39 +85,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from student
     where Student_ID = #{studentId,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByOneProperty" parameterType="com.gdut.ExamSystem.model.Student">
-    delete from student
-    <where>
-      <if test="examineeNumber != null">
-        Examinee_Number = #{examineeNumber,jdbcType=BIGINT}
-      </if>
-      <if test="id != null">
-        ID = #{id,jdbcType=BIGINT}
-      </if>
-      <if test="name != null">
-        Name = #{name,jdbcType=VARCHAR}
-      </if>
-      <if test="sex != null">
-        SEX = #{sex,jdbcType=VARCHAR}
-      </if>
-      <if test="grade != null">
-        grade = #{grade,jdbcType=INTEGER}
-      </if>
-      <if test="major != null">
-        Major = #{major,jdbcType=VARCHAR}
-      </if>
-      <if test="classes != null">
-        classes = #{classes,jdbcType=INTEGER}
-      </if>
-      <if test="password != null">
-        Password = #{password,jdbcType=VARCHAR}
-      </if>
-      <if test="score != null">
-        score = #{score,jdbcType=INTEGER}
-      </if>
-    </where>
-
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.Student">
     insert into student (Student_ID, Examinee_Number, ID, 

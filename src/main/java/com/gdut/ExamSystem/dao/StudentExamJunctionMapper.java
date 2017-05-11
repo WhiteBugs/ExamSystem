@@ -1,11 +1,18 @@
 package com.gdut.ExamSystem.dao;
 
-import com.gdut.ExamSystem.model.StudentExamJunction;
+import java.util.List;
+import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 
 public interface StudentExamJunctionMapper {
-    int insert(StudentExamJunction record);
+	int insert( StudentExamJunctionKey record);
 
-    int insertSelective(StudentExamJunction record);
+    int insertSelective( StudentExamJunctionKey record);
     
-    int deleteOne(StudentExamJunction record);
+    int deleteByExamID ( int examID);
+	
+    List<Long> findAllStudentIDByExamID( int examID );
+    
+    Long findOneStudentIDInExam(StudentExamJunctionKey record);
+
+	int deleteByPrimaryKey(StudentExamJunctionKey key);
 }
