@@ -12,6 +12,8 @@ public interface StudentExamJunctionMapper {
 	
     List<Long> findAllStudentIDByExamID( int examID );
     
+    List<Integer> findStudentAllExam(long studentID);
+    
     Long findOneStudentIDInExam(StudentExamJunctionKey record);
 
 	int deleteByPrimaryKey(StudentExamJunctionKey key);

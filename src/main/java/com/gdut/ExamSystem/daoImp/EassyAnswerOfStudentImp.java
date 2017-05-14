@@ -5,11 +5,13 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.EassyAnswerOfStudentMapper;
 import com.gdut.ExamSystem.model.EassyAnswerOfStudent;
 import com.gdut.ExamSystem.model.EassyAnswerOfStudentKey;
 
+@Repository("EassyAnswerOfStudentMapper")
 public class EassyAnswerOfStudentImp implements EassyAnswerOfStudentMapper {
 	private static final Logger logger = LoggerFactory.getLogger(EassyAnswerOfStudentImp.class);
 	@Resource(name="sqlSession")

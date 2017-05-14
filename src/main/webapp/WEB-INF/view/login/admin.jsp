@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>管理员登录界面</title>
 </head>
 <body>
-Hello Admin!
+<form id="form" name="form" action="addExam" method="post">
+  <div>
+    <button type="submit" > addExam</button>
+  </div>
+</form>
 </body>
 </html>

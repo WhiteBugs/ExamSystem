@@ -5,11 +5,13 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.ChoiceAnswerOfStudentMapper;
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudent;
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey;
 
+@Repository("ChoiceAnswerOfStudentMapper")
 public class ChoiceAnswerOfStudentImp implements ChoiceAnswerOfStudentMapper {
 	private static final Logger logger = LoggerFactory.getLogger(ChoiceAnswerOfStudentImp.class);
 	@Resource(name="sqlSession")

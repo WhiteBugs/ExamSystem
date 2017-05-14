@@ -37,13 +37,17 @@
       </if>
     </trim>
   </insert>
-  <select id="findAllStudentIDByExamID" parameterType="java.lang.Integer" resultMap="java.lang.Long">
+  <select id="findAllStudentIDByExamID" parameterType="java.lang.Integer" resultType="java.lang.Long">
     select Student_ID from student_exam_junction
      where Exam_ID=#{examId,jdbcType=INTEGER}
   </select>
-  <select id="findOneStudentIDInExam" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey" resultMap="java.lang.Long">
+  <select id="findOneStudentIDInExam" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey" resultType="java.lang.Long">
     select Student_ID from student_exam_junction
      where Exam_ID=#{examId,jdbcType=INTEGER}
        and Student_ID=#{studentId,jdbcType=BIGINT}
+  </select>
+  <select id="findStudentAllExam" parameterType="java.lang.Integer" resultType="java.lang.Long">
+    select Exam_ID  from student_exam_junction
+      where Student_ID=#{studentId,jdbcType=BIGINT}
   </select>
 </mapper>

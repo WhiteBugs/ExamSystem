@@ -5,10 +5,12 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.EassyQuestionMapper;
 import com.gdut.ExamSystem.model.EassyQuestion;
 
+@Repository("EassyQuestionMapper")
 public class EassyQuestionImp implements EassyQuestionMapper {
 	private static final Logger logger = LoggerFactory.getLogger(EassyQuestionImp.class);
 	@Resource(name="sqlSession")

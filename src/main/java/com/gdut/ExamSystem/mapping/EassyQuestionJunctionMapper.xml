@@ -16,6 +16,10 @@
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=INTEGER}
   </select>
+  <select id="findAllEassyQuestionOfExam" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select Eassy_Question_ID from eassy_question_junction
+     where Exam_ID = #{examId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunctionKey">
     delete from eassy_question_junction
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}

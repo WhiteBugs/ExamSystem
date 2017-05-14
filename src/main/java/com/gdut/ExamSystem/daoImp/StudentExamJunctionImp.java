@@ -8,10 +8,12 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.StudentExamJunctionKey;
-
+@Repository("StudentExamJunctionMapper")
 public class StudentExamJunctionImp implements StudentExamJunctionMapper {
 	private static final Logger logger = LoggerFactory.getLogger(StudentExamJunctionImp.class);
 	@Resource(name="sqlSession")
@@ -42,5 +44,9 @@ public class StudentExamJunctionImp implements StudentExamJunctionMapper {
 	@Override
 	public Long findOneStudentIDInExam(StudentExamJunctionKey key) {
 		return sqlSession.selectOne(NAME_SPACE+"findOneStudentIDInExam",key);
+	}
+	@Override
+	public List<Integer> findStudentAllExam(long studentID) {
+		return sqlSession.selectList(NAME_SPACE+"findStudentAllExam",studentID);
 	}
 }

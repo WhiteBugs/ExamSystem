@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.EassyQuestionJunction;
 import com.gdut.ExamSystem.model.EassyQuestionJunctionKey;
 
@@ -12,6 +14,8 @@ public interface EassyQuestionJunctionMapper {
 
     EassyQuestionJunction selectByPrimaryKey(EassyQuestionJunctionKey key);
 
+    List<Integer> findAllEassyQuestionOfExam(int examID);
+    
     int updateByPrimaryKeySelective(EassyQuestionJunction record);
 
     int updateByPrimaryKey(EassyQuestionJunction record);

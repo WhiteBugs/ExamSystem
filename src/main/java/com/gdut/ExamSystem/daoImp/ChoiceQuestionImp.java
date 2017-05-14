@@ -4,10 +4,12 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
 import com.gdut.ExamSystem.model.ChoiceQuestion;
 import com.gdut.ExamSystem.dao.ChoiceQuestionMapper;
 
-
+@Repository("ChoiceQuestionMapper")
 public class ChoiceQuestionImp implements ChoiceQuestionMapper {
 	private static final Logger logger = LoggerFactory.getLogger(ChoiceQuestionImp.class);
 	@Resource(name="sqlSession")

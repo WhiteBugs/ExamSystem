@@ -16,6 +16,10 @@
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=INTEGER}
   </select>
+  <select id="findAllChoiceQuestion" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select Choice_Question_ID from choice_question_junction
+      where Exam_ID = #{examId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceQuestionJunctionKey">
     delete from choice_question_junction
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}

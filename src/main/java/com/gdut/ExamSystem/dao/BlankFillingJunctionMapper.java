@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.BlankFillingJunction;
 import com.gdut.ExamSystem.model.BlankFillingJunctionKey;
 
@@ -12,6 +14,8 @@ public interface BlankFillingJunctionMapper {
 
     BlankFillingJunction selectByPrimaryKey(BlankFillingJunctionKey key);
 
+    List<Integer> findAllBlankFillingQuestionOfExam(int examID);
+    
     int updateByPrimaryKeySelective(BlankFillingJunction record);
 
     int updateByPrimaryKey(BlankFillingJunction record);

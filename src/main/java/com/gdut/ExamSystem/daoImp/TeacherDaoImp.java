@@ -5,12 +5,13 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.TeacherMapper;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
-
+@Repository("TeacherMapper")
 public class TeacherDaoImp implements TeacherMapper {
 	private static final Logger logger = LoggerFactory.getLogger(TeacherDaoImp.class);
 	@Resource(name="sqlSession")

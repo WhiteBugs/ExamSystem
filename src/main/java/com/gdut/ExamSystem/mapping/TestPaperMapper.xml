@@ -24,10 +24,8 @@
       and Exam_Name = #{examName,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.TestPaper">
-    insert into test_paper (Exam_ID, Exam_Name, Count, 
-      Begin_Time, End_Time)
-    values (#{examId,jdbcType=INTEGER}, #{examName,jdbcType=VARCHAR}, #{count,jdbcType=VARCHAR}, 
-      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+    insert into test_paper (Exam_ID,Exam_Name,Count,Begin_Time,End_Time)
+    values (#{examId,jdbcType=INTEGER}, #{examName,jdbcType=VARCHAR}, #{count,jdbcType=VARCHAR},#{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.TestPaper">
     insert into test_paper

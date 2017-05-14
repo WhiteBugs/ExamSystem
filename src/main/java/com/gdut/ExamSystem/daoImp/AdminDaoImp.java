@@ -8,6 +8,7 @@ import javax.xml.stream.events.Namespace;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.AdminstratorMapper;
 import com.gdut.ExamSystem.model.Adminstrator;
@@ -16,7 +17,7 @@ import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
-
+@Repository("AdminstratorMapper")
 public class AdminDaoImp implements AdminstratorMapper {
 	private static final Logger logger = LoggerFactory.getLogger(AdminDaoImp.class);
 	@Resource(name="sqlSession")
@@ -41,8 +42,8 @@ public class AdminDaoImp implements AdminstratorMapper {
 	}
 	@Override
 	public AdminstratorWithBLOBs selectByPrimaryKey(String count) {
-		logger.debug("进入dao层");
-		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",count);
+		logger.debug("进入dao层"+count);
+		return sqlSession.selectOne("com.gdut.ExamSystem.dao.AdminstratorMapper.selectByPrimaryKey",count);
 	}
 	@Override
 	public int updateByPrimaryKeySelective(AdminstratorWithBLOBs record) {

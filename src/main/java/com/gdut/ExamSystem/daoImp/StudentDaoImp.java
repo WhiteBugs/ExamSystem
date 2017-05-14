@@ -7,10 +7,11 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.StudentMapper;
 import com.gdut.ExamSystem.model.Student;
-
+@Repository("StudentMapper")
 public class StudentDaoImp implements StudentMapper {
 	private static final Logger logger = LoggerFactory.getLogger(StudentDaoImp.class);
 	@Resource(name="sqlSession")
