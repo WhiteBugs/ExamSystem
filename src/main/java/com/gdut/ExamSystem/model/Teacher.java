@@ -1,6 +1,6 @@
 package com.gdut.ExamSystem.model;
 
-public class Teacher  {
+public class Teacher {
     private String count;
 
     private String password;

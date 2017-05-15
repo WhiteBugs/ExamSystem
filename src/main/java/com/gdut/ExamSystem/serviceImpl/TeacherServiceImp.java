@@ -1,12 +1,12 @@
-package com.gdut.ExamSystem.service.serviceImpl;
+package com.gdut.ExamSystem.serviceImpl;
 
+import org.springframework.stereotype.Service;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.service.TeacherService;
 
+
+@Service("TeacherService") 
 public class TeacherServiceImp implements TeacherService {
-	
-
-
 	@Override
 	public void addTeacher(Teacher teacher) {
 		// TODO Auto-generated method stub

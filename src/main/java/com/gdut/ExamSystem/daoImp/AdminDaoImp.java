@@ -1,84 +1,74 @@
 package com.gdut.ExamSystem.daoImp;
 
+import java.util.List;
+
 import javax.annotation.Resource;
+import javax.xml.stream.events.Namespace;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.AdminstratorMapper;
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.AdminstratorWithBLOBs;
+import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.Teacher;
+import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
-import antlr.collections.List;
-
+@Repository("AdminstratorMapper")
 public class AdminDaoImp implements AdminstratorMapper {
 	private static final Logger logger = LoggerFactory.getLogger(AdminDaoImp.class);
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
+	private static final String NAME_SPACE = "com.gdut.ExamSystem.dao.AdminstratorMapper.";
+	
 	
 	@Override
-	public int insert(AdminstratorWithBLOBs record) {
-		logger.debug("进入管理员Dao层");
-		logger.debug("还没补坑");
-		return 0;
+	public int deleteByPrimaryKey(String count) {
+		logger.debug("进入dao层");
+		return sqlSession.delete(NAME_SPACE+"deleteByPrimaryKey",count);
 	}
-
+	@Override
+	public int insert(AdminstratorWithBLOBs record) {
+		logger.debug("进入dao层");
+		return sqlSession.insert(NAME_SPACE+"insert",record);
+	}
 	@Override
 	public int insertSelective(AdminstratorWithBLOBs record) {
-		logger.debug("进入管理员Dao层");
-		logger.debug("还没补坑");
-		return 0;
+		logger.debug("进入dao层");
+		return sqlSession.insert(NAME_SPACE+"insertSelective",record);
 	}
-
 	@Override
-	public int insert(Adminstrator admin) {
-		logger.debug("进入管理员Dao层");
-		sqlSession.insert("com.gdut.ExamSystem.dao.AdminstratorMapper.insert",admin);
-		return 0;
+	public AdminstratorWithBLOBs selectByPrimaryKey(String count) {
+		logger.debug("进入dao层"+count);
+		return sqlSession.selectOne("com.gdut.ExamSystem.dao.AdminstratorMapper.selectByPrimaryKey",count);
 	}
-
 	@Override
-	public int insertSelective(Adminstrator admin) {
-		logger.debug("进入管理员Dao层");
-		sqlSession.insert("com.gdut.ExamSystem.dao.AdminstratorMapper.insertSelective",admin);
-		return 0;
+	public int updateByPrimaryKeySelective(AdminstratorWithBLOBs record) {
+		logger.debug("进入dao层");
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeySelective",record);
 	}
-
 	@Override
-	public int delete(Adminstrator admin) {
-		logger.debug("进入管理员Dao层");
-		sqlSession.delete("com.gdut.ExamSystem.dao.AdminstratorMapper.delete",admin);
-		return 0;
+	public int updateByPrimaryKeyWithBLOBs(AdminstratorWithBLOBs record) {
+		logger.debug("进入dao层");
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeyWithBLOBs",record);
 	}
-
 	@Override
-	public Adminstrator selectOne(Adminstrator admin) {
-		logger.debug("进入管理员Dao层");
-		Adminstrator adminstrator=sqlSession.selectOne("com.gdut.ExamSystem.dao.AdminstratorMapper.select",admin);
-		if(adminstrator==null){
-			logger.error("搜索返回空admin");
-		}
-		return adminstrator;
+	public int updateByPrimaryKey(Adminstrator record) {
+		logger.debug("进入dao层");
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
 	}
-
 	@Override
-	public int update(Adminstrator admin) {
-		logger.debug("进入管理员Dao层");
-		sqlSession.update("com.gdut.ExamSystem.dao.AdminstratorMapper.update",admin);
-		return 0;
+	public List<TeacherWithBLOBs> findAllTeacher() {
+		logger.debug("进入dao层");
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.TeacherMapper.selectAllTeacher");
 	}
-
 	@Override
-	public List findAllTeacher() {
-		logger.debug("进入管理员Dao层");
-		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.TeacherMapper.selectAll");
-	}
-
-	@Override
-	public List findAllStudent() {
-		logger.debug("进入管理员Dao层");
-		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.Student.Mapper.selectAll");
+	public List<Student> findAllStudent() {
+		logger.debug("进入dao层");
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectAllStudent");
 	}
 
 }

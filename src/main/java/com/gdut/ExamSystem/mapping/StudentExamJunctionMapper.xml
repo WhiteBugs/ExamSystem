@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.StudentExamJunctionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.StudentExamJunctionKey">
+    <id column="Student_ID" jdbcType="BIGINT" property="studentId" />
+    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey">
+    delete from student_exam_junction
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExamID" parameterType="java.lang.Integer">
+    delete from student_exam_junction
+      where Exam_ID = #{examId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey">
+    insert into student_exam_junction (Student_ID, Exam_ID)
+    values (#{studentId,jdbcType=BIGINT}, #{examId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey">
+    insert into student_exam_junction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        Student_ID,
+      </if>
+      <if test="examId != null">
+        Exam_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="examId != null">
+        #{examId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="findAllStudentIDByExamID" parameterType="java.lang.Integer" resultType="java.lang.Long">
+    select Student_ID from student_exam_junction
+     where Exam_ID=#{examId,jdbcType=INTEGER}
+  </select>
+  <select id="findOneStudentIDInExam" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey" resultType="java.lang.Long">
+    select Student_ID from student_exam_junction
+     where Exam_ID=#{examId,jdbcType=INTEGER}
+       and Student_ID=#{studentId,jdbcType=BIGINT}
+  </select>
+  <select id="findStudentAllExam" parameterType="java.lang.Integer" resultType="java.lang.Long">
+    select Exam_ID  from student_exam_junction
+      where Student_ID=#{studentId,jdbcType=BIGINT}
+  </select>
+</mapper>

@@ -1,32 +1,53 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.Student;
 
-import antlr.collections.List;
-
 public interface StudentMapper {
-    int insert(Student student);
-    int insertSelective(Student student);
-    
-    int update(Student student);
-    int updateSelective(Student student);
+	int deleteByPrimaryKey(Long studentId);
+
+    int insert(Student record);
+
+    int insertSelective(Student record);
+
+    Student selectByPrimaryKey(Long studentId);
+
+    int updateByPrimaryKeySelective(Student record);
+
+    int updateByPrimaryKey(Student record);
+   
     
     int deleteOne(Student student);  
-    int deleteByStudentId(long ID);
+    
+    int deleteByID(long ID);
+    
     int deleteByExamineeNumber(long examineenumber);
+    
     int deleteByName(String name);
+    
     int deleteByMajor(String major);
+    
     int deleteByClass(int classes);
+    
     int deleteByGrade(int grade);
     
-    List selectAll();
-    List selectByClass(int classes);
-    List selectByName(String name);
+    List<Student> selectAll();
+    
+    List<Student> selectByClass(int classes);
+    
+    List<Student> selectByName(String name);
+    
     Student selectByStudentId(long studentID);
+    
     Student selectByExamineeNumber(long examineeNumber);
-    List selectByGrade(int grade);
-    List selectByMajor(String major);
-    List selectStudentScoreBelow(int score);
-    List selectStudentScoreHiger(int score);
-    List selectStudentScoreBetween(int higerScore , int lowScore);
-}
+    
+    List<Student> selectByGrade(int grade);
+    
+    List<Student> selectByMajor(String major);
+    
+    List<Student> selectStudentScoreBelow(int score);
+    
+    List<Student> selectStudentScoreHiger(int score);
+    
+    List<Student> selectStudentScoreBetween(int higherScore , int lowScore);}

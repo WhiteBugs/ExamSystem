@@ -1,18 +1,24 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
 
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
-import antlr.collections.List;
-
 public interface TeacherMapper {
+    int deleteByPrimaryKey(String count);
+
     int insert(TeacherWithBLOBs record);
 
     int insertSelective(TeacherWithBLOBs record);
 
-    List selectAll();
-    int delete(Teacher teacher);
-    Teacher selectOne(Teacher teacher);
-    int update(Teacher teacher); 
+    TeacherWithBLOBs selectByPrimaryKey(String count);
+
+    int updateByPrimaryKeySelective(TeacherWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(TeacherWithBLOBs record);
+
+    int updateByPrimaryKey(Teacher record);
+
+	List<Teacher> selectAll();
 }

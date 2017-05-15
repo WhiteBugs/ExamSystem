@@ -3,17 +3,17 @@
    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
  <generatorConfiguration>
-   <classPathEntry location="src/main/lib/ojdbc6.jar"/>
+   <classPathEntry location="src/main/lib/mysql-connector-java-5.1.18.jar"/>
      <context id="DB2Tables"    targetRuntime="MyBatis3">
          <commentGenerator>
              <property name="suppressDate" value="true"/>
              <property name="suppressAllComments" value="true"/>
          </commentGenerator>
          <!--数据库链接地址账号密码-->
-         <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" 
-                         connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" 
-                         userId="c##scott" 
-                         password="tiger">
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver" 
+                         connectionURL="jdbc:mysql://localhost:3306/examination" 
+                         userId="root" 
+                         password="QPALZM1996">
          </jdbcConnection>
          <javaTypeResolver>
              <property name="forceBigDecimals" value="false"/>
@@ -42,7 +42,7 @@
          selectByExampleQueryId="false">
          </table>
          <table 
-         tableName="admin" 
+         tableName="admin"
          domainObjectName="Adminstrator"
          enableCountByExample="false" 
          enableUpdateByExample="false" 
@@ -51,8 +51,125 @@
          selectByExampleQueryId="false">
          </table>
          <table 
-         tableName="teacher" 
+         tableName="teacher"
          domainObjectName="Teacher"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="test_paper"
+         domainObjectName="TestPaper"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="choice_question"
+         domainObjectName="ChoiceQuestion"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="choice_question_junction"
+         domainObjectName="ChoiceQuestionJunction"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="blank_filling_junction"
+         domainObjectName="BlankFillingJunction"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="blank_filling_answer"
+         domainObjectName="BlankFillingAnswer"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="blank_filling_question"
+         domainObjectName="BlankFillingQuestion"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="eassy_question"
+         domainObjectName="EassyQuestion"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="eassy_question_junction"
+         domainObjectName="EassyQuestionJunction"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="blank_filling_answer_of_student"
+         domainObjectName="BlankFillingAnswerOfStudent"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="blank_filling_answer_of_student_junction"
+         domainObjectName="BlankFillingAnswerOfStudentJunction"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="student_exam_junction"
+         domainObjectName="StudentExamJunction"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="eassy_answer_of_student"
+         domainObjectName="EassyAnswerOfStudent"
+         enableCountByExample="false" 
+         enableUpdateByExample="false" 
+         enableDeleteByExample="false" 
+         enableSelectByExample="false" 
+         selectByExampleQueryId="false">
+         </table>
+         <table 
+         tableName="choice_answer_of_student"
+         domainObjectName="ChoiceAnswerOfStudent"
          enableCountByExample="false" 
          enableUpdateByExample="false" 
          enableDeleteByExample="false" 

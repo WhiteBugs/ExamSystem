@@ -1,68 +1,73 @@
 package com.gdut.ExamSystem.model;
 
-public class ChoiceQuestion extends Question {
+public class ChoiceQuestion {
+    private Integer choiceQuestionId;
 
-	private String question;
-	private String answer;
-	private String option1;
-	private String option2;
-	private String option3;
-	private String option4;
-	private int number;
-	
-	public String getQuestion(){
-		return this.question;
-	}
-	
-	public void setQuestion(String question){
-		this.question=question;
-	}
-	
-	public String getAnswer(){
-		return this.answer;
-	}
-	
-	public void setAnswer(String answer){
-		this.answer=answer;
-	}
-	
-	public String getOption1(){
-		return this.option1;
-	}
-	
-	public void setOptioin1(String option1){
-		this.option1 = option1;
-	}
-	
-	public String getOption2(){
-		return this.option2;
-	}
-	
-	public void setOptioin2(String option2){
-		this.option2 = option2;
-	}
-	
-	public String getOption3(){
-		return this.option3;
-	}
-	
-	public void setOptioin3(String option3){
-		this.option3 = option3;
-	}
-	
-	public String getOption4(){
-		return this.option4;
-	}
-	
-	public void setOptioin4(String option4){
-		this.option4 = option4;
-	}
-	
-	public int getNumber(){
-		return number;
-	}
-	
-	public void setNumber(int number){
-		this.number = number;
-	}
+    private String choice1;
+
+    private String choice2;
+
+    private String choice3;
+
+    private String choice4;
+
+    private String answer;
+
+    private String tittle;
+
+    public Integer getChoiceQuestionId() {
+        return choiceQuestionId;
+    }
+
+    public void setChoiceQuestionId(Integer choiceQuestionId) {
+        this.choiceQuestionId = choiceQuestionId;
+    }
+
+    public String getChoice1() {
+        return choice1;
+    }
+
+    public void setChoice1(String choice1) {
+        this.choice1 = choice1 == null ? null : choice1.trim();
+    }
+
+    public String getChoice2() {
+        return choice2;
+    }
+
+    public void setChoice2(String choice2) {
+        this.choice2 = choice2 == null ? null : choice2.trim();
+    }
+
+    public String getChoice3() {
+        return choice3;
+    }
+
+    public void setChoice3(String choice3) {
+        this.choice3 = choice3 == null ? null : choice3.trim();
+    }
+
+    public String getChoice4() {
+        return choice4;
+    }
+
+    public void setChoice4(String choice4) {
+        this.choice4 = choice4 == null ? null : choice4.trim();
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer == null ? null : answer.trim();
+    }
+
+    public String getTittle() {
+        return tittle;
+    }
+
+    public void setTittle(String tittle) {
+        this.tittle = tittle == null ? null : tittle.trim();
+    }
 }

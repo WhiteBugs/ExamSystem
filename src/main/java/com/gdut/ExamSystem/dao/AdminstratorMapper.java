@@ -1,18 +1,28 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.AdminstratorWithBLOBs;
-
-import antlr.collections.List;
+import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
 public interface AdminstratorMapper {
-    int insert(AdminstratorWithBLOBs admin);
-    int insertSelective(AdminstratorWithBLOBs admin);
-    List findAllTeacher();
-    List findAllStudent();
-    int insert(Adminstrator admin);
-    int insertSelective(Adminstrator admin);
-    int delete(Adminstrator admin);
-    Adminstrator selectOne(Adminstrator admin);
-    int update(Adminstrator admin);
+    int deleteByPrimaryKey(String count);
+
+    int insert(AdminstratorWithBLOBs record);
+
+    int insertSelective(AdminstratorWithBLOBs record);
+
+    AdminstratorWithBLOBs selectByPrimaryKey(String count);
+
+    int updateByPrimaryKeySelective(AdminstratorWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(AdminstratorWithBLOBs record);
+
+    int updateByPrimaryKey(Adminstrator record);
+    
+    List<TeacherWithBLOBs> findAllTeacher();
+    
+    List<Student> findAllStudent();
 }

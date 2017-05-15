@@ -1,37 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gdut.ExamSystem.dao.teacherMapper">
+<mapper namespace="com.gdut.ExamSystem.dao.TeacherMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.Teacher">
-    <result column="COUNT" jdbcType="VARCHAR" property="count" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <id column="COUNT" jdbcType="VARCHAR" property="count" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.TeacherWithBLOBs">
-    <result column="SAFEQUESTION" jdbcType="BLOB" property="safequestion" />
-    <result column="SAFEANSWER" jdbcType="BLOB" property="safeanswer" />
+    <result column="Safe_Question" jdbcType="LONGVARCHAR" property="safeQuestion" />
+    <result column="Safe_Answer" jdbcType="LONGVARCHAR" property="safeAnswer" />
   </resultMap>
-  <sql id="Blob_Column_List">
-    SAFEQUESTION, SAFEANSWER
+  <sql id="Base_Column_List">
+    COUNT, Password
   </sql>
+  <sql id="Blob_Column_List">
+    Safe_Question, Safe_Answer
+  </sql>
+  <select id="selectAllTeacher" resultMap="ResultMapWithBLOBs">
+    select * from teacher;
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher
+    where COUNT = #{count,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from teacher
+    where COUNT = #{count,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.TeacherWithBLOBs">
-    insert into TEACHER (COUNT, PASSWORD, SAFEQUESTION, 
-      SAFEANSWER)
-    values (#{count,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{safequestion,jdbcType=BLOB}, 
-      #{safeanswer,jdbcType=BLOB})
+    insert into teacher (COUNT, Password, Safe_Question, 
+      Safe_Answer)
+    values (#{count,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{safeQuestion,jdbcType=LONGVARCHAR}, 
+      #{safeAnswer,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.TeacherWithBLOBs">
-    insert into TEACHER
+    insert into teacher
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="count != null">
         COUNT,
       </if>
       <if test="password != null">
-        PASSWORD,
+        Password,
       </if>
-      <if test="safequestion != null">
-        SAFEQUESTION,
+      <if test="safeQuestion != null">
+        Safe_Question,
       </if>
-      <if test="safeanswer != null">
-        SAFEANSWER,
+      <if test="safeAnswer != null">
+        Safe_Answer,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -41,28 +59,39 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="safequestion != null">
-        #{safequestion,jdbcType=BLOB},
+      <if test="safeQuestion != null">
+        #{safeQuestion,jdbcType=LONGVARCHAR},
       </if>
-      <if test="safeanswer != null">
-        #{safeanswer,jdbcType=BLOB},
+      <if test="safeAnswer != null">
+        #{safeAnswer,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-
-  <delete id="delete" parameterType="com.gdut.ExamSystem.model.Teacher">
-      delete * from teacher where count = #{count}
-  </delete>
-  
-  <select id="selectAll">
-      select * from teacher 
-  </select>
-
-  <update id="update" parameterType="com.gdut.ExamSystem.model.Teacher">
-      update teacher set
-        password = #{password},
-        safeQuestion = #{safequestion},
-        safeAnswer = #{safeanswer},
-      where count = #{count}
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.TeacherWithBLOBs">
+    update teacher
+    <set>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="safeQuestion != null">
+        Safe_Question = #{safeQuestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="safeAnswer != null">
+        Safe_Answer = #{safeAnswer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COUNT = #{count,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.TeacherWithBLOBs">
+    update teacher
+    set Password = #{password,jdbcType=VARCHAR},
+      Safe_Question = #{safeQuestion,jdbcType=LONGVARCHAR},
+      Safe_Answer = #{safeAnswer,jdbcType=LONGVARCHAR}
+    where COUNT = #{count,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.Teacher">
+    update teacher
+    set Password = #{password,jdbcType=VARCHAR}
+    where COUNT = #{count,jdbcType=VARCHAR}
   </update>
 </mapper>

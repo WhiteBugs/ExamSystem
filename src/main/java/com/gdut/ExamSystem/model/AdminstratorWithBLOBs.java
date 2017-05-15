@@ -1,23 +1,23 @@
 package com.gdut.ExamSystem.model;
 
 public class AdminstratorWithBLOBs extends Adminstrator {
-    private byte[] safequestion;
+    private String safeQuestion;
 
-    private byte[] safeanswer;
+    private String safeAnswer;
 
-    public byte[] getSafequestion() {
-        return safequestion;
+    public String getSafeQuestion() {
+        return safeQuestion;
     }
 
-    public void setSafequestion(byte[] safequestion) {
-        this.safequestion = safequestion;
+    public void setSafeQuestion(String safeQuestion) {
+        this.safeQuestion = safeQuestion == null ? null : safeQuestion.trim();
     }
 
-    public byte[] getSafeanswer() {
-        return safeanswer;
+    public String getSafeAnswer() {
+        return safeAnswer;
     }
 
-    public void setSafeanswer(byte[] safeanswer) {
-        this.safeanswer = safeanswer;
+    public void setSafeAnswer(String safeAnswer) {
+        this.safeAnswer = safeAnswer == null ? null : safeAnswer.trim();
     }
 }

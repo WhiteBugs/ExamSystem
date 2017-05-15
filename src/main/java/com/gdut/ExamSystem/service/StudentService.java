@@ -1,6 +1,7 @@
 package com.gdut.ExamSystem.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gdut.ExamSystem.enums.Major;
 import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.StudentExamJunctionKey;
+import com.gdut.ExamSystem.model.TestPaper;
 
 @Service 
 @Transactional
@@ -28,8 +31,10 @@ public interface StudentService {
      public ArrayList<Student> findStudentByMajor(Major major);
      public ArrayList<Student> findStudentScoreBelow(int score);
      public ArrayList<Student> findStudentScoreHigerThanScore(int score);
-     public ArrayList<Student> findStudentScoreBetweenScore(@Param("higerScore")int higerScore,@Param("lowScore")int lowScore);
+     public ArrayList<Student> findStudentScoreBetweenScore(@Param("higherScore")int higherScore,@Param("lowScore")int lowScore);
+     public List<Integer> findStudentExam(long studentID);
      
+     public boolean isStudentExist(long studentID);
      
      public void changeStudentExamineeNumber(long ExamineeNumber,Student student);
      public void changeStudentName(String name,Student student);

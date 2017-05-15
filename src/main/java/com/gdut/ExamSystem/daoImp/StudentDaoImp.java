@@ -1,145 +1,160 @@
 package com.gdut.ExamSystem.daoImp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.StudentMapper;
 import com.gdut.ExamSystem.model.Student;
-
-import antlr.collections.List;
-
+@Repository("StudentMapper")
 public class StudentDaoImp implements StudentMapper {
 	private static final Logger logger = LoggerFactory.getLogger(StudentDaoImp.class);
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
-
+	
+	
 	@Override
-	public int insert(Student student) {
-		logger.debug("进入学生Dao层");	
-		return sqlSession.insert("com.gdut.ExamSystem.dao.StudentMapper.insert", student);
+	public int insert(Student record) {
+		return sqlSession.insert("com.gdut.ExamSystem.dao.StudentMapper.insert",record);
+	}
+	
+	@Override
+	public int insertSelective(Student record) {
+		return sqlSession.insert("com.gdut.ExamSystem.dao.StudentMapper.insertSelective",record);
 	}
 
 	@Override
-	public int insertSelective(Student student) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.insert("com.gdut.ExamSystem.dao.StudentMapper.insertSelective",student);
+	public int updateByPrimaryKeySelective(Student record) {
+		return sqlSession.update("com.gdut.ExamSystem.dao.StudentMapper.updateByPrimaryKeySelective",record);
 	}
-
+	
+	@Override
+	public int updateByPrimaryKey(Student record) {
+		return sqlSession.update("com.gdut.ExamSystem.dao.StudentMapper.updateByPrimaryKey", record);
+	}
+	
+	@Override
+	public int deleteByPrimaryKey(Long studentId) {
+		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByPrimaryKey", studentId);
+	}
+	
 	@Override
 	public int deleteOne(Student student) {
-		logger.debug("进入学生Dao层");	
-		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.delect",student);
+		return deleteByPrimaryKey(student.getStudentId());
 	}
-
+	
 	@Override
-	public int deleteByStudentId(long ID) {
-		logger.debug("进入学生Dao层");	
-		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByStudentId",ID);
+	public int deleteByID(long ID) {
+		Student student = new Student();
+		student.setId(ID);
+		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByOneProperty",student);
 	}
-
+	
 	@Override
 	public int deleteByExamineeNumber(long examineenumber) {
-		logger.debug("进入学生Dao层");	
-		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByExamineeNumber",examineenumber);
+		Student student = new Student();
+		student.setExamineeNumber(examineenumber);
+		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByOneProperty",student);
 	}
-
+	
 	@Override
 	public int deleteByName(String name) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByName",name);
+		Student student = new Student();
+		student.setName(name);
+		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByOneProperty",student);
 	}
-
+	
 	@Override
 	public int deleteByMajor(String major) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByMajor",major);
+		Student student = new Student();
+		student.setMajor(major);
+		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByOneProperty",student);
 	}
-
+	
 	@Override
 	public int deleteByClass(int classes) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByClass",classes);
-	}
+		Student student = new Student();
+		student.setClasses(classes);
+		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByOneProperty",student);
 
+	}
+	
 	@Override
 	public int deleteByGrade(int grade) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByGrade",grade);
+		Student student = new Student();
+		student.setGrade(grade);
+		return sqlSession.delete("com.gdut.ExamSystem.dao.StudentMapper.deleteByOneProperty",student);
+
 	}
 
 	@Override
-	public int update(Student student) {
-		logger.debug("进入学生Dao层");	
-		return sqlSession.update("com.gdut.ExamSystem.dao.StudentMapper.update",student);
+	public Student selectByPrimaryKey(Long studentId) {
+		return sqlSession.selectOne("com.gdut.ExamSystem.dao.StudentMapper.selectByPrimaryKey",studentId);
 	}
-
+	
 	@Override
-	public int updateSelective(Student student) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.update("com.gdut.ExamSystem.dao.StudentMapper.updateSelective",student);
+	public java.util.List selectAll() {
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectAll");
 	}
-
-
+	
 	@Override
-	public List selectByClass(int classes) {
-		logger.debug("进入学生Dao层");
-		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectByClass",classes);
+	public java.util.List selectByClass(int classes) {
+		Student student = new Student();
+		student.setClasses(classes);
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectSelective",student);
 	}
-
+	
 	@Override
-	public List selectByName(String name) {
-		logger.debug("进入学生Dao层");
-		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectByName",name);
+	public java.util.List selectByName(String name) {
+		Student student = new Student();
+		student.setName(name);
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectSelective",student);
 	}
-
+	
 	@Override
 	public Student selectByStudentId(long studentID) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.selectOne("com.gdut.ExamSystem.dao.StudentMapper.selectByStudentId",studentID);
+		return selectByPrimaryKey(studentID);
 	}
-
+	
 	@Override
 	public Student selectByExamineeNumber(long examineeNumber) {
-		logger.debug("进入学生Dao层");
-		return sqlSession.selectOne("com.gdut.ExamSystem.dao.StudentMapper.selectByExamineeNumber",examineeNumber);
+		Student student = new Student();
+		student.setExamineeNumber(examineeNumber);
+		return sqlSession.selectOne("com.gdut.ExamSystem.dao.StudentMapper.selectSelective",student);
 	}
-
+	
 	@Override
-	public List selectByGrade(int grade) {
-		logger.debug("进入学生Dao层");
-		return (List)sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectByGrade",grade);
+	public java.util.List selectByGrade(int grade) {
+		Student student = new Student();
+		student.setGrade(grade);
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectSelective",student);
 	}
-
+	
 	@Override
-	public List selectByMajor(String major) {
-		logger.debug("进入学生Dao层");
-		return (List)sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectByMajor",major);
+	public java.util.List selectByMajor(String major) {
+		Student student = new Student();
+		student.setMajor(major);
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectSelective",student);
 	}
-
+	
 	@Override
-	public List selectStudentScoreBelow(int score) {
-		logger.debug("进入学生Dao层");
-		return (List)sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectStudentScoreBelow",score);
+	public java.util.List selectStudentScoreBelow(int score) {
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectScoreBelow",score);
 	}
-
 	@Override
-	public List selectStudentScoreHiger(int score) {
-		logger.debug("进入学生Dao层");
-		return (List)sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectStudentScoreHiger",score);
+	public java.util.List selectStudentScoreHiger(int score) {
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectScoreHigher",score);
 	}
-
 	@Override
-	public List selectStudentScoreBetween(int higerScore, int lowScore) {
-		logger.debug("进入学生Dao层");
-		logger.debug("此坑未补");
-		return null;
-	}
-
-	@Override
-	public List selectAll() {
-		logger.debug("进入学生Dao层");
-		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectAll");
+	public java.util.List selectStudentScoreBetween(int higherScore, int lowScore) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("higherScore", higherScore);
+		map.put("lowScore", lowScore);
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectScoreBetween",map);
 	}	
 }

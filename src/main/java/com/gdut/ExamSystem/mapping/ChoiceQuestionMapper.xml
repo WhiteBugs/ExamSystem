@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.ChoiceQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.ChoiceQuestion">
+    <id column="Choice_Question_ID" jdbcType="INTEGER" property="choiceQuestionId" />
+    <result column="Choice1" jdbcType="VARCHAR" property="choice1" />
+    <result column="Choice2" jdbcType="VARCHAR" property="choice2" />
+    <result column="Choice3" jdbcType="VARCHAR" property="choice3" />
+    <result column="Choice4" jdbcType="VARCHAR" property="choice4" />
+    <result column="Answer" jdbcType="VARCHAR" property="answer" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.ChoiceQuestion">
+    <result column="Tittle" jdbcType="LONGVARCHAR" property="tittle" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Choice_Question_ID, Choice1, Choice2, Choice3, Choice4, Answer
+  </sql>
+  <sql id="Blob_Column_List">
+    Tittle
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from choice_question
+    where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from choice_question
+    where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">
+    insert into choice_question (Choice_Question_ID, Choice1, Choice2, 
+      Choice3, Choice4, Answer, 
+      Tittle)
+    values (#{choiceQuestionId,jdbcType=INTEGER}, #{choice1,jdbcType=VARCHAR}, #{choice2,jdbcType=VARCHAR}, 
+      #{choice3,jdbcType=VARCHAR}, #{choice4,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{tittle,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">
+    insert into choice_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="choiceQuestionId != null">
+        Choice_Question_ID,
+      </if>
+      <if test="choice1 != null">
+        Choice1,
+      </if>
+      <if test="choice2 != null">
+        Choice2,
+      </if>
+      <if test="choice3 != null">
+        Choice3,
+      </if>
+      <if test="choice4 != null">
+        Choice4,
+      </if>
+      <if test="answer != null">
+        Answer,
+      </if>
+      <if test="tittle != null">
+        Tittle,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="choiceQuestionId != null">
+        #{choiceQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="choice1 != null">
+        #{choice1,jdbcType=VARCHAR},
+      </if>
+      <if test="choice2 != null">
+        #{choice2,jdbcType=VARCHAR},
+      </if>
+      <if test="choice3 != null">
+        #{choice3,jdbcType=VARCHAR},
+      </if>
+      <if test="choice4 != null">
+        #{choice4,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="tittle != null">
+        #{tittle,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">
+    update choice_question
+    <set>
+      <if test="choice1 != null">
+        Choice1 = #{choice1,jdbcType=VARCHAR},
+      </if>
+      <if test="choice2 != null">
+        Choice2 = #{choice2,jdbcType=VARCHAR},
+      </if>
+      <if test="choice3 != null">
+        Choice3 = #{choice3,jdbcType=VARCHAR},
+      </if>
+      <if test="choice4 != null">
+        Choice4 = #{choice4,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        Answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="tittle != null">
+        Tittle = #{tittle,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">
+    update choice_question
+    set Choice1 = #{choice1,jdbcType=VARCHAR},
+      Choice2 = #{choice2,jdbcType=VARCHAR},
+      Choice3 = #{choice3,jdbcType=VARCHAR},
+      Choice4 = #{choice4,jdbcType=VARCHAR},
+      Answer = #{answer,jdbcType=VARCHAR},
+      Tittle = #{tittle,jdbcType=LONGVARCHAR}
+    where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">
+    update choice_question
+    set Choice1 = #{choice1,jdbcType=VARCHAR},
+      Choice2 = #{choice2,jdbcType=VARCHAR},
+      Choice3 = #{choice3,jdbcType=VARCHAR},
+      Choice4 = #{choice4,jdbcType=VARCHAR},
+      Answer = #{answer,jdbcType=VARCHAR}
+    where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
+  </update>
+</mapper>

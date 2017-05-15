@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.EassyAnswerOfStudentMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
+    <id column="Student_ID" jdbcType="BIGINT" property="studentId" />
+    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
+    <result column="Orders" jdbcType="INTEGER" property="orders" />
+    <result column="Score" jdbcType="INTEGER" property="score" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
+    <result column="Answer" jdbcType="LONGVARCHAR" property="answer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Student_ID, Exam_ID, Orders, Score
+  </sql>
+  <sql id="Blob_Column_List">
+    Answer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudentKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eassy_answer_of_student
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudentKey">
+    delete from eassy_answer_of_student
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
+    insert into eassy_answer_of_student (Student_ID, Exam_ID, Orders, 
+      Score, Answer)
+    values (#{studentId,jdbcType=BIGINT}, #{examId,jdbcType=INTEGER}, #{orders,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{answer,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
+    insert into eassy_answer_of_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        Student_ID,
+      </if>
+      <if test="examId != null">
+        Exam_ID,
+      </if>
+      <if test="orders != null">
+        Orders,
+      </if>
+      <if test="score != null">
+        Score,
+      </if>
+      <if test="answer != null">
+        Answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="examId != null">
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
+    update eassy_answer_of_student
+    <set>
+      <if test="orders != null">
+        Orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        Score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null">
+        Answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
+    update eassy_answer_of_student
+    set Orders = #{orders,jdbcType=INTEGER},
+      Score = #{score,jdbcType=INTEGER},
+      Answer = #{answer,jdbcType=LONGVARCHAR}
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
+    update eassy_answer_of_student
+    set Orders = #{orders,jdbcType=INTEGER},
+      Score = #{score,jdbcType=INTEGER}
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
+  </update>
+</mapper>

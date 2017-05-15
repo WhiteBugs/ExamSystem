@@ -21,9 +21,6 @@
 		<!-- Spring -->
 		<spring-framework.version>4.0.4.RELEASE</spring-framework.version>
 
-		<!-- Hibernate / JPA -->
-		<hibernate.version>4.2.1.Final</hibernate.version>
-
         <!-- myibatis -->
         <mybatis.version>3.2.6</mybatis.version>  
         
@@ -136,14 +133,6 @@
 			<version>1.2.17</version>
 		</dependency>
 		
-
-		<!-- Hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-		
         <!-- mybatis -->
         <dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -187,6 +176,11 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+		</dependency>
 		
 		
 		<dependency>
@@ -216,6 +210,7 @@
 			<artifactId>logback-core</artifactId>
 			<version>1.1.11</version>
 		</dependency>
+		
 	</dependencies>	
 	
 	

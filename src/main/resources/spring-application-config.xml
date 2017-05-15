@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans" 
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"  
@@ -8,23 +7,5 @@
 	                       http://www.springframework.org/schema/beans/spring-beans.xsd
 		                   http://www.springframework.org/schema/context 
 		                   http://www.springframework.org/schema/context/spring-context.xsd">
-   	                   
-	<!-- 注入学生 -->	                   
-    <bean id="StudentService" class="com.gdut.ExamSystem.service.serviceImpl.StudentServiceImp">
-    </bean>
-    <bean id="StudentMapper" class = "com.gdut.ExamSystem.daoImp.StudentDaoImp">
-    </bean>
-     
-    <!-- 注入管理员 -->
-    <bean id="AdminService" class="com.gdut.ExamSystem.service.serviceImpl.AdminServiceImp">
-    </bean>
-    <bean id="AdminMapper" class="com.gdut.ExamSystem.daoImp.AdminDaoImp">
-    </bean>
-    
-    <!-- 注入考官 -->
-    <bean id="TeacherService" class="com.gdut.ExamSystem.service.serviceImpl.TeacherServiceImp">
-    </bean>
-    <bean id="TeacherServiceImp" class="com.gdut.ExamSystem.daoImp.TeacherDaoImp">
-    </bean>
-
+   	   	            
 </beans>

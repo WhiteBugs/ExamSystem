@@ -5,62 +5,59 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.TeacherMapper;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
-import antlr.collections.List;
-
+@Repository("TeacherMapper")
 public class TeacherDaoImp implements TeacherMapper {
-	private static final Logger logger = LoggerFactory.getLogger(StudentDaoImp.class);
+	private static final Logger logger = LoggerFactory.getLogger(TeacherDaoImp.class);
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
+	private static final String NAME_SPACE = "com.gdut.ExamSystem.dao.TeacherMapper.";
+	
 	
 	
 	@Override
-	public int insert(TeacherWithBLOBs teacher) {
-		logger.debug("进入teacher_Dao层");
-		logger.debug("还没补坑");
-		return 0;
+	public int deleteByPrimaryKey(String count) {
+		return sqlSession.delete(NAME_SPACE+"deleteByPrimaryKey",count);
+	}
+
+	@Override
+	public TeacherWithBLOBs selectByPrimaryKey(String count) {
+		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",count);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(TeacherWithBLOBs record) {
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeySelective",record);
+	}
+
+	@Override
+	public int updateByPrimaryKeyWithBLOBs(TeacherWithBLOBs record) {
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeyWithBLOBs",record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(Teacher record) {
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
+	}
+
+	@Override
+	public int insert(TeacherWithBLOBs record) {
+		return sqlSession.insert(NAME_SPACE+"insert",record);
 	}
 
 	@Override
 	public int insertSelective(TeacherWithBLOBs record) {
-		logger.debug("进入teacher_Dao层");
-		logger.debug("还没补坑");
-		return 0;
+		return sqlSession.insert(NAME_SPACE+"insertSelective",record);
 	}
 
 	@Override
-	public int delete(Teacher teacher) {
-		logger.debug("进入teacher_Dao层");
-		logger.debug("删除考官");
-		sqlSession.delete("com.gdut.ExamSystem.dao.TeacherMapper.delete",teacher);
-		return 0;
-	}
-
-	@Override
-	public Teacher selectOne(Teacher teacher) {
-		logger.debug("进入teacher_Dao层");
-		Teacher teac=sqlSession.selectOne("com.gdut.ExamSystem.dao.TeacherMapper.select",teacher);
-		if(teac==null){
-			logger.error("搜索返回空teacher");
-		}
-		return teac;
-	}
-
-	@Override
-	public int update(Teacher teacher) {
-		logger.debug("进入teacher_Dao层");
-		logger.debug("更新考官信息");
-		return sqlSession.update("com.gdut.ExamSystem.dao.TeacherMapper.update",teacher);
-	}
-
-	@Override
-	public List selectAll() {
-		logger.debug("进入teacher_Dao层");
-		return (List) sqlSession.selectList("com.gdut.ExamSystem.dao.TeacherMapper.selectAll");
+	public java.util.List<Teacher> selectAll() {
+		return sqlSession.selectList(NAME_SPACE+"selectAllStudent");
 	}
 
 }

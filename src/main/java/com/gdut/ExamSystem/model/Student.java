@@ -1,49 +1,47 @@
 package com.gdut.ExamSystem.model;
 
-
 public class Student {
-	//学生：学号 考生号 身份证号 姓名 性别 年级 专业 密码  成绩 
-    private long studentid;
+    private Long studentId;
 
-    private long examineenumber;
+    private Long examineeNumber;
 
-    private long id;
+    private Long id;
 
     private String name;
 
     private String sex;
 
-    private int grade;
+    private Integer grade;
 
     private String major;
 
-    private int classes;
+    private Integer classes;
 
     private String password;
 
-    private int score;
+    private Integer score;
 
-    public long getStudentid() {
-        return studentid;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(long studentid) {
-        this.studentid = studentid;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
-    public long getExamineenumber() {
-        return examineenumber;
+    public Long getExamineeNumber() {
+        return examineeNumber;
     }
 
-    public void setExamineenumber(long examineenumber) {
-        this.examineenumber = examineenumber;
+    public void setExamineeNumber(Long examineeNumber) {
+        this.examineeNumber = examineeNumber;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,11 +61,11 @@ public class Student {
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public int getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 
@@ -79,11 +77,11 @@ public class Student {
         this.major = major == null ? null : major.trim();
     }
 
-    public int getClasses() {
+    public Integer getClasses() {
         return classes;
     }
 
-    public void setClasses(int classes) {
+    public void setClasses(Integer classes) {
         this.classes = classes;
     }
 
@@ -95,11 +93,11 @@ public class Student {
         this.password = password == null ? null : password.trim();
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 }
