@@ -2,6 +2,9 @@ package com.gdut.ExamSystem.daoImp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.BlankFillingJunctionMapper;
@@ -10,47 +13,43 @@ import com.gdut.ExamSystem.model.BlankFillingJunctionKey;
 
 @Repository("BlankFillingJunctionMapper")
 public class BlankFillingJunctionMapperImp implements BlankFillingJunctionMapper {
-
+	@Resource(name="sqlSession")
+	private SqlSession sqlSession;
+	private static final String NAME_SPACE = "com.gdut.ExamSystem.dao.BlankFillingJunctionMapper.";
+	
 	@Override
 	public int deleteByPrimaryKey(BlankFillingJunctionKey key) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAME_SPACE+"deleteByPrimaryKey",key);
 	}
 
 	@Override
 	public int insert(BlankFillingJunction record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAME_SPACE+"insert",record);
 	}
 
 	@Override
 	public int insertSelective(BlankFillingJunction record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAME_SPACE+"insertSelective",record);
 	}
 
 	@Override
 	public BlankFillingJunction selectByPrimaryKey(BlankFillingJunctionKey key) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",key);
 	}
 
 	@Override
 	public List<Integer> findAllBlankFillingQuestionOfExam(int examID) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList(NAME_SPACE+"findAllBlankFillingQuestionOfExam",examID);
 	}
 
 	@Override
 	public int updateByPrimaryKeySelective(BlankFillingJunction record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeySelective",record);
 	}
 
 	@Override
 	public int updateByPrimaryKey(BlankFillingJunction record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
 	}
 
 }

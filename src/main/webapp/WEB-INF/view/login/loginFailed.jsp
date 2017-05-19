@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-Login Failed!
+Login Failed! Please return and input right count & password!
+<form id="form" name="form" action="./login.jsp" method="post">
+  <div>
+    <button type="submit" > return</button>
+  </div>
+</form>
 </body>
 </html>

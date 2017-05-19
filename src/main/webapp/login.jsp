@@ -24,11 +24,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <form id="login_form" action="LoginCheck"   method="post">
                   <div class="form_group g1">
                       <label for="user_name" class="info">账号</label>
-                      <input name="user_name" type="text"  class="user_name_input" placeholder="请输入账号">
+                      <input name="user_name" type="text" value="" class="user_name_input" placeholder="请输入账号">
                   </div>
                   <div class="form_group g2">
                       <label for="user_password" class="info">密码</label>
-                      <input name="user_password"  type="password" class="user_password_input" placeholder="请输入密码">
+                      <input name="user_password"  type="password" value="" class="user_password_input" placeholder="请输入密码">
                   </div>
                   <div class="form_group g3">
                        <div class="select_count_class">
@@ -46,14 +46,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
      </div>
   </div> 
-  
-
-  
 </body>
 <script type="text/javascript">
 function checkUser(){
-	var user_name=document.getElementById("user_name").value;
-	var user_password=document.getElementById("user_password").value;                  
+	alter("hg");
+	var user_name=document.getElementByName("user_name").value;
+	var user_password=document.getElementByName("user_password").value;                  
+	alert(user_name+"　　"+user_password);
 	if(user_name==""){
 		alert("用户名不能为空");
 		return false;

@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.EassyQuestion;
 
 public interface EassyQuestionMapper {
@@ -14,4 +16,6 @@ public interface EassyQuestionMapper {
     int updateByPrimaryKeySelective(EassyQuestion record);
 
     int updateByPrimaryKeyWithBLOBs(EassyQuestion record);
+    
+    List<EassyQuestion> selectAll();
 }

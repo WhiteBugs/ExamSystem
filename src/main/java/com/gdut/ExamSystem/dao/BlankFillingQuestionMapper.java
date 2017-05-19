@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
 
 public interface BlankFillingQuestionMapper {
@@ -11,6 +13,8 @@ public interface BlankFillingQuestionMapper {
 
     BlankFillingQuestion selectByPrimaryKey(Integer blankFillingQuestionId);
 
+    List<BlankFillingQuestion> selectAll();
+    
     int updateByPrimaryKeySelective(BlankFillingQuestion record);
 
     int updateByPrimaryKeyWithBLOBs(BlankFillingQuestion record);

@@ -5,6 +5,8 @@ public class ChoiceAnswerOfStudentKey {
 
     private Long studentId;
 
+    private Integer orders;
+
     public Integer getExamId() {
         return examId;
     }
@@ -19,5 +21,13 @@ public class ChoiceAnswerOfStudentKey {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public Integer getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Integer orders) {
+        this.orders = orders;
     }
 }

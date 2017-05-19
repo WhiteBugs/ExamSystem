@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.daoImp;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -15,38 +17,45 @@ public class ChoiceQuestionImp implements ChoiceQuestionMapper {
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
 	
+	private static final String NAME_SPACE="com.gdut.ExamSystem.dao.ChoiceQuestionMapper.";
 	
 	@Override
 	public int deleteByPrimaryKey(Integer choiceQuestionId) {
 		logger.debug("进入dao层");
-		return sqlSession.delete("com.gdut.ExamSystem.dao.ChoiceQuestionMapper.deleteByPrimaryKey",choiceQuestionId);
+		return sqlSession.delete(NAME_SPACE+"deleteByPrimaryKey",choiceQuestionId);
 	}
 	
 	@Override
 	public int insert(ChoiceQuestion record) {
 		logger.debug("进入dao层");
-		return sqlSession.insert("com.gdut.ExamSystem.dao.ChoiceQuestionMapper.insert",record);
+		return sqlSession.insert(NAME_SPACE+"insert",record);
 	}
 
 	@Override
 	public ChoiceQuestion selectByPrimaryKey(Integer choiceQuestionId) {
 		logger.debug("进入dao层");
-		return sqlSession.selectOne("com.gdut.ExamSystem.dao.ChoiceQuestionMapper.selectByPrimaryKey",choiceQuestionId);
+		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",choiceQuestionId);
 	}
 	@Override
 	public int updateByPrimaryKeySelective(ChoiceQuestion record) {
 		logger.debug("进入dao层");
-		return sqlSession.update("com.gdut.ExamSystem.dao.ChoiceQuestionMapper.updateByPrimaryKeySelective",record);
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeySelective",record);
 	}
 	@Override
 	public int updateByPrimaryKeyWithBLOBs(ChoiceQuestion record) {
 		logger.debug("进入dao层");
-		return sqlSession.update("com.gdut.ExamSystem.dao.ChoiceQuestionMapper.updateByPrimaryKeyWithBLOBs",record);
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeyWithBLOBs",record);
 	}
 	@Override
 	public int updateByPrimaryKey(ChoiceQuestion record) {
 		logger.debug("进入dao层");
-		return sqlSession.update("com.gdut.ExamSystem.dao.ChoiceQuestionMapper.updateByPrimaryKey",record);
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
 	}
+
+	@Override
+	public List<ChoiceQuestion> selectALL() {
+		return sqlSession.selectList(NAME_SPACE+"selectAll");
+	}
+
 
 }

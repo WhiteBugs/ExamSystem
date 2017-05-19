@@ -1,19 +1,9 @@
 package com.gdut.ExamSystem.model;
 
 public class EassyAnswerOfStudent extends EassyAnswerOfStudentKey {
-    private Integer orders;
-
     private Integer score;
 
     private String answer;
-
-    public Integer getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Integer orders) {
-        this.orders = orders;
-    }
 
     public Integer getScore() {
         return score;

@@ -2,43 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentJunctionMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
-    <id column="blank_filling_answer_of_student_Blank_Filling_Answer_ID" jdbcType="INTEGER" property="blankFillingAnswerOfStudentBlankFillingAnswerId" />
+    <id column="blank_filling_answer_ID_of_student" jdbcType="INTEGER" property="blankFillingAnswerIdOfStudent" />
     <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
     <id column="Student_ID" jdbcType="BIGINT" property="studentId" />
-    <result column="Orders" jdbcType="INTEGER" property="orders" />
+    <id column="Orders" jdbcType="INTEGER" property="orders" />
     <result column="Score" jdbcType="INTEGER" property="score" />
   </resultMap>
   <sql id="Base_Column_List">
-    blank_filling_answer_of_student_Blank_Filling_Answer_ID, Exam_ID, Student_ID, Orders, 
-    Score
+    blank_filling_answer_ID_of_student, Exam_ID, Student_ID, Orders, Score
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunctionKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blank_filling_answer_of_student_junction
-    where blank_filling_answer_of_student_Blank_Filling_Answer_ID = #{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER}
+    where blank_filling_answer_ID_of_student = #{blankFillingAnswerIdOfStudent,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Student_ID = #{studentId,jdbcType=BIGINT}
+      and Orders = #{orders,jdbcType=INTEGER}
+  </select>
+  <select id="selectStudentAllBlankFilling" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunctionKey"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blank_filling_answer_of_student_junction
+     where Exam_ID = #{examId,jdbcType=INTEGER}
       and Student_ID = #{studentId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunctionKey">
     delete from blank_filling_answer_of_student_junction
-    where blank_filling_answer_of_student_Blank_Filling_Answer_ID = #{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER}
+    where blank_filling_answer_ID_of_student = #{blankFillingAnswerIdOfStudent,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=INTEGER}
       and Student_ID = #{studentId,jdbcType=BIGINT}
+      and Orders = #{orders,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
-    insert into blank_filling_answer_of_student_junction (blank_filling_answer_of_student_Blank_Filling_Answer_ID, Exam_ID, 
+    insert into blank_filling_answer_of_student_junction (blank_filling_answer_ID_of_student, Exam_ID, 
       Student_ID, Orders, Score
       )
-    values (#{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, 
+    values (#{blankFillingAnswerIdOfStudent,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, 
       #{studentId,jdbcType=BIGINT}, #{orders,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
     insert into blank_filling_answer_of_student_junction
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="blankFillingAnswerOfStudentBlankFillingAnswerId != null">
-        blank_filling_answer_of_student_Blank_Filling_Answer_ID,
+      <if test="blankFillingAnswerIdOfStudent != null">
+        blank_filling_answer_ID_of_student,
       </if>
       <if test="examId != null">
         Exam_ID,
@@ -54,8 +62,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="blankFillingAnswerOfStudentBlankFillingAnswerId != null">
-        #{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER},
+      <if test="blankFillingAnswerIdOfStudent != null">
+        #{blankFillingAnswerIdOfStudent,jdbcType=INTEGER},
       </if>
       <if test="examId != null">
         #{examId,jdbcType=INTEGER},
@@ -74,23 +82,21 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
     update blank_filling_answer_of_student_junction
     <set>
-      <if test="orders != null">
-        Orders = #{orders,jdbcType=INTEGER},
-      </if>
       <if test="score != null">
         Score = #{score,jdbcType=INTEGER},
       </if>
     </set>
-    where blank_filling_answer_of_student_Blank_Filling_Answer_ID = #{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER}
+    where blank_filling_answer_ID_of_student = #{blankFillingAnswerIdOfStudent,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=INTEGER}
       and Student_ID = #{studentId,jdbcType=BIGINT}
+      and Orders = #{orders,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction">
     update blank_filling_answer_of_student_junction
-    set Orders = #{orders,jdbcType=INTEGER},
-      Score = #{score,jdbcType=INTEGER}
-    where blank_filling_answer_of_student_Blank_Filling_Answer_ID = #{blankFillingAnswerOfStudentBlankFillingAnswerId,jdbcType=INTEGER}
+    set Score = #{score,jdbcType=INTEGER}
+    where blank_filling_answer_ID_of_student = #{blankFillingAnswerIdOfStudent,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=INTEGER}
       and Student_ID = #{studentId,jdbcType=BIGINT}
+      and Orders = #{orders,jdbcType=INTEGER}
   </update>
 </mapper>

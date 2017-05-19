@@ -3,7 +3,6 @@ package com.gdut.ExamSystem.serviceImpl;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.gdut.ExamSystem.dao.AdminstratorMapper;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.StudentMapper;
@@ -15,7 +14,6 @@ import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 import com.gdut.ExamSystem.model.TestPaper;
-import com.gdut.ExamSystem.model.TestPaperKey;
 import com.gdut.ExamSystem.service.AdminService;
 
 
@@ -73,9 +71,9 @@ public class AdminServiceImp implements AdminService {
 	}
 
 	@Override
-	public void addStudent(TestPaperKey testPaperKey, Student student) {
+	public void addStudent(int examId, Student student) {
 		StudentExamJunctionKey record = new StudentExamJunctionKey();
-		record.setExamId(testPaperKey.getExamId());
+		record.setExamId(examId);
 		record.setStudentId(student.getStudentId());
 		studentExamJunctionMapper.insert(record);
 	}
@@ -86,16 +84,16 @@ public class AdminServiceImp implements AdminService {
 	}
 
 	@Override
-	public void deleteStudent(TestPaperKey testPaperKey, Student student) {
+	public void deleteStudent(int examId,  Student student) {
 		StudentExamJunctionKey record = new StudentExamJunctionKey();
-		record.setExamId(testPaperKey.getExamId());
+		record.setExamId(examId);
 		record.setStudentId(student.getStudentId());
 		studentExamJunctionMapper.deleteByPrimaryKey(record);
 	}
 
 	@Override
-	public void addTeacher(TestPaperKey testPaperKey, Teacher teacher) {
-		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(testPaperKey);
+	public void addTeacher(int examId, Teacher teacher) {
+		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(examId);
 		testPaper.setCount(teacher.getCount());
 		testPaperMapper.updateByPrimaryKey(testPaper);
 	}

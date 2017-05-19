@@ -3,21 +3,23 @@
 <mapper namespace="com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudent">
     <id column="Blank_Filling_Answer_ID" jdbcType="INTEGER" property="blankFillingAnswerId" />
-    <result column="Orders" jdbcType="INTEGER" property="orders" />
+    <id column="Orders" jdbcType="INTEGER" property="orders" />
     <result column="Answer" jdbcType="VARCHAR" property="answer" />
   </resultMap>
   <sql id="Base_Column_List">
     Blank_Filling_Answer_ID, Orders, Answer
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blank_filling_answer_of_student
     where Blank_Filling_Answer_ID = #{blankFillingAnswerId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentKey">
     delete from blank_filling_answer_of_student
     where Blank_Filling_Answer_ID = #{blankFillingAnswerId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudent">
     insert into blank_filling_answer_of_student (Blank_Filling_Answer_ID, Orders, Answer
@@ -53,19 +55,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudent">
     update blank_filling_answer_of_student
     <set>
-      <if test="orders != null">
-        Orders = #{orders,jdbcType=INTEGER},
-      </if>
       <if test="answer != null">
         Answer = #{answer,jdbcType=VARCHAR},
       </if>
     </set>
     where Blank_Filling_Answer_ID = #{blankFillingAnswerId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudent">
     update blank_filling_answer_of_student
-    set Orders = #{orders,jdbcType=INTEGER},
-      Answer = #{answer,jdbcType=VARCHAR}
+    set Answer = #{answer,jdbcType=VARCHAR}
     where Blank_Filling_Answer_ID = #{blankFillingAnswerId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.daoImp;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -41,5 +43,9 @@ public class EassyQuestionImp implements EassyQuestionMapper {
 	@Override
 	public int updateByPrimaryKeyWithBLOBs(EassyQuestion record) {
 		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeyWithBLOBs",record);
+	}
+	@Override
+	public List<EassyQuestion> selectAll() {
+		return sqlSession.selectList(NAME_SPACE+"selectAll");
 	}
 }

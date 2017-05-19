@@ -3,8 +3,6 @@ package com.gdut.ExamSystem.model;
 public class ChoiceAnswerOfStudent extends ChoiceAnswerOfStudentKey {
     private String answer;
 
-    private Integer orders;
-
     private Integer score;
 
     public String getAnswer() {
@@ -13,14 +11,6 @@ public class ChoiceAnswerOfStudent extends ChoiceAnswerOfStudentKey {
 
     public void setAnswer(String answer) {
         this.answer = answer == null ? null : answer.trim();
-    }
-
-    public Integer getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Integer orders) {
-        this.orders = orders;
     }
 
     public Integer getScore() {

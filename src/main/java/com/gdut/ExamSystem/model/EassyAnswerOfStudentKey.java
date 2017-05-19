@@ -5,6 +5,8 @@ public class EassyAnswerOfStudentKey {
 
     private Integer examId;
 
+    private Integer orders;
+
     public Long getStudentId() {
         return studentId;
     }
@@ -19,5 +21,13 @@ public class EassyAnswerOfStudentKey {
 
     public void setExamId(Integer examId) {
         this.examId = examId;
+    }
+
+    public Integer getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Integer orders) {
+        this.orders = orders;
     }
 }

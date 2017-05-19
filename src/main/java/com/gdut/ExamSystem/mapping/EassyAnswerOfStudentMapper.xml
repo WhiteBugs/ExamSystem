@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
     <id column="Student_ID" jdbcType="BIGINT" property="studentId" />
     <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
-    <result column="Orders" jdbcType="INTEGER" property="orders" />
+    <id column="Orders" jdbcType="INTEGER" property="orders" />
     <result column="Score" jdbcType="INTEGER" property="score" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
@@ -24,11 +24,22 @@
     from eassy_answer_of_student
     where Student_ID = #{studentId,jdbcType=BIGINT}
       and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
+  </select>
+  <select id="selectStudentAllEassyAnswer" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudentKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from eassy_answer_of_student
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+      and Exam_ID = #{examId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudentKey">
     delete from eassy_answer_of_student
     where Student_ID = #{studentId,jdbcType=BIGINT}
       and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
     insert into eassy_answer_of_student (Student_ID, Exam_ID, Orders, 
@@ -76,9 +87,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
     update eassy_answer_of_student
     <set>
-      <if test="orders != null">
-        Orders = #{orders,jdbcType=INTEGER},
-      </if>
       <if test="score != null">
         Score = #{score,jdbcType=INTEGER},
       </if>
@@ -88,20 +96,21 @@
     </set>
     where Student_ID = #{studentId,jdbcType=BIGINT}
       and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
     update eassy_answer_of_student
-    set Orders = #{orders,jdbcType=INTEGER},
-      Score = #{score,jdbcType=INTEGER},
+    set Score = #{score,jdbcType=INTEGER},
       Answer = #{answer,jdbcType=LONGVARCHAR}
     where Student_ID = #{studentId,jdbcType=BIGINT}
       and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyAnswerOfStudent">
     update eassy_answer_of_student
-    set Orders = #{orders,jdbcType=INTEGER},
-      Score = #{score,jdbcType=INTEGER}
+    set Score = #{score,jdbcType=INTEGER}
     where Student_ID = #{studentId,jdbcType=BIGINT}
       and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Orders = #{orders,jdbcType=INTEGER}
   </update>
 </mapper>

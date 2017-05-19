@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.daoImp;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -46,6 +48,14 @@ public class ChoiceAnswerOfStudentImp implements ChoiceAnswerOfStudentMapper {
 	@Override
 	public int updateByPrimaryKey(ChoiceAnswerOfStudent record) {
 		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
+	}
+
+	@Override
+	public List<ChoiceAnswerOfStudent> selectStudentAllChoiceAnswer(int examId, long studentId) {
+		ChoiceAnswerOfStudentKey key = new ChoiceAnswerOfStudentKey();
+		key.setExamId(examId);
+		key.setStudentId(studentId);
+		return sqlSession.selectList(NAME_SPACE+"selectStudentAllChoiceAnswer",key);
 	}
 
 }

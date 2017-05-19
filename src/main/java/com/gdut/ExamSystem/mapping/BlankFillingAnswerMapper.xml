@@ -3,7 +3,7 @@
 <mapper namespace="com.gdut.ExamSystem.dao.BlankFillingAnswerMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.BlankFillingAnswer">
     <id column="Blank_Filling_Question_ID" jdbcType="INTEGER" property="blankFillingQuestionId" />
-    <result column="orders" jdbcType="INTEGER" property="orders" />
+    <id column="orders" jdbcType="INTEGER" property="orders" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.BlankFillingAnswer">
     <result column="Answer" jdbcType="LONGVARCHAR" property="answer" />
@@ -14,17 +14,19 @@
   <sql id="Blob_Column_List">
     Answer
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerKey" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from blank_filling_answer
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and orders = #{orders,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerKey">
     delete from blank_filling_answer
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and orders = #{orders,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswer">
     insert into blank_filling_answer (Blank_Filling_Question_ID, orders, Answer
@@ -60,24 +62,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswer">
     update blank_filling_answer
     <set>
-      <if test="orders != null">
-        orders = #{orders,jdbcType=INTEGER},
-      </if>
       <if test="answer != null">
         Answer = #{answer,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and orders = #{orders,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswer">
     update blank_filling_answer
-    set orders = #{orders,jdbcType=INTEGER},
-      Answer = #{answer,jdbcType=LONGVARCHAR}
+    set Answer = #{answer,jdbcType=LONGVARCHAR}
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswer">
-    update blank_filling_answer
-    set orders = #{orders,jdbcType=INTEGER}
-    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and orders = #{orders,jdbcType=INTEGER}
   </update>
 </mapper>

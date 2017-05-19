@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudent;
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey;
 
@@ -15,4 +17,7 @@ public interface ChoiceAnswerOfStudentMapper {
     int updateByPrimaryKeySelective(ChoiceAnswerOfStudent record);
 
     int updateByPrimaryKey(ChoiceAnswerOfStudent record);
+    
+    List<ChoiceAnswerOfStudent> selectStudentAllChoiceAnswer(int examId, long studentId);
+
 }

@@ -16,6 +16,12 @@
     where Exam_ID = #{examId,jdbcType=INTEGER}
       and Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
   </select>
+  <select id="findAllBlankFillingQuestionOfExam" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blank_filling_junction
+    where Exam_ID = #{examId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingJunctionKey">
     delete from blank_filling_junction
     where Exam_ID = #{examId,jdbcType=INTEGER}

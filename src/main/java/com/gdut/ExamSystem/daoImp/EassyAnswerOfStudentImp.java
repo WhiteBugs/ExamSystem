@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.daoImp;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.gdut.ExamSystem.dao.EassyAnswerOfStudentMapper;
 import com.gdut.ExamSystem.model.EassyAnswerOfStudent;
 import com.gdut.ExamSystem.model.EassyAnswerOfStudentKey;
+import com.gdut.ExamSystem.model.EassyQuestionJunctionKey;
 
 @Repository("EassyAnswerOfStudentMapper")
 public class EassyAnswerOfStudentImp implements EassyAnswerOfStudentMapper {
@@ -51,5 +54,13 @@ public class EassyAnswerOfStudentImp implements EassyAnswerOfStudentMapper {
 	@Override
 	public int updateByPrimaryKey(EassyAnswerOfStudent record) {
 		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
+	}
+
+	@Override
+	public List<EassyAnswerOfStudent> selectStudentAllEassyAnswer(int examId, long studentId) {
+		EassyAnswerOfStudentKey key = new EassyAnswerOfStudentKey();
+		key.setExamId(examId);
+		key.setStudentId(studentId);
+		return sqlSession.selectList(NAME_SPACE+"selectStudentAllEassyAnswer",key);
 	}
 }

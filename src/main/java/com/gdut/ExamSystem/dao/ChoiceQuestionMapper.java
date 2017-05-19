@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.ChoiceQuestion;
 
 public interface ChoiceQuestionMapper {
@@ -9,6 +11,8 @@ public interface ChoiceQuestionMapper {
 
     ChoiceQuestion selectByPrimaryKey(Integer choiceQuestionId);
 
+    List<ChoiceQuestion> selectALL();
+    
     int updateByPrimaryKeySelective(ChoiceQuestion record);
 
     int updateByPrimaryKeyWithBLOBs(ChoiceQuestion record);

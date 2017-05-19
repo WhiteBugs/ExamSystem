@@ -1,18 +1,20 @@
 package com.gdut.ExamSystem.model;
 
 public class BlankFillingAnswerOfStudentJunctionKey {
-    private Integer blankFillingAnswerOfStudentBlankFillingAnswerId;
+    private Integer blankFillingAnswerIdOfStudent;
 
     private Integer examId;
 
     private Long studentId;
 
-    public Integer getBlankFillingAnswerOfStudentBlankFillingAnswerId() {
-        return blankFillingAnswerOfStudentBlankFillingAnswerId;
+    private Integer orders;
+
+    public Integer getBlankFillingAnswerIdOfStudent() {
+        return blankFillingAnswerIdOfStudent;
     }
 
-    public void setBlankFillingAnswerOfStudentBlankFillingAnswerId(Integer blankFillingAnswerOfStudentBlankFillingAnswerId) {
-        this.blankFillingAnswerOfStudentBlankFillingAnswerId = blankFillingAnswerOfStudentBlankFillingAnswerId;
+    public void setBlankFillingAnswerIdOfStudent(Integer blankFillingAnswerIdOfStudent) {
+        this.blankFillingAnswerIdOfStudent = blankFillingAnswerIdOfStudent;
     }
 
     public Integer getExamId() {
@@ -29,5 +31,13 @@ public class BlankFillingAnswerOfStudentJunctionKey {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public Integer getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Integer orders) {
+        this.orders = orders;
     }
 }

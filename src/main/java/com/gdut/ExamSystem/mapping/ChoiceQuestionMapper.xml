@@ -26,6 +26,13 @@
     from choice_question
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
   </select>
+  <select id="selectAll">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from choice_question
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from choice_question
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}

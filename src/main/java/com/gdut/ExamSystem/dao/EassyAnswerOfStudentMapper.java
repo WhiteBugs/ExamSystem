@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.dao;
 
+import java.util.List;
+
 import com.gdut.ExamSystem.model.EassyAnswerOfStudent;
 import com.gdut.ExamSystem.model.EassyAnswerOfStudentKey;
 
@@ -17,4 +19,7 @@ public interface EassyAnswerOfStudentMapper {
     int updateByPrimaryKeyWithBLOBs(EassyAnswerOfStudent record);
 
     int updateByPrimaryKey(EassyAnswerOfStudent record);
+    
+    List<EassyAnswerOfStudent> selectStudentAllEassyAnswer(int examId, long studentId);
+    
 }

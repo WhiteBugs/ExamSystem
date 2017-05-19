@@ -6,7 +6,7 @@ import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 import com.gdut.ExamSystem.model.TestPaper;
-import com.gdut.ExamSystem.model.TestPaperKey;
+
 
 
 public interface AdminService {
@@ -22,13 +22,13 @@ public interface AdminService {
 	
     void changeSafeAnswer(String count,String answer);
     
-    void addStudent(TestPaperKey testPaperKey,Student student);
+    void addStudent(int examId, Student student);
     
     void updateStudent(Student student);
     
-    void deleteStudent(TestPaperKey testPaperKey,Student student);
+    void deleteStudent(int examId, Student student);
     
-    void addTeacher(TestPaperKey testPaperKey,Teacher teacher);
+    void addTeacher(int examId, Teacher teacher);
     
     void updateTeacher(TeacherWithBLOBs teacher);
     
