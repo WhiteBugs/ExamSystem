@@ -9,6 +9,14 @@
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<!-- 默认servlet -->
+	<servlet-mapping>  
+         <servlet-name>default</servlet-name>  
+         <url-pattern>/css/*</url-pattern>  
+         <url-pattern>/images/*</url-pattern>  
+         <url-pattern>/jsp/*</url-pattern> 
+         <url-pattern>/html/*</url-pattern>  
+    </servlet-mapping>
 	
 	 <!-- 字符集 过滤器  -->  
     <filter>  
@@ -33,6 +41,9 @@
     <listener>
        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>  
       
     <!-- 防止Spring内存溢出监听器 -->
     <listener>

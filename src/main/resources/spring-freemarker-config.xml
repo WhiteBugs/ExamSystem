@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"  
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                       http://www.springframework.org/schema/beans/spring-beans.xsd
+		                   http://www.springframework.org/schema/context 
+		                   http://www.springframework.org/schema/context/spring-context.xsd">
+     
+     <!-- 设置freeMarker的配置文件路径 -->
+	<bean id="freemarkerConfiguration"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:freemarker.properties" />
+	</bean>
+
+    <bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="freemarkerSettings" ref="freemarkerConfiguration"></property> 
+		<property name="templateLoaderPath" value="/WEB-INF/view/freemarker/"/>
+		<property name="freemarkerVariables"><!--设置一些常用的全局变量-->
+		    <map>
+			   <entry key="xml_escape" value-ref="fmXmlEscape"/>
+			   <entry key="webRoot" value="/ExamSystem"></entry>  
+               <entry key="jsRoot" value="/ExamSystem/js"></entry>   
+		    </map>
+		</property>
+		<property name="defaultEncoding">  
+            <value>utf-8</value>  
+        </property>  	
+	</bean>	 
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/> 
+	
+	<!-- 配置freeMarker视图解析器 -->
+	<bean id="freemarkerViewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewNames">
+          <array>
+            <value>*</value>
+          </array>
+        </property>
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="contentType" value="text/html; charset=utf-8" />
+		<property name="cache" value="true" />
+		<property name="suffix" value=".ftl" />
+		<property name="order" value="0"/>
+	</bean>
+</beans>

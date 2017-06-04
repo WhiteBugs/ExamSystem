@@ -108,7 +108,12 @@
             <version>${spring-framework.version}</version>  
         </dependency>  
   
-    
+        <!-- FreeMarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.26-incubating</version>
+        </dependency>
 
 		<!-- Logging with SLF4J & LogBack -->
 		<dependency>
