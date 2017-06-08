@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-现在不是考试时间
+wrong time
 </body>
 </html>

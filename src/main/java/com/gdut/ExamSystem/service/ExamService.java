@@ -17,5 +17,6 @@ public interface ExamService {
 	List<BlankFillingQuestion> findAllBlankFillingQuestion();
 	List<EassyQuestion> findAllEassyQuestion();
 	String generateAnswer(int examID);
+	TestPaper findExamById(int examid);
 }
  

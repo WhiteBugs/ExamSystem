@@ -1,14 +1,17 @@
-﻿<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>studentWelcome</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 
 <body>
-<label >欢迎${userName}</label>
+
+<a href="exam">考试</a>
+
+<label >欢迎${user.name}</label>
 <div class="loginOut">
-  <a href="./login/loginOut">注销</a>
+  <a href="/ExamSystem/login/loginOut">注销</a>
 </div>
 <div class="info">
    <div class="examInfo">
@@ -26,4 +29,3 @@
 </div>
 </body>
 </html>
-

@@ -123,4 +123,9 @@ public class ExamServiceImp implements ExamService {
 		return save.toString();
 	}
 
+	@Override
+	public TestPaper findExamById(int  examId) {
+		return  testPaperMapper.selectByPrimaryKey(examId);
+	}
+
 }

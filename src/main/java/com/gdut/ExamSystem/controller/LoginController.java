@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +16,6 @@ import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.service.AdminService;
 import com.gdut.ExamSystem.service.StudentService;
 import com.gdut.ExamSystem.service.TeacherService;
-
 
 
 @Controller
@@ -36,47 +33,67 @@ public class LoginController {
     private TeacherService teacherService;
     
 
-	@RequestMapping(value="/LoginCheck", method=RequestMethod.POST)
-	public ModelAndView checkAccount(
-		   @RequestParam (value="user_name") String userName,
-           @RequestParam(value="user_password") String userPassword,
-           @RequestParam(value="select_count") String countType,
-           HttpServletRequest request, 
-           HttpServletResponse response){
+	@RequestMapping(value="/loginCheck", method=RequestMethod.POST)
+	public ModelAndView checkAccount( HttpServletRequest request, HttpServletResponse response){
 		
-		System.out.println(userName+userPassword+countType);
+		if(request.getSession().getAttribute("user")!=null){
+			request.getSession().removeAttribute("user");
+		}
+		String userName = request.getParameter("userName");
+		String userPassword = request.getParameter("userPassword");
+		String countType = request.getParameter("countType");
 		logger.debug("进入loginController");
-		switch (countType) {  
+		switch (countType) {
 		   case "admin":
-			   Adminstrator adminstrator=adminService.findAdminByCount(userName);
-			   if(adminstrator!=null){
-				   return new ModelAndView("admin");
-			   }
-			   break;
+				Adminstrator admin = adminService.findAdminByCount(userName);
+				if(admin==null){
+					return new ModelAndView("redirect:../login/wrongAccount");
+				}
+				if(!admin.getPassword().equals(userPassword)){
+					return new ModelAndView("redirect:../login/wrongPassword");
+				}
+				request.getSession().setAttribute("user", admin);
+				ModelAndView model = new ModelAndView("redirect:../admin/adminWelcome");
+				return model;
+			   
 		   case "student":
 			   long studentID = Long.parseLong(userName);
 			   logger.debug("学号为"+studentID);
 			   Student student=studentService.findStudentByStudentID(studentID);
-			   if(student!=null){
-				   logger.debug("搜索到"+student.getName());
-				   if(userPassword.equals(student.getPassword())){
-					   ModelAndView model = new ModelAndView("redirect:../studentWelcome");
-					   request.getSession().setAttribute("user", student);
-					   return model;
-				   }
+			   if(student==null){
+				   return new ModelAndView("redirect:wrongAccount");
 			   }
-			   break;
+			   if(!userPassword.equals(student.getPassword())){
+				   return new ModelAndView("redirect:wrongPassword");
+			   }
+			   request.getSession().setAttribute("user", student);
+			   return new ModelAndView("redirect:../student/studentWelcome");
 			   
 		   case "teacher":
 			   Teacher teacher = teacherService.findTeacherByCount(userName);
-			   if(teacher!=null){
-				   return new ModelAndView("teacher");
+			   if(teacher==null){
+				   return new ModelAndView("redirect:wrongAccount");
 			   }
-			   break;
+			   if(!userPassword.equals(teacher.getPassword())){
+				   return new ModelAndView("redirect:wrongPassword");
+			   }
+			   request.getSession().setAttribute("user", teacher);
+			   return new ModelAndView("redirect:../teacher/teacherWelcome");
+			   
 		   default:
 			   break;
 		}
 		return new ModelAndView("redirect:loginFailed");
+	}
+	
+	@RequestMapping(value="/wrongAccount")
+	public ModelAndView wrongAccount(){
+		return new ModelAndView("login/wrongAccount");
+	}
+	
+	@RequestMapping(value="/wrongPassword")
+	public ModelAndView wrongPassword(){
+		return new ModelAndView("login/wrongPassword");
 	}
 	
 	@RequestMapping(value="/loginFailed",method=RequestMethod.GET)
@@ -87,8 +104,8 @@ public class LoginController {
 	
 	@RequestMapping(value="/loginOut", method = RequestMethod.GET)
 	public ModelAndView loginOut(HttpServletRequest request , HttpServletResponse response){
-		ModelAndView model = new ModelAndView("redirect:../login.jsp");
 		request.getSession().removeAttribute("user");
+		ModelAndView model = new ModelAndView("redirect:/login.jsp");
 		return model;
 	}
 }

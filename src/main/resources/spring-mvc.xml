@@ -89,9 +89,7 @@
      <mvc:interceptors>
         <mvc:interceptor>
            <mvc:mapping path="/**"/>
-           <mvc:exclude-mapping path="/login/LoginCheck"/>
-           <mvc:exclude-mapping path="/login/loginOut"/>
-           <mvc:exclude-mapping path="/login/loginFailed"/>
+           <mvc:exclude-mapping path="/login/**"/>
            <bean class="com.gdut.ExamSystem.Interceptor.AccessInterceptor"></bean>
         </mvc:interceptor>
      </mvc:interceptors>

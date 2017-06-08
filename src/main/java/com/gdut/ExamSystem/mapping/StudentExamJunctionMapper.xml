@@ -46,7 +46,7 @@
      where Exam_ID=#{examId,jdbcType=INTEGER}
        and Student_ID=#{studentId,jdbcType=BIGINT}
   </select>
-  <select id="findStudentAllExam" parameterType="java.lang.Integer" resultType="java.lang.Long">
+  <select id="findStudentAllExam" parameterType="java.lang.Long" resultType="java.lang.Integer">
     select Exam_ID  from student_exam_junction
       where Student_ID=#{studentId,jdbcType=BIGINT}
   </select>

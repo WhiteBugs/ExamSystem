@@ -1,5 +1,8 @@
 package com.gdut.ExamSystem.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.service.ExamService;
 import com.gdut.ExamSystem.service.StudentService;
 
 @Controller
@@ -21,6 +25,9 @@ public class InfoController {
 
     @Resource(name="StudentService")
     private StudentService studentService;
+    
+    @Resource(name="ExamService")
+    private ExamService examService;
 	
     
 	@RequestMapping(value="/studentInfo",method=RequestMethod.GET)
@@ -45,8 +52,18 @@ public class InfoController {
 	
 	@RequestMapping(value="/examList",method=RequestMethod.GET)
 	public ModelAndView returnExamList(HttpServletRequest request, HttpServletResponse response){
-		ModelAndView model = new ModelAndView("");
+		ModelAndView model = new ModelAndView("/ExamSystem/login.jsp");
 		Student student = (Student) request.getSession().getAttribute("user");
+		if(student==null)
+			return model;
+		List<Integer> studentExam = studentService.findStudentExam(student.getStudentId());
+		ArrayList<String> examName = new ArrayList<String>();
+		for(int examId : studentExam){
+			examName.add(examService.findExamById(examId).getExamName());
+		}
+		model.addObject("examName", examName);
+		model.setViewName("");
+		
 		
 		return model;
 	}
