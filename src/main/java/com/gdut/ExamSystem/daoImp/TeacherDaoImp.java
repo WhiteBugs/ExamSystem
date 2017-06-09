@@ -56,8 +56,8 @@ public class TeacherDaoImp implements TeacherMapper {
 	}
 
 	@Override
-	public java.util.List<Teacher> selectAll() {
-		return sqlSession.selectList(NAME_SPACE+"selectAllStudent");
+	public java.util.List<Teacher> selectAllTeacher() {
+		return sqlSession.selectList(NAME_SPACE+"selectAllTeacher");
 	}
 
 }

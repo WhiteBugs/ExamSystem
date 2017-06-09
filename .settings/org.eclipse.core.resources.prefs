@@ -3,6 +3,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/view/freemarker/admin/addExam.ftl=UTF-8
 encoding//src/main/webapp/WEB-INF/view/freemarker/admin/adminWelcome.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/view/freemarker/admin/manageTeacher.ftl=UTF-8
 encoding//src/main/webapp/WEB-INF/view/freemarker/student/exam.ftl=UTF-8
 encoding//src/main/webapp/WEB-INF/view/freemarker/student/studentInfo.ftl=UTF-8
 encoding//src/main/webapp/WEB-INF/view/freemarker/student/studentWelcome.ftl=UTF-8

@@ -5,10 +5,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
-  <#list studentList as student>
-    <tr><td>${student.name}
-  </#list>
-</table>
+addTeacherSuccess
 </body>
 </html>

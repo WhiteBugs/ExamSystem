@@ -20,5 +20,5 @@ public interface TeacherMapper {
 
     int updateByPrimaryKey(Teacher record);
 
-	List<Teacher> selectAll();
+	List<Teacher> selectAllTeacher();
 }

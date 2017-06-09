@@ -16,7 +16,7 @@
   <sql id="Base_Column_List">
     Student_ID, Examinee_Number, ID, Name, SEX, grade, Major, classes, Password, score
   </sql>
-  <select id="selectAllStudent" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from student

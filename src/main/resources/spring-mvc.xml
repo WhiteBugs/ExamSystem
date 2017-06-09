@@ -92,6 +92,10 @@
            <mvc:exclude-mapping path="/login/**"/>
            <bean class="com.gdut.ExamSystem.Interceptor.AccessInterceptor"></bean>
         </mvc:interceptor>
+        <mvc:interceptor>
+           <mvc:mapping path="/**"/>
+           <bean class="com.gdut.ExamSystem.Interceptor.AccountInterceptor"></bean>
+        </mvc:interceptor>
      </mvc:interceptors>
      
  </beans>

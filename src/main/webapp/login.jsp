@@ -51,8 +51,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 function checkUser(){
 	
-	var user_name=document.getElementsByName("user_name")[0];
-	var user_password=docment.getElementsByName("user_password")[0];
+	var user_name=document.getElementsByName("userName")[0];
+	var user_password=docment.getElementsByName("userPassword")[0];
 	alert("sdfse");
 	alert(user_name.value);
 	return true;

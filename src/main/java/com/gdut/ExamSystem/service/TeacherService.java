@@ -3,6 +3,7 @@ package com.gdut.ExamSystem.service;
 
 import java.util.List;
 
+import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 import com.gdut.ExamSystem.model.TestPaper;
 
@@ -21,6 +22,8 @@ public interface TeacherService {
 	public int changeTeacherSafeAnswer(String count,String answer);
 	
 	public List<TestPaper> findExam(String count);
+	
+	public List<Teacher> findAllTeacher();
 	
 	public int addChoiceQuestionOfExam(int examId, int  choiceQuestionId, int order);
 	

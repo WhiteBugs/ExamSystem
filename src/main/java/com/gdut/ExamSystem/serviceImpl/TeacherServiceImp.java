@@ -28,6 +28,7 @@ import com.gdut.ExamSystem.model.EassyAnswerOfStudent;
 import com.gdut.ExamSystem.model.EassyAnswerOfStudentKey;
 import com.gdut.ExamSystem.model.EassyQuestion;
 import com.gdut.ExamSystem.model.EassyQuestionJunction;
+import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.service.TeacherService;
@@ -225,5 +226,11 @@ public class TeacherServiceImp implements TeacherService {
 			score+=answer.getScore();
 		}
 		return score;
+	}
+
+	@Override
+	public List<Teacher> findAllTeacher() {
+		List<Teacher> teacherList = teacherMapper.selectAllTeacher();
+		return teacherList;
 	}
 }

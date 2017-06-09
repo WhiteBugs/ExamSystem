@@ -7,8 +7,6 @@
 
 <body>
 
-<a href="exam">考试</a>
-
 <label >欢迎${user.name}</label>
 <div class="loginOut">
   <a href="/ExamSystem/login/loginOut">注销</a>

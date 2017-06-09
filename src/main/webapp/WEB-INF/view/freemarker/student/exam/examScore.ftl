@@ -6,9 +6,9 @@
 </head>
 <body>
 <table>
-  <#list studentList as student>
-    <tr><td>${student.name}
-  </#list>
+    <#list examList as exam>
+      <tr><td>${exam.examName}<td>${exam.
+    </#list>
 </table>
 </body>
 </html>

@@ -188,4 +188,9 @@ public class StudentServiceImp implements StudentService {
 	public List<Integer> findStudentExam(long studentID) {
 		return studentExamJunctionMapper.findStudentAllExam(studentID);
 	}
+
+	@Override
+	public List<Student> findAllStudent() {
+		return studentMapper.selectAll();
+	}
 }

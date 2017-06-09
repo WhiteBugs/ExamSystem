@@ -21,6 +21,7 @@ public interface StudentService {
      public void deleteByExamineeNumber(long examineeNumber);
      public void delettByClass(int classes);
      
+     public List<Student> findAllStudent();
      public Student findStudentByStudentID(long studentID);
      public Student findStudentByExamineeNumber(long examineeNumber);
      public ArrayList<Student> findStudentByName(String name);

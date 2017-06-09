@@ -62,6 +62,14 @@ public class StudentController {
 		return model;
 	}
 	
+	@RequestMapping(value="scoreCheck")
+	public ModelAndView scoreCheck(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView();
+		Student student = (Student)request.getSession().getAttribute("user");
+		return model;
+	}
+	
+	
 	@RequestMapping(value="exam/examList")
 	public ModelAndView ExamLsit(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView();
