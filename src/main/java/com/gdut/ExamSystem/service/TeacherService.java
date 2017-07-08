@@ -21,8 +21,6 @@ public interface TeacherService {
 	
 	public int changeTeacherSafeAnswer(String count,String answer);
 	
-	public List<TestPaper> findExam(String count);
-	
 	public List<Teacher> findAllTeacher();
 	
 	public int addChoiceQuestionOfExam(int examId, int  choiceQuestionId, int order);

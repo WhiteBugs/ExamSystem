@@ -4,11 +4,11 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 
-	
 	<!-- 默认servlet -->
 	<servlet-mapping>  
          <servlet-name>default</servlet-name>  
-         <url-pattern>/css/*</url-pattern>  
+         <url-pattern>*.css</url-pattern>
+         <url-pattern>*.js</url-pattern>  
          <url-pattern>/images/*</url-pattern>  
          <url-pattern>/jsp/*</url-pattern> 
          <url-pattern>/html/*</url-pattern>  

@@ -12,41 +12,94 @@ import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 @Repository("StudentExamJunctionMapper")
 public class StudentExamJunctionImp implements StudentExamJunctionMapper {
 	private static final Logger logger = LoggerFactory.getLogger(StudentExamJunctionImp.class);
-	@Resource(name="sqlSession")
-	private SqlSession sqlSession;
+	
 	private static final String NAME_SPACE = "com.gdut.ExamSystem.dao.StudentExamJunctionMapper.";
 	
+	@Resource(name="sqlSession")
+	private SqlSession sqlSession;
 	
+
 	@Override
 	public int deleteByPrimaryKey(StudentExamJunctionKey key) {
 		return sqlSession.delete(NAME_SPACE+"deleteByPrimaryKey",key);
 	}
+	
+	
 	@Override
-	public int insert(StudentExamJunctionKey record) {
-		return sqlSession.insert(NAME_SPACE+"insert",record);
+	public StudentExamJunction selectByPrimaryKey(StudentExamJunctionKey key) {
+		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",key);
 	}
+	
 	@Override
-	public int insertSelective(StudentExamJunctionKey record) {
-		return sqlSession.insert(NAME_SPACE+"insertSelective",record);
+	public int updateByPrimaryKeySelective(StudentExamJunction record) {
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeySelective",record);
 	}
+	
 	@Override
-	public int deleteByExamID(int ExamID) {
-		return sqlSession.delete(NAME_SPACE+"deleteByExamID",ExamID);
+	public int updateByPrimaryKey(StudentExamJunction record) {
+		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
 	}
+	
+	@Override
+	public List<Long> findStudentScoreBelow(int examId, int score) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("examId", examId);
+		map.put("score", score);
+		return sqlSession.selectList(NAME_SPACE+"findStudentScoreBelow",map);
+	}
+	
+	@Override
+	public List<Long> findStudentScoreHiger(int examId, int score) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("examId", examId);
+		map.put("score", score);
+		return sqlSession.selectList(NAME_SPACE+"findStudentScoreHiger",map);
+	}
+	
+	@Override
+	public List<Long> findStudentScoreBetween(int examId, int highScore, int lowScore) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("examId", examId);
+		map.put("highScore", highScore);
+		map.put("lowScore", lowScore);
+		return sqlSession.selectList(NAME_SPACE+"findStudentScoreBetween",map);
+	}
+	
+	@Override
+	public int deleteByExamID(int examID) {
+		return sqlSession.delete(NAME_SPACE+"deleteByExamID",examID);
+	}
+	
 	@Override
 	public List<Long> findAllStudentIDByExamID(int examID) {
 		return sqlSession.selectList(NAME_SPACE+"findAllStudentIDByExamID",examID);
 	}
+	
 	@Override
 	public Long findOneStudentIDInExam(StudentExamJunctionKey key) {
 		return sqlSession.selectOne(NAME_SPACE+"findOneStudentIDInExam",key);
 	}
+	
 	@Override
-	public List<Integer> findStudentAllExam(long studentID) {
+	public List<StudentExamJunction> findStudentAllExamJunction(long studentID) {
 		return sqlSession.selectList(NAME_SPACE+"findStudentAllExam",studentID);
 	}
+
+
+	@Override
+	public int insert(StudentExamJunction record) {
+		return sqlSession.insert(NAME_SPACE+"insert",record);
+	}
+
+
+	@Override
+	public int insertSelective(StudentExamJunction record) {
+		return sqlSession.insert(NAME_SPACE+"insertSelective",record);
+	}
+	
 }

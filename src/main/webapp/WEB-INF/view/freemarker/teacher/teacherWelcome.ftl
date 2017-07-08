@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-考试列表
+welcome  ${user.count}
+<a href="exam">enter exam</a>
 </body>
 </html>

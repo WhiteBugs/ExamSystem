@@ -33,6 +33,12 @@
     from test_paper
     where Count=#{count,jdbcType=VARCHAR};
   </select>
+  <select id="findAllExam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from test_paper
+  </select>
+ 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from test_paper
     where Exam_ID = #{examId,jdbcType=INTEGER}

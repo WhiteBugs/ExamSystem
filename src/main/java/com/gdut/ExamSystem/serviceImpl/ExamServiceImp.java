@@ -3,7 +3,6 @@ package com.gdut.ExamSystem.serviceImpl;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
-
 import com.gdut.ExamSystem.dao.BlankFillingAnswerMapper;
 import com.gdut.ExamSystem.dao.BlankFillingJunctionMapper;
 import com.gdut.ExamSystem.dao.BlankFillingQuestionMapper;
@@ -11,11 +10,14 @@ import com.gdut.ExamSystem.dao.ChoiceQuestionJunctionMapper;
 import com.gdut.ExamSystem.dao.ChoiceQuestionMapper;
 import com.gdut.ExamSystem.dao.EassyQuestionJunctionMapper;
 import com.gdut.ExamSystem.dao.EassyQuestionMapper;
+import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.TestPaperMapper;
 import com.gdut.ExamSystem.model.BlankFillingAnswer;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
 import com.gdut.ExamSystem.model.EassyQuestion;
+import com.gdut.ExamSystem.model.StudentExamJunction;
+import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.service.ExamService;
 
@@ -44,6 +46,9 @@ public class ExamServiceImp implements ExamService {
 	
 	@Resource(name="EassyQuestionMapper")
 	private EassyQuestionMapper eassyQuestionMapper;
+	
+	@Resource(name="StudentExamJunctionMapper")
+	private StudentExamJunctionMapper studentExamJunctionMapper;
 	
 	@Override
 	public List<Integer> findChoiceQuestionOfExam(int examID) {
@@ -126,6 +131,44 @@ public class ExamServiceImp implements ExamService {
 	@Override
 	public TestPaper findExamById(int  examId) {
 		return  testPaperMapper.selectByPrimaryKey(examId);
+	}
+
+	@Override
+	public List<Long> findStudentScoreBelow(int examId, int score) {
+		return studentExamJunctionMapper.findStudentScoreBelow(examId, score);
+	}
+
+	@Override
+	public List<Long> findStudentScoreHiger(int examId, int score) {
+		return studentExamJunctionMapper.findStudentScoreHiger(examId, score);
+	}
+
+	@Override
+	public List<Long> findStudentScoreBetween(int examId, int highScore, int lowScore) {
+		return studentExamJunctionMapper.findStudentScoreBetween(examId, highScore, lowScore);
+	}
+
+	@Override
+	public int findStudentScore(int examId, long studentId) {
+		StudentExamJunctionKey key = new StudentExamJunctionKey();
+		key.setExamId(examId);
+		key.setStudentId(studentId);
+		return studentExamJunctionMapper.selectByPrimaryKey(key).getScore();
+	}
+
+	@Override
+	public List<StudentExamJunction> findStudentAllExamJunction(long studentId) {
+		return studentExamJunctionMapper.findStudentAllExamJunction(studentId);
+	}
+
+	@Override
+	public List<TestPaper> findAllExam() {
+		return testPaperMapper.findAllExam();
+	}
+
+	@Override
+	public List<TestPaper> findAllExamByTeacherCount(String count) {
+		return testPaperMapper.findAllExamByTeacherCount(count);
 	}
 
 }

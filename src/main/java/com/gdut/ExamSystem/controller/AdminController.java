@@ -1,7 +1,6 @@
 package com.gdut.ExamSystem.controller;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,7 +86,10 @@ public class AdminController {
 	
 	@RequestMapping(value="manageExam")
 	public ModelAndView manageExam(HttpServletRequest request, HttpServletResponse response){
-		return new ModelAndView("admin/manageExam");
+		ModelAndView model = new ModelAndView("admin/manageExam");
+		List<TestPaper> allExam = examService.findAllExam();
+		model.addObject("examList", allExam);
+		return model;
 	}
 	
 	

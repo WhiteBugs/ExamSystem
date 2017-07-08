@@ -14,10 +14,6 @@ DROP SCHEMA IF EXISTS `examination` ;
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `examination` DEFAULT CHARACTER SET utf8 ;
 SHOW WARNINGS;
--- -----------------------------------------------------
--- Schema world
--- -----------------------------------------------------
-SHOW WARNINGS;
 USE `examination` ;
 
 -- -----------------------------------------------------
@@ -63,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `examination`.`blank_filling_answer` (
   `orders` INT(11) NOT NULL,
   `Blank_Filling_Question_ID` INT(11) NOT NULL,
   INDEX `Blank_Filling_Question_ID_Answer_tk` (`Blank_Filling_Question_ID` ASC),
-  PRIMARY KEY (`Blank_Filling_Question_ID`),
+  PRIMARY KEY (`Blank_Filling_Question_ID`, `orders`),
   CONSTRAINT `Blank_Filling_Question_ID_Answer_tk`
     FOREIGN KEY (`Blank_Filling_Question_ID`)
     REFERENCES `examination`.`blank_filling_question` (`Blank_Filling_Question_ID`))
@@ -82,7 +78,8 @@ CREATE TABLE IF NOT EXISTS `examination`.`blank_filling_answer_of_student` (
   `Orders` INT(11) NOT NULL,
   `Blank_Filling_Answer_ID` INT(11) NOT NULL AUTO_INCREMENT,
   `Answer` VARCHAR(4000) NOT NULL,
-  PRIMARY KEY (`Blank_Filling_Answer_ID`))
+  PRIMARY KEY (`Blank_Filling_Answer_ID`, `Orders`),
+  UNIQUE INDEX `Orders_UNIQUE` (`Orders` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -104,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `examination`.`student` (
   `Major` VARCHAR(100) NULL DEFAULT NULL,
   `classes` INT(11) NULL DEFAULT NULL,
   `Password` VARCHAR(255) NOT NULL,
-  `score` INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Student_ID`),
   UNIQUE INDEX `Student_ID_UNIQUE` (`Student_ID` ASC),
   UNIQUE INDEX `ID_UNIQUE` (`ID` ASC))
@@ -142,7 +138,8 @@ CREATE TABLE IF NOT EXISTS `examination`.`test_paper` (
   `Begin_Time` DATETIME(6) NOT NULL,
   `End_Time` DATETIME(6) NOT NULL,
   `Exam_Name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`Exam_ID`, `Exam_Name`),
+  `Answer` TEXT NULL,
+  PRIMARY KEY (`Exam_ID`),
   INDEX `Teacher_Count_TestPaper_tk` (`Count` ASC),
   CONSTRAINT `Teacher_Count_TestPaper_tk`
     FOREIGN KEY (`Count`)
@@ -163,11 +160,12 @@ CREATE TABLE IF NOT EXISTS `examination`.`blank_filling_answer_of_student_juncti
   `Score` INT(11) NOT NULL,
   `Student_ID` BIGINT(20) NOT NULL,
   `Exam_ID` INT(11) NOT NULL,
-  `blank_filling_answer_of_student_Blank_Filling_Answer_ID` INT(11) NOT NULL,
+  `blank_filling_answer_ID_of_student` INT(11) NOT NULL,
   INDEX `Student_ID_BF_AnswerJunction_tk` (`Student_ID` ASC),
   INDEX `TestPaper_ExamID_BlankFillingAnswerJunction_tk` (`Exam_ID` ASC),
-  INDEX `fk_blank_filling_answer_of_student_junction_blank_filling_a_idx` (`blank_filling_answer_of_student_Blank_Filling_Answer_ID` ASC),
-  PRIMARY KEY (`blank_filling_answer_of_student_Blank_Filling_Answer_ID`, `Exam_ID`, `Student_ID`),
+  INDEX `fk_blank_filling_answer_of_student_junction_blank_filling_a_idx` (`blank_filling_answer_ID_of_student` ASC),
+  PRIMARY KEY (`blank_filling_answer_ID_of_student`, `Exam_ID`, `Student_ID`, `Orders`),
+  UNIQUE INDEX `Orders_UNIQUE` (`Orders` ASC),
   CONSTRAINT `Student_ID_BF_AnswerJunction_tk`
     FOREIGN KEY (`Student_ID`)
     REFERENCES `examination`.`student` (`Student_ID`),
@@ -175,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `examination`.`blank_filling_answer_of_student_juncti
     FOREIGN KEY (`Exam_ID`)
     REFERENCES `examination`.`test_paper` (`Exam_ID`),
   CONSTRAINT `fk_blank_filling_answer_of_student_junction_blank_filling_ans1`
-    FOREIGN KEY (`blank_filling_answer_of_student_Blank_Filling_Answer_ID`)
+    FOREIGN KEY (`blank_filling_answer_ID_of_student`)
     REFERENCES `examination`.`blank_filling_answer_of_student` (`Blank_Filling_Answer_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -197,6 +195,7 @@ CREATE TABLE IF NOT EXISTS `examination`.`blank_filling_junction` (
   INDEX `Test_Paper_examid_blank_filling_junction_tk` (`Exam_ID` ASC),
   INDEX `blank_filling_question_id_blank_filling_junction_tk` (`Blank_Filling_Question_ID` ASC),
   PRIMARY KEY (`Exam_ID`, `Blank_Filling_Question_ID`),
+  UNIQUE INDEX `Orders_UNIQUE` (`Orders` ASC),
   CONSTRAINT `Test_Paper_examid_blank_filling_junction_tk`
     FOREIGN KEY (`Exam_ID`)
     REFERENCES `examination`.`test_paper` (`Exam_ID`),
@@ -222,7 +221,8 @@ CREATE TABLE IF NOT EXISTS `examination`.`choice_answer_of_student` (
   `Student_ID` BIGINT(20) NOT NULL,
   INDEX `Test_Paper_Exam_ID_ChoiceAnswer_tk` (`Exam_ID` ASC),
   INDEX `Student_StudentID_ChoiceAnswer_tk` (`Student_ID` ASC),
-  PRIMARY KEY (`Exam_ID`, `Student_ID`),
+  PRIMARY KEY (`Exam_ID`, `Student_ID`, `Orders`),
+  UNIQUE INDEX `Orders_UNIQUE` (`Orders` ASC),
   CONSTRAINT `Student_StudentID_ChoiceAnswer_tk`
     FOREIGN KEY (`Student_ID`)
     REFERENCES `examination`.`student` (`Student_ID`),
@@ -269,6 +269,7 @@ CREATE TABLE IF NOT EXISTS `examination`.`choice_question_junction` (
   INDEX `Choice_Question_ID_choice_Junction_tk` (`Choice_Question_ID` ASC),
   INDEX `Test_Paper_ExamID_choice_Junction_tk` (`Exam_ID` ASC),
   PRIMARY KEY (`Choice_Question_ID`, `Exam_ID`),
+  UNIQUE INDEX `orders_UNIQUE` (`orders` ASC),
   CONSTRAINT `Choice_Question_ID_choice_Junction_tk`
     FOREIGN KEY (`Choice_Question_ID`)
     REFERENCES `examination`.`choice_question` (`Choice_Question_ID`),
@@ -294,7 +295,8 @@ CREATE TABLE IF NOT EXISTS `examination`.`eassy_answer_of_student` (
   `Exam_ID` INT(11) NOT NULL,
   INDEX `Student_ID_Eassy_Answer_tk` (`Student_ID` ASC),
   INDEX `Test_Paper_ExamID_Eassy_Answer_tk` (`Exam_ID` ASC),
-  PRIMARY KEY (`Student_ID`, `Exam_ID`),
+  PRIMARY KEY (`Student_ID`, `Exam_ID`, `Orders`),
+  UNIQUE INDEX `Orders_UNIQUE` (`Orders` ASC),
   CONSTRAINT `Student_ID_Eassy_Answer_tk`
     FOREIGN KEY (`Student_ID`)
     REFERENCES `examination`.`student` (`Student_ID`),
@@ -335,6 +337,7 @@ CREATE TABLE IF NOT EXISTS `examination`.`eassy_question_junction` (
   INDEX `EassyQuestion_ID_Junction_tk` (`Eassy_Question_ID` ASC),
   INDEX `TestPaper_ExamID_EassyQuestionJunction_tk` (`Exam_ID` ASC),
   PRIMARY KEY (`Eassy_Question_ID`, `Exam_ID`),
+  UNIQUE INDEX `orders_UNIQUE` (`orders` ASC),
   CONSTRAINT `EassyQuestion_ID_Junction_tk`
     FOREIGN KEY (`Eassy_Question_ID`)
     REFERENCES `examination`.`eassy_question` (`Eassy_Question_ID`),
@@ -355,6 +358,7 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `examination`.`student_exam_junction` (
   `Student_ID` BIGINT(20) NOT NULL,
   `Exam_ID` INT(11) NOT NULL,
+  `score` INT NULL,
   INDEX `Student_StudentID_StudentExamJunction_tk` (`Student_ID` ASC),
   INDEX `testpaper_ExamID_StudentExamJunction_tk` (`Exam_ID` ASC),
   PRIMARY KEY (`Student_ID`, `Exam_ID`),

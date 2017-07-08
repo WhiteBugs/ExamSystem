@@ -2,7 +2,7 @@ package com.gdut.ExamSystem.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import com.gdut.ExamSystem.enums.Major;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.StudentMapper;
 import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.service.StudentService;
 
 
@@ -30,14 +31,12 @@ public class StudentServiceImp implements StudentService {
 	public void add(Student student) {
 		logger.debug("进入service层");
 		studentMapper.insert(student);
-		
 	}
 
 	@Override
 	public void delete(Student student) {
 		logger.debug("进入service层");
-		studentMapper.deleteOne(student);
-		
+		studentMapper.deleteOne(student);	
 	}
 
 	@Override
@@ -92,24 +91,6 @@ public class StudentServiceImp implements StudentService {
 	public ArrayList<Student> findStudentByMajor(Major major) {
 		logger.debug("进入service层");
 		return (ArrayList<Student>)studentMapper.selectByMajor(major.toString());
-	}
-
-	@Override
-	public ArrayList<Student> findStudentScoreBelow(int score) {
-		logger.debug("进入service层");
-		return (ArrayList<Student>)studentMapper.selectStudentScoreBelow(score);
-	}
-
-	@Override
-	public ArrayList<Student> findStudentScoreHigerThanScore(int score) {
-		logger.debug("进入service层");
-		return (ArrayList<Student>)studentMapper.selectStudentScoreHiger(score);
-	}
-
-	@Override
-	public ArrayList<Student> findStudentScoreBetweenScore(int higherScore, int lowScore) {
-		logger.debug("进入service层");
-		return (ArrayList<Student>)studentMapper.selectStudentScoreBetween(higherScore, lowScore);
 	}
 
 	@Override
@@ -169,14 +150,6 @@ public class StudentServiceImp implements StudentService {
 	}
 
 	@Override
-	public void changeStudentScore(int score, Student student) {
-		logger.debug("进入service层");
-		Student student2 = studentMapper.selectByPrimaryKey(student.getStudentId());
-		student2.setScore(score);
-		studentMapper.updateByPrimaryKeySelective(student2);
-	}
-
-	@Override
 	public boolean isStudentExist(long studentID) {
 		if(findStudentByStudentID(studentID)!=null){
 			return true;
@@ -185,8 +158,12 @@ public class StudentServiceImp implements StudentService {
 	}
 
 	@Override
-	public List<Integer> findStudentExam(long studentID) {
-		return studentExamJunctionMapper.findStudentAllExam(studentID);
+	public List<Integer> findStudentExamID(long studentID) {
+		List<Integer> examIdList = new ArrayList<>();
+		for(StudentExamJunction examJunction : studentExamJunctionMapper.findStudentAllExamJunction(studentID)){
+			examIdList.add(examJunction.getExamId());
+		}
+		return examIdList;
 	}
 
 	@Override

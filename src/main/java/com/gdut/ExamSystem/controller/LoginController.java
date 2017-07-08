@@ -108,4 +108,9 @@ public class LoginController {
 		ModelAndView model = new ModelAndView("redirect:/login.jsp");
 		return model;
 	}
+	
+	@RequestMapping(value="/cannotAccess")
+	public ModelAndView CannotAccess(){
+		return new ModelAndView("login/cannotAccess");
+	}
 }

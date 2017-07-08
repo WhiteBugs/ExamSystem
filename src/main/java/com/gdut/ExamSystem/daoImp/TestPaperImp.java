@@ -48,14 +48,18 @@ public class TestPaperImp implements TestPaperMapper {
 	}
 
 	@Override
-	public List<TestPaper> selectByTeacherCount(String count) {
-		return sqlSession.selectList(NAME_SPACE+"selectByCount",count);
-	}
-
-
-	@Override
 	public int updateByPrimaryKeyWithBLOBs(TestPaper record) {
 		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeyWithBLOBs",record);
+	}
+
+	@Override
+	public List<TestPaper> findAllExam() {
+		return sqlSession.selectList(NAME_SPACE+"findAllExam");
+	}
+
+	@Override
+	public List<TestPaper> findAllExamByTeacherCount(String count) {
+		return sqlSession.selectList(NAME_SPACE+"selectByCount",count);
 	}
 
 }

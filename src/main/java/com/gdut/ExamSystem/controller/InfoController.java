@@ -56,7 +56,7 @@ public class InfoController {
 		Student student = (Student) request.getSession().getAttribute("user");
 		if(student==null)
 			return model;
-		List<Integer> studentExam = studentService.findStudentExam(student.getStudentId());
+		List<Integer> studentExam = studentService.findStudentExamID(student.getStudentId());
 		ArrayList<String> examName = new ArrayList<String>();
 		for(int examId : studentExam){
 			examName.add(examService.findExamById(examId).getExamName());

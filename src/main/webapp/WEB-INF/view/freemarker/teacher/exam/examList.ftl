@@ -5,6 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-无权访问此页面
+<table>
+  <#list examList as exam>
+    <tr><td>${exam.examName }
+  </#list>
+</table>
 </body>
 </html>

@@ -1,14 +1,11 @@
 package com.gdut.ExamSystem.daoImp;
 
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
 import com.gdut.ExamSystem.dao.ChoiceQuestionJunctionMapper;
 import com.gdut.ExamSystem.model.ChoiceQuestionJunction;
 import com.gdut.ExamSystem.model.ChoiceQuestionJunctionKey;

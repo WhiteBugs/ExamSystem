@@ -19,8 +19,6 @@ public class Student {
 
     private String password;
 
-    private Integer score;
-
     public Long getStudentId() {
         return studentId;
     }
@@ -91,13 +89,5 @@ public class Student {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 }

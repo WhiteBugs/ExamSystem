@@ -10,6 +10,7 @@ import com.gdut.ExamSystem.dao.TeacherMapper;
 import com.gdut.ExamSystem.dao.TestPaperMapper;
 import com.gdut.ExamSystem.model.AdminstratorWithBLOBs;
 import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
@@ -72,9 +73,10 @@ public class AdminServiceImp implements AdminService {
 
 	@Override
 	public void addStudent(int examId, Student student) {
-		StudentExamJunctionKey record = new StudentExamJunctionKey();
+		StudentExamJunction record = new StudentExamJunction();
 		record.setExamId(examId);
 		record.setStudentId(student.getStudentId());
+		record.setScore(0);
 		studentExamJunctionMapper.insert(record);
 	}
 
@@ -111,7 +113,7 @@ public class AdminServiceImp implements AdminService {
 	@Override
 	public void addExam(TestPaper testPaper, Teacher teacher, List<Long> studentIDList) {
 		testPaperMapper.insertSelective(testPaper);
-		StudentExamJunctionKey record = new StudentExamJunctionKey();
+		StudentExamJunction record = new StudentExamJunction();
 		record.setExamId(testPaper.getExamId());
 		for (Long studentID : studentIDList) {
 			record.setStudentId(studentID);

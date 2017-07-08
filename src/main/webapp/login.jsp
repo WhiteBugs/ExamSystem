@@ -1,61 +1,58 @@
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<!doctype html>
-<html>
-<head>
-<base href="<%=basePath%>"> 
-<meta content="text/html;charset=utf-8"/>
-<meta charset="utf-8"/>
-<meta http-equiv="content-language" content="zh-CN" />
-<link rel="stylesheet" href="/ExamSystem/css/login.css">
-<title>登录界面</title>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./bootstrap/img/favicon.ico">
 
-<body background="/ExamSystem/images/background.jpg">
-<div class="parent">
-    <div class="main_box">
-        <div class="gdut_logo">
-            <img src="/ExamSystem/images/gdut_logo.png">
-        </div>
-        <div class="login_form">
-            <form id="login_form" action="login/loginCheck"   method="post">
-                  <div class="form_group g1">
-                      <label for="user_name" class="info">账号</label>
-                      <input name="userName" type="text" value="" class="user_name_input" placeholder="请输入账号">
-                  </div>
-                  <div class="form_group g2">
-                      <label for="user_password" class="info">密码</label>
-                      <input name="userPassword"  type="password" value="" class="user_password_input" placeholder="请输入密码">
-                  </div>
-                  <div class="form_group g3">
-                       <div class="select_count_class">
-                           <select name="countType"  >
-                              <option value="student">学生</option>
-                              <option value="teacher">监考老师</option>
-                              <option value="admin">管理员</option>
-                           </select>
-                       </div>  
-                  </div>
-                  <div class="form_group g4">
-                      <button type="submit" onclick="checkUser()" class="submit_btn">登录</button>
-                  </div>
-            </form>
-        </div>
-     </div>
-  </div> 
+    <title>Signin</title>
 
-</body>
-<script type="text/javascript">
-function checkUser(){
-	
-	var user_name=document.getElementsByName("userName")[0];
-	var user_password=docment.getElementsByName("userPassword")[0];
-	alert("sdfse");
-	alert(user_name.value);
-	return true;
-}
-</script>
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./bootstrap/css/signin.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="./bootstrap/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./bootstrap/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" action="login/loginCheck"   method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" name="userName" class="form-control" placeholder="Count" required autofocus>
+        <input type="password" name="userPassword" class="form-control" placeholder="Password" required>
+        <select class="count-type" name="countType"  >
+             <option value="student">student</option>
+             <option value="teacher">teacher</option>
+             <option value="admin">adminstrator</option>
+        </select>
+        
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login in</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>

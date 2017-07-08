@@ -11,77 +11,11 @@
     <result column="Major" jdbcType="VARCHAR" property="major" />
     <result column="classes" jdbcType="INTEGER" property="classes" />
     <result column="Password" jdbcType="VARCHAR" property="password" />
-    <result column="score" jdbcType="INTEGER" property="score" />
   </resultMap>
   <sql id="Base_Column_List">
-    Student_ID, Examinee_Number, ID, Name, SEX, grade, Major, classes, Password, score
+    Student_ID, Examinee_Number, ID, Name, SEX, grade, Major, classes, Password
   </sql>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from student
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from student
-    where Student_ID = #{studentId,jdbcType=BIGINT}
-  </select>
-  <select id="selectScoreBelow" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from student
-    where score &lt;= #{score,jdbcType=INTEGER}
-  </select>
-  <select id="selectScoreHigher" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from student
-    where score &gt;= #{score,jdbcType=INTEGER}
-  </select>
-  <select id="selectScoreBetween" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from student
-    where score &lt;= #{higherScore} and
-          score &gt;= #{lowScore}
-  </select>
-  <select id="selectSelective" parameterType="com.gdut.ExamSystem.model.Student" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List"/>
-    from student
-    <where>
-      <trim  suffixOverrides="and">
-        <if test="examineeNumber != null">
-          Examinee_Number = #{examineeNumber,jdbcType=BIGINT} and
-        </if>
-        <if test="id != null">
-          ID = #{id,jdbcType=BIGINT} and
-        </if>
-        <if test="name != null">
-          Name = #{name,jdbcType=VARCHAR} and
-        </if>
-        <if test="sex != null">
-          SEX = #{sex,jdbcType=VARCHAR} and
-        </if>
-        <if test="grade != null">
-          grade = #{grade,jdbcType=INTEGER} and
-        </if>
-        <if test="major != null">
-          Major = #{major,jdbcType=VARCHAR} and
-        </if>
-        <if test="classes != null">
-          classes = #{classes,jdbcType=INTEGER} and
-        </if>
-        <if test="password != null">
-          Password = #{password,jdbcType=VARCHAR} and
-        </if>
-        <if test="score != null">
-          score = #{score,jdbcType=INTEGER} and
-        </if>
-      </trim>
-    </where>
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from student
     where Student_ID = #{studentId,jdbcType=BIGINT}
@@ -89,12 +23,10 @@
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.Student">
     insert into student (Student_ID, Examinee_Number, ID, 
       Name, SEX, grade, Major, 
-      classes, Password, score
-      )
+      classes, Password)
     values (#{studentId,jdbcType=BIGINT}, #{examineeNumber,jdbcType=BIGINT}, #{id,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, #{major,jdbcType=VARCHAR}, 
-      #{classes,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}
-      )
+      #{classes,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.Student">
     insert into student
@@ -126,9 +58,6 @@
       <if test="password != null">
         Password,
       </if>
-      <if test="score != null">
-        score,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="studentId != null">
@@ -157,9 +86,6 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="score != null">
-        #{score,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -190,9 +116,6 @@
       <if test="password != null">
         Password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="score != null">
-        score = #{score,jdbcType=INTEGER},
-      </if>
     </set>
     where Student_ID = #{studentId,jdbcType=BIGINT}
   </update>
@@ -205,8 +128,55 @@
       grade = #{grade,jdbcType=INTEGER},
       Major = #{major,jdbcType=VARCHAR},
       classes = #{classes,jdbcType=INTEGER},
-      Password = #{password,jdbcType=VARCHAR},
-      score = #{score,jdbcType=INTEGER}
+      Password = #{password,jdbcType=VARCHAR}
     where Student_ID = #{studentId,jdbcType=BIGINT}
   </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where Student_ID = #{studentId,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectSelective" parameterType="com.gdut.ExamSystem.model.Student" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    <where>
+      <trim suffixOverrides="and">
+        <if test="examineeNumber != null">
+          Examinee_Number = #{examineeNumber,jdbcType=BIGINT} and
+        </if>
+        <if test="id != null">
+          ID = #{id,jdbcType=BIGINT} and
+        </if>
+        <if test="name != null">
+          Name = #{name,jdbcType=VARCHAR} and
+        </if>
+        <if test="sex != null">
+          SEX = #{sex,jdbcType=VARCHAR} and
+        </if>
+        <if test="grade != null">
+          grade = #{grade,jdbcType=INTEGER} and
+        </if>
+        <if test="major != null">
+          Major = #{major,jdbcType=VARCHAR} and
+        </if>
+        <if test="classes != null">
+          classes = #{classes,jdbcType=INTEGER} and
+        </if>
+        <if test="password != null">
+          Password = #{password,jdbcType=VARCHAR} and
+        </if>
+        
+      </trim>
+    </where>
+  </select>
+
+  
 </mapper>

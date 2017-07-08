@@ -109,11 +109,6 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public List<TestPaper> findExam(String count) {
-		return testPaperMapper.selectByTeacherCount(count);
-	}
-
-	@Override
 	public int updateAnswerOfChoiceQuestion(int choiceQuestionId, String answer) {
 		ChoiceQuestion record = choiceQuestionMapper.selectByPrimaryKey(choiceQuestionId);
 		record.setAnswer(answer);

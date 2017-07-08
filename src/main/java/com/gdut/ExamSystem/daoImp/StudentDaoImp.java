@@ -141,20 +141,4 @@ public class StudentDaoImp implements StudentMapper {
 		student.setMajor(major);
 		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectSelective",student);
 	}
-	
-	@Override
-	public java.util.List selectStudentScoreBelow(int score) {
-		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectScoreBelow",score);
-	}
-	@Override
-	public java.util.List selectStudentScoreHiger(int score) {
-		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectScoreHigher",score);
-	}
-	@Override
-	public java.util.List selectStudentScoreBetween(int higherScore, int lowScore) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("higherScore", higherScore);
-		map.put("lowScore", lowScore);
-		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectScoreBetween",map);
-	}	
 }

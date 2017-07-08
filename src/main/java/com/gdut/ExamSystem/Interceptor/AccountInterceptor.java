@@ -1,13 +1,10 @@
 package com.gdut.ExamSystem.Interceptor;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.Teacher;
@@ -34,15 +31,15 @@ public class AccountInterceptor implements HandlerInterceptor {
 		System.out.println("-------------"+url+"--------------");
 		Object user = request.getSession().getAttribute("user");
 		if(user instanceof Student&&(url.contains("admin")||url.contains("teacher"))){
-			response.sendRedirect(request.getContextPath()+"/login/cannotAccess.html");
+			response.sendRedirect(request.getContextPath()+"/login/cannotAccess");
 			return false;
 		}
 		if(user instanceof Teacher&&(url.contains("admin")||url.contains("student"))){
-			response.sendRedirect(request.getContextPath()+"/login/cannotAccess.html");
+			response.sendRedirect(request.getContextPath()+"/login/cannotAccess");
 			return false;
 		}
 		if(user instanceof Adminstrator&&(url.contains("student")||url.contains("teacher"))){
-			response.sendRedirect(request.getContextPath()+"/login/cannotAccess.html");
+			response.sendRedirect(request.getContextPath()+"/login/cannotAccess");
 			return false;
 		}
 		return true;

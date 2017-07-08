@@ -3,6 +3,8 @@ package com.gdut.ExamSystem.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.gdut.ExamSystem.model.ExamInfo;
 import com.gdut.ExamSystem.model.Student;
+import com.gdut.ExamSystem.model.StudentExamJunction;
+import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.service.ExamService;
 import com.gdut.ExamSystem.service.StudentService;
@@ -24,6 +30,7 @@ public class StudentController {
 	
 	@Resource(name="ExamService")
 	private ExamService examService;
+	
 	
 	@Resource(name="StudentService")
 	private StudentService studentService;
@@ -41,7 +48,7 @@ public class StudentController {
 	public ModelAndView Exam(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView();
 		Student student = (Student) request.getSession().getAttribute("user");
-		List<Integer> examId = studentService.findStudentExam(student.getStudentId());
+		List<Integer> examId = studentService.findStudentExamID(student.getStudentId());
 		ArrayList<TestPaper> examList = new ArrayList<>();
 		if(examId!=null)
 			for(int examid : examId){
@@ -52,6 +59,7 @@ public class StudentController {
 		model.setViewName("student/exam/examList");
 		return model;
 	}
+
 	
 	@RequestMapping(value="studentInfo")
 	public ModelAndView StudentInfo(HttpServletRequest request, HttpServletResponse response){
@@ -64,8 +72,24 @@ public class StudentController {
 	
 	@RequestMapping(value="scoreCheck")
 	public ModelAndView scoreCheck(HttpServletRequest request, HttpServletResponse response){
-		ModelAndView model = new ModelAndView();
+		ModelAndView model = new ModelAndView("student/exam/examScore");
 		Student student = (Student)request.getSession().getAttribute("user");
+		long studentId = student.getStudentId();
+		
+	    List<StudentExamJunction> examJunctionList = examService.findStudentAllExamJunction(studentId);
+	    List<ExamInfo> examList = new ArrayList<>();
+	    for(StudentExamJunction examJunction : examJunctionList){
+	    	String examName = examService.findExamById(examJunction.getExamId()).getExamName();
+	    	int score = examJunction.getScore();
+	    	ExamInfo examInfo = new ExamInfo();
+	    	examInfo.setExamName(examName);
+	    	examInfo.setScore(score);
+	    	examList.add(examInfo);
+	    }
+	    for(ExamInfo examInfo : examList){
+	    	System.out.print("---------------"+examInfo.getExamName()+"   "+examInfo.getScore()+"-------------");
+	    }
+	    model.addObject("examList", examList);
 		return model;
 	}
 	
@@ -93,3 +117,4 @@ public class StudentController {
 		return model;
 	}
 }
+

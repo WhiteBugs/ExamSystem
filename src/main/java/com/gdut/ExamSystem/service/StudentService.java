@@ -27,10 +27,7 @@ public interface StudentService {
      public ArrayList<Student> findStudentByName(String name);
      public ArrayList<Student> findStudentByClasses(int classes);
      public ArrayList<Student> findStudentByMajor(Major major);
-     public ArrayList<Student> findStudentScoreBelow(int score);
-     public ArrayList<Student> findStudentScoreHigerThanScore(int score);
-     public ArrayList<Student> findStudentScoreBetweenScore(@Param("higherScore")int higherScore,@Param("lowScore")int lowScore);
-     public List<Integer> findStudentExam(long studentID);
+     public List<Integer> findStudentExamID(long studentID);
      
      public boolean isStudentExist(long studentID);
      
@@ -41,6 +38,5 @@ public interface StudentService {
      public void changeStudentClasses(int classes,Student student);
      public void changeStudentMajor(String major,Student student);
      public void changeStudentPassword(String password,Student student);
-     public void changeStudentScore(int score,Student student);
      
 }
