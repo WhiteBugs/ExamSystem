@@ -3,6 +3,9 @@ package com.gdut.ExamSystem.service;
 
 import java.util.List;
 
+import com.gdut.ExamSystem.model.BlankFillingQuestion;
+import com.gdut.ExamSystem.model.ChoiceQuestion;
+import com.gdut.ExamSystem.model.EassyQuestion;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 import com.gdut.ExamSystem.model.TestPaper;
@@ -47,4 +50,9 @@ public interface TeacherService {
 	
 	public int updateAnswerOfEassyQuestion(int eassyQuestionId, String answer);
 	
+	public int addChoiceQuestionIntoDB(ChoiceQuestion choiceQuestion);
+	
+	public int addBlankFillingQuestionIntoDB(BlankFillingQuestion blankFillingQuestion, String[] answers);
+	
+	public int addEassyQuestionIntoDB(EassyQuestion eassyQuestion);
 }

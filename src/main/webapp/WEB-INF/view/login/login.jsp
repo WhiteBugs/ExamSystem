@@ -7,22 +7,22 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="./bootstrap/img/favicon.ico">
+    <link rel="icon" href="/ExamSystem/bootstrap/img/favicon.ico">
 
     <title>Signin</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/ExamSystem/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="./bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="/ExamSystem/bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="./bootstrap/css/signin.css" rel="stylesheet">
+    <link href="/ExamSystem/bootstrap/css/signin.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="./bootstrap/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./bootstrap/js/ie-emulation-modes-warning.js"></script>
+    <script src="/ExamSystem/bootstrap/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -35,7 +35,7 @@
 
     <div class="container">
 
-      <form class="form-signin" action="login/loginCheck"   method="post">
+      <form class="form-signin" action="/ExamSystem/login/loginCheck"   method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <input type="text" name="userName" class="form-control" placeholder="Count" required autofocus>
         <input type="password" name="userPassword" class="form-control" placeholder="Password" required>

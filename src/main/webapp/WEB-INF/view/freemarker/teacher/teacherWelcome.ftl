@@ -6,6 +6,7 @@
 </head>
 <body>
 welcome  ${user.count}
-<a href="exam">enter exam</a>
+<a href="/ExamSystem/teacher/exam">enter exam</a>
+<a href="/ExamSystem/teacher/addTest">addTest</a>
 </body>
 </html>

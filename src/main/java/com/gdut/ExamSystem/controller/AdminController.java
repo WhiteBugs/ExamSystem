@@ -37,7 +37,7 @@ public class AdminController {
 	private StudentService studentService;
 	
 	
-	@RequestMapping(value="adminWelcome")
+	@RequestMapping(value="welcome")
 	public ModelAndView adminWelcome(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("admin/adminWelcome");
 		Adminstrator admin = (Adminstrator)request.getSession().getAttribute("user");

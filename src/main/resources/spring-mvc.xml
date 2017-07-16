@@ -89,6 +89,7 @@
      <mvc:interceptors>
         <mvc:interceptor>
            <mvc:mapping path="/**"/>
+           <mvc:mapping path="/login/hadLogin"/>
            <mvc:exclude-mapping path="/login/**"/>
            <mvc:exclude-mapping path="/**/css/**"/>
            <mvc:exclude-mapping path="/**/js/**"/>

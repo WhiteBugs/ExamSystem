@@ -3,6 +3,8 @@ package com.gdut.ExamSystem.serviceImpl;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.gdut.ExamSystem.dao.BlankFillingAnswerMapper;
 import com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentJunctionMapper;
 import com.gdut.ExamSystem.dao.BlankFillingJunctionMapper;
@@ -20,6 +22,7 @@ import com.gdut.ExamSystem.model.BlankFillingAnswerKey;
 import com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction;
 import com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunctionKey;
 import com.gdut.ExamSystem.model.BlankFillingJunction;
+import com.gdut.ExamSystem.model.BlankFillingQuestion;
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudent;
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
@@ -227,5 +230,38 @@ public class TeacherServiceImp implements TeacherService {
 	public List<Teacher> findAllTeacher() {
 		List<Teacher> teacherList = teacherMapper.selectAllTeacher();
 		return teacherList;
+	}
+
+	@Override
+	public int addChoiceQuestionIntoDB(ChoiceQuestion choiceQuestion) {
+		choiceQuestionMapper.insert(choiceQuestion);
+		return 0;
+	}
+
+	@Override
+	@Transactional
+	public int addBlankFillingQuestionIntoDB(BlankFillingQuestion blankFillingQuestion, String[] answers) {
+		try{
+			blankFillingQuestionMapper.insert(blankFillingQuestion);
+			int id = blankFillingQuestion.getBlankFillingQuestionId();
+			System.out.println("------------------id  is "+id);
+			for(int i=1;i<=answers.length;i++){
+				BlankFillingAnswer answer = new BlankFillingAnswer();
+				answer.setBlankFillingQuestionId(id);
+				answer.setAnswer(answers[i-1]);
+				answer.setOrders(i);
+				blankFillingAnswerMapper.insert(answer);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
+
+	@Override
+	public int addEassyQuestionIntoDB(EassyQuestion eassyQuestion) {
+		eassyQuestionMapper.insert(eassyQuestion);
+		return 0;
 	}
 }

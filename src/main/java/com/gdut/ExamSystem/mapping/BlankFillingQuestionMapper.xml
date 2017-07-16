@@ -7,6 +7,10 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.BlankFillingQuestion">
     <result column="Tittle" jdbcType="LONGVARCHAR" property="tittle" />
   </resultMap>
+  <!-- <resultMap type="com.gdut.ExamSystem.model.BlankFillingQuestion" id="result">
+    <collection property="answer" javaType="ArrayList" column="Blank_Filling_Question_ID" ofType="com.gdut.ExamSystem.model.BlankFillingAnswer" 
+       select="com.gdut.ExamSystem.dao.BlankFillingAnswerMapper.selectByQuestionId"/>
+  </resultMap>  -->
   <sql id="Base_Column_List">
     Blank_Filling_Question_ID
   </sql>
@@ -32,7 +36,7 @@
     delete from blank_filling_question
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="blankFillingQuestionId" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
     insert into blank_filling_question (Blank_Filling_Question_ID, Tittle
       )
     values (#{blankFillingQuestionId,jdbcType=INTEGER}, #{tittle,jdbcType=LONGVARCHAR}

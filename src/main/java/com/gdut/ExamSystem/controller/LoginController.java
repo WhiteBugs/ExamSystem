@@ -53,7 +53,7 @@ public class LoginController {
 					return new ModelAndView("redirect:../login/wrongPassword");
 				}
 				request.getSession().setAttribute("user", admin);
-				ModelAndView model = new ModelAndView("redirect:../admin/adminWelcome");
+				ModelAndView model = new ModelAndView("redirect:../admin/welcome");
 				return model;
 			   
 		   case "student":
@@ -67,7 +67,7 @@ public class LoginController {
 				   return new ModelAndView("redirect:wrongPassword");
 			   }
 			   request.getSession().setAttribute("user", student);
-			   return new ModelAndView("redirect:../student/studentWelcome");
+			   return new ModelAndView("redirect:../student/welcome");
 			   
 		   case "teacher":
 			   Teacher teacher = teacherService.findTeacherByCount(userName);
@@ -78,13 +78,46 @@ public class LoginController {
 				   return new ModelAndView("redirect:wrongPassword");
 			   }
 			   request.getSession().setAttribute("user", teacher);
-			   return new ModelAndView("redirect:../teacher/teacherWelcome");
+			   return new ModelAndView("redirect:../teacher/welcome");
 			   
 		   default:
 			   break;
 		}
 		return new ModelAndView("redirect:loginFailed");
 	}
+	
+	@RequestMapping(value="login")
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response){
+		if(request.getSession().getAttribute("user")!=null){
+			return hadLogin(request, response);
+		}
+		System.out.println("-------------------进入login");
+		return new ModelAndView("/login/login");
+	}
+	
+	@RequestMapping(value="hadLogin")
+	public ModelAndView hadLogin(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("----------------------enter  hadLogin----------");
+		ModelAndView model = new ModelAndView("/login/hadLogin");
+		Object user = request.getSession().getAttribute("user");
+		String type="";
+		if(user instanceof Teacher){
+			type="teacher";
+			System.out.println("----------------------enter  TEA----------");
+			model.addObject("type", type);
+		}else if(user instanceof Student){
+			type="student";
+			System.out.println("----------------------enter  STU----------");
+			model.addObject("type",type);
+		}else if(user instanceof Adminstrator){
+			type="admin";
+			System.out.println("----------------------enter  ADM----------");
+			model.addObject("type", type);
+		}
+		type="";
+		return model;
+	}
+	
 	
 	@RequestMapping(value="/wrongAccount")
 	public ModelAndView wrongAccount(){

@@ -105,7 +105,7 @@
                         </ul>
                            <table border=1>
                               <#list examList as exam>
-                                 <tr><td><a href="http://www.baidu.com">${exam.examName}</a><td><a href=${ exam.url}>enter exam  </a>
+                                 <tr><td><a href="http://www.baidu.com">${exam.examName}</a><td><a href=${exam.url}>enter exam  </a>
                                  
                               </#list>
                            </table>

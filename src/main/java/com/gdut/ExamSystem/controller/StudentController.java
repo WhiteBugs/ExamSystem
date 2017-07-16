@@ -35,7 +35,7 @@ public class StudentController {
 	@Resource(name="StudentService")
 	private StudentService studentService;
 	
-	@RequestMapping(value="studentWelcome",method=RequestMethod.GET)
+	@RequestMapping(value="welcome",method=RequestMethod.GET)
 	public ModelAndView Welcome(HttpServletRequest request, HttpServletResponse response){
 		Student student = (Student) request.getSession().getAttribute("user");
 		ModelAndView modelAndView = new ModelAndView();
