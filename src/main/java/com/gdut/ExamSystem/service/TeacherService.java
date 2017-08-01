@@ -55,4 +55,18 @@ public interface TeacherService {
 	public int addBlankFillingQuestionIntoDB(BlankFillingQuestion blankFillingQuestion, String[] answers);
 	
 	public int addEassyQuestionIntoDB(EassyQuestion eassyQuestion);
+	
+	public ChoiceQuestion findChoiceQuestionById(int id);
+	
+	public BlankFillingQuestion findBlankFillingQuestionById(int id);
+	
+	public EassyQuestion findEassyQuestionById(int id);
+	
+	public int updateChoiceQuestion(ChoiceQuestion choiceQuestion);
+	
+	public int updateBlankFillingQuestion(BlankFillingQuestion blankFillingQuestion);
+	
+	public int updateEassyQuestion(EassyQuestion eassyQuestion);
+	
+	
 }

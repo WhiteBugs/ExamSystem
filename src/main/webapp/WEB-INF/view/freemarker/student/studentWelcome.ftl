@@ -52,7 +52,7 @@
 </nav>
 <div class="panel panel-success">
    <div class="left panel panel-success ">
-      <a href="studentWelcome" class="list-group-item">主页</a>
+      <a href="welcome" class="list-group-item">主页</a>
       <a href="studentInfo" class="list-group-item">信息</a>
       <a href="scoreCheck" class="list-group-item">成绩</a>
       <a href="exam" class="list-group-item">考试</a>

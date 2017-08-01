@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta charset="utf-8">
-   <title>管理考官</title>
+   <title>欢迎管理员</title>
    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -29,23 +29,21 @@
    </div>
    </div>
 </nav>
-<div>
-  <table class="table" border=1>
-  <#list examList as exam>
-       <tr><td>${exam.examName}<td> 
-     </#list>
-  </table>
+<div class="panel">
+   <ul>
+      <li>
+         <a href="manageTeacher">管理考官账号</a>
+      </li>
+      <li>
+         <a href="manageStudent">管理学生账号</a>
+      </li>
+      <li>
+         <a href="manageExam">管理考试</a>
+      </li>
+      <li>
+         <a href="addExam">新增考试</a>
+      </li>
+   </ul>
 </div>
-</body>
-</html>
-
-
-
-
-
-<body>
-  <table>
-     
-  </table>
 </body>
 </html>

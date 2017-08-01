@@ -10,13 +10,13 @@
     <result column="Answer" jdbcType="VARCHAR" property="answer" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.ChoiceQuestion">
-    <result column="Tittle" jdbcType="LONGVARCHAR" property="tittle" />
+    <result column="Title" jdbcType="LONGVARCHAR" property="title" />
   </resultMap>
   <sql id="Base_Column_List">
     Choice_Question_ID, Choice1, Choice2, Choice3, Choice4, Answer
   </sql>
   <sql id="Blob_Column_List">
-    Tittle
+    Title
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
@@ -26,7 +26,7 @@
     from choice_question
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll">
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,
@@ -40,10 +40,10 @@
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">
     insert into choice_question (Choice_Question_ID, Choice1, Choice2, 
       Choice3, Choice4, Answer, 
-      Tittle)
+      Title)
     values (#{choiceQuestionId,jdbcType=INTEGER}, #{choice1,jdbcType=VARCHAR}, #{choice2,jdbcType=VARCHAR}, 
       #{choice3,jdbcType=VARCHAR}, #{choice4,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
-      #{tittle,jdbcType=LONGVARCHAR})
+      #{title,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">
     insert into choice_question
@@ -66,8 +66,8 @@
       <if test="answer != null">
         Answer,
       </if>
-      <if test="tittle != null">
-        Tittle,
+      <if test="title != null">
+        Title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -89,8 +89,8 @@
       <if test="answer != null">
         #{answer,jdbcType=VARCHAR},
       </if>
-      <if test="tittle != null">
-        #{tittle,jdbcType=LONGVARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -112,8 +112,8 @@
       <if test="answer != null">
         Answer = #{answer,jdbcType=VARCHAR},
       </if>
-      <if test="tittle != null">
-        Tittle = #{tittle,jdbcType=LONGVARCHAR},
+      <if test="title != null">
+        Title = #{title,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
@@ -125,7 +125,7 @@
       Choice3 = #{choice3,jdbcType=VARCHAR},
       Choice4 = #{choice4,jdbcType=VARCHAR},
       Answer = #{answer,jdbcType=VARCHAR},
-      Tittle = #{tittle,jdbcType=LONGVARCHAR}
+      Title = #{title,jdbcType=LONGVARCHAR}
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceQuestion">

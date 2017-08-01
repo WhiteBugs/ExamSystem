@@ -1,6 +1,7 @@
 package com.gdut.ExamSystem.daoImp;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -140,5 +141,15 @@ public class StudentDaoImp implements StudentMapper {
 		Student student = new Student();
 		student.setMajor(major);
 		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectSelective",student);
+	}
+
+	@Override
+	public List selectClassesByMajor(String major) {
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectClassesByMajor",major);
+	}
+
+	@Override
+	public List selectAllMajor() {
+		return sqlSession.selectList("com.gdut.ExamSystem.dao.StudentMapper.selectAllMajor");
 	}
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.gdut.ExamSystem.enums.Major;
 import com.gdut.ExamSystem.model.Student;
 
 
@@ -26,8 +25,11 @@ public interface StudentService {
      public Student findStudentByExamineeNumber(long examineeNumber);
      public ArrayList<Student> findStudentByName(String name);
      public ArrayList<Student> findStudentByClasses(int classes);
-     public ArrayList<Student> findStudentByMajor(Major major);
+     public ArrayList<Student> findStudentByMajor(String[] majors);
      public List<Integer> findStudentExamID(long studentID);
+     public ArrayList<Student> findStudentByMajorAndClasses(String major,int classes);
+     public List<Integer> findClassesByMajor(String major);
+     public List<String> findAllMajor();
      
      public boolean isStudentExist(long studentID);
      

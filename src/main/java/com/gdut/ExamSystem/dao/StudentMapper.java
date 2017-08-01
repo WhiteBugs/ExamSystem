@@ -1,7 +1,6 @@
 package com.gdut.ExamSystem.dao;
 
 import java.util.List;
-
 import com.gdut.ExamSystem.model.Student;
 
 public interface StudentMapper {
@@ -44,4 +43,8 @@ public interface StudentMapper {
 	List selectByGrade(int grade);
 
 	List selectByMajor(String major);
+	
+	List selectClassesByMajor(String major);
+	
+	List selectAllMajor();
 }

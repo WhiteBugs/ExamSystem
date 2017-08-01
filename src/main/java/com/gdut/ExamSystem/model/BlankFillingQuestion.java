@@ -3,7 +3,7 @@ package com.gdut.ExamSystem.model;
 public class BlankFillingQuestion {
     private Integer blankFillingQuestionId;
 
-    private String tittle;
+    private String title;
 
     public Integer getBlankFillingQuestionId() {
         return blankFillingQuestionId;
@@ -13,11 +13,11 @@ public class BlankFillingQuestion {
         this.blankFillingQuestionId = blankFillingQuestionId;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle == null ? null : tittle.trim();
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 }

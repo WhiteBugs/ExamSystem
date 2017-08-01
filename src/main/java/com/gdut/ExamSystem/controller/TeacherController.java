@@ -1,11 +1,13 @@
 package com.gdut.ExamSystem.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
@@ -15,6 +17,9 @@ import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.service.ExamService;
 import com.gdut.ExamSystem.service.TeacherService;
+
+import oracle.jdbc.OracleConnection.CommitOption;
+import oracle.net.aso.e;
 
 
 @Controller
@@ -49,11 +54,100 @@ public class TeacherController {
 		return model;
 	}
 	
+	@RequestMapping(value="exam/editExam")
+	public ModelAndView editExam(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView();
+		String md5 = request.getParameter("md5");
+		if(md5 != null){
+			//补上通过MD5查找试卷编号并查询相关试题的代码
+		}
+		if(true){
+			List<ChoiceQuestion> choiceQuestions = examService.findAllChoiceQuestion();
+			model.addObject("choiceQuestions", choiceQuestions);
+			List<EassyQuestion> eassyQuestions = examService.findAllEassyQuestion();
+			model.addObject("eassyQuestions", eassyQuestions);
+			model.setViewName("/teacher/editTest/test/exam");
+		}
+		return model;
+	}
+	
 	@RequestMapping(value="addTest")
 	public ModelAndView addTest(HttpServletRequest request , HttpServletResponse response){
 		ModelAndView model = new ModelAndView("teacher/addTest");	
 		return model;
 	}
+	
+	@RequestMapping(value="editTest")
+	public ModelAndView editTest(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("/teacher/editTest/noSuchTest");
+		String type = request.getParameter("type");
+		String id = request.getParameter("id");
+		if(id!=null){
+			model.setViewName("/teacher/editTest/editTest");
+			switch (type) {
+			case "choiceQuestion":
+				model.addObject("choiceQuestion",teacherService.findChoiceQuestionById(Integer.parseInt(id)));
+				break;
+			case "MultipleChoiceQuestion":
+				break;
+			case "TFQuestion":
+				break;
+			case "blankFillingQuestion":
+				model.addObject("blankFillingQuestion", teacherService.findBlankFillingQuestionById(Integer.parseInt(id)));
+				break;
+			case "eassyQuestion":
+				model.addObject("eassyQuestion", teacherService.findEassyQuestionById(Integer.parseInt(id)));
+				break;
+			default:
+				model.setViewName("/teacher/editTest/noSuchTest");
+				System.out.println("---------type  is   null------------");
+				break;
+			}
+		}else{
+			System.out.println("-------------question  id  is  null-------------");
+		}
+		return model;
+	}
+	
+	@RequestMapping(value="editTest/commit")
+	public ModelAndView editTestCommit(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("/teacher/editTest/alterSuccess");
+		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String title = request.getParameter("title");
+		String choice1 = request.getParameter("choice1");
+		String choice2 = request.getParameter("choice2");
+		String choice3 = request.getParameter("choice3");
+		String choice4 = request.getParameter("choice4");
+		String answer = request.getParameter("answer");
+		System.out.println("----"+id+"-----"+type+"------------"+title+"-----------");
+		ChoiceQuestion choiceQuestion = new ChoiceQuestion();
+		choiceQuestion.setAnswer(answer);
+		choiceQuestion.setChoice1(choice1);
+		choiceQuestion.setChoice2(choice2);
+		choiceQuestion.setChoice3(choice3);
+		choiceQuestion.setChoice4(choice4);
+		choiceQuestion.setTitle(title);
+		choiceQuestion.setChoiceQuestionId(Integer.parseInt(id));
+		teacherService.updateChoiceQuestion(choiceQuestion);
+		return model;
+	}
+	
+	@RequestMapping(value="editTest/addEassyQuestion")
+	public ModelAndView addEassyQuestion(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("teacher/editTest/addQuestion");
+		List<EassyQuestion> eassyQuestions = examService.findAllEassyQuestion();
+		model.addObject("eassyQuestions", eassyQuestions);
+		return model;
+	}
+	@RequestMapping(value="editTest/addChoiceQuestion")
+	public ModelAndView addChoiceQuestion(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("teacher/editTest/addQuestion");
+		List<ChoiceQuestion> choiceQuestions = examService.findAllChoiceQuestion();
+		model.addObject("choiceQuestions", choiceQuestions);
+		return model;
+	}
+	
 	
 	@RequestMapping(value="addTest/submit")
 	public ModelAndView submit(HttpServletRequest request , HttpServletResponse response) throws UnsupportedEncodingException{
@@ -63,19 +157,19 @@ public class TeacherController {
 		switch (type) {
 		case "choice":
 			ChoiceQuestion question = new ChoiceQuestion();
-			question.setTittle(request.getParameter("title"));
+			question.setTitle(request.getParameter("title"));
 			question.setChoice1(request.getParameter("option1"));
 			question.setChoice2(request.getParameter("option2"));
 			question.setChoice3(request.getParameter("option3"));
 			question.setChoice4(request.getParameter("option4"));
 			question.setAnswer(request.getParameter("answer"));
-			System.out.println("---------------------"+question.getTittle());
+			System.out.println("---------------------"+question.getTitle());
 			teacherService.addChoiceQuestionIntoDB(question);
 			model.setViewName("teacher/addTest/result/success");
 			break;
 		case "blankFilling":
 			BlankFillingQuestion question2 =new BlankFillingQuestion();
-			question2.setTittle(request.getParameter("title"));
+			question2.setTitle(request.getParameter("title"));
 			String[] answers = request.getParameter("answer").split("\\s+");
 			for(String answer:answers){
 				System.out.print("--"+answer+"---");
@@ -85,7 +179,7 @@ public class TeacherController {
 			break;
 		case "eassy":
 			EassyQuestion question3 = new EassyQuestion();
-			question3.setTittle(request.getParameter("title"));
+			question3.setTitle(request.getParameter("title"));
 			question3.setAnswer(request.getParameter("answer"));
 			teacherService.addEassyQuestionIntoDB(question3);
 			model.setViewName("teacher/addTest/result/success");

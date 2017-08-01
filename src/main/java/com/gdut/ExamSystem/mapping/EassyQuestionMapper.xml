@@ -5,14 +5,14 @@
     <id column="Eassy_Question_ID" jdbcType="INTEGER" property="eassyQuestionId" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.EassyQuestion">
-    <result column="Tittle" jdbcType="LONGVARCHAR" property="tittle" />
+    <result column="Title" jdbcType="LONGVARCHAR" property="title" />
     <result column="Answer" jdbcType="LONGVARCHAR" property="answer" />
   </resultMap>
   <sql id="Base_Column_List">
     Eassy_Question_ID
   </sql>
   <sql id="Blob_Column_List">
-    Tittle, Answer
+    Title, Answer
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
@@ -22,7 +22,7 @@
     from eassy_question
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll">
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
@@ -34,9 +34,9 @@
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
-    insert into eassy_question (Eassy_Question_ID, Tittle, Answer
+    insert into eassy_question (Eassy_Question_ID, Title, Answer
       )
-    values (#{eassyQuestionId,jdbcType=INTEGER}, #{tittle,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}
+    values (#{eassyQuestionId,jdbcType=INTEGER}, #{title,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
@@ -45,8 +45,8 @@
       <if test="eassyQuestionId != null">
         Eassy_Question_ID,
       </if>
-      <if test="tittle != null">
-        Tittle,
+      <if test="title != null">
+        Title,
       </if>
       <if test="answer != null">
         Answer,
@@ -56,8 +56,8 @@
       <if test="eassyQuestionId != null">
         #{eassyQuestionId,jdbcType=INTEGER},
       </if>
-      <if test="tittle != null">
-        #{tittle,jdbcType=LONGVARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=LONGVARCHAR},
       </if>
       <if test="answer != null">
         #{answer,jdbcType=LONGVARCHAR},
@@ -67,8 +67,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
     update eassy_question
     <set>
-      <if test="tittle != null">
-        Tittle = #{tittle,jdbcType=LONGVARCHAR},
+      <if test="title != null">
+        Title = #{title,jdbcType=LONGVARCHAR},
       </if>
       <if test="answer != null">
         Answer = #{answer,jdbcType=LONGVARCHAR},
@@ -78,7 +78,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.EassyQuestion">
     update eassy_question
-    set Tittle = #{tittle,jdbcType=LONGVARCHAR},
+    set Title = #{title,jdbcType=LONGVARCHAR},
       Answer = #{answer,jdbcType=LONGVARCHAR}
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
   </update>

@@ -13,7 +13,7 @@ public class ChoiceQuestion {
 
     private String answer;
 
-    private String tittle;
+    private String title;
 
     public Integer getChoiceQuestionId() {
         return choiceQuestionId;
@@ -63,11 +63,11 @@ public class ChoiceQuestion {
         this.answer = answer == null ? null : answer.trim();
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle == null ? null : tittle.trim();
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 }

@@ -264,4 +264,35 @@ public class TeacherServiceImp implements TeacherService {
 		eassyQuestionMapper.insert(eassyQuestion);
 		return 0;
 	}
+
+	@Override
+	public ChoiceQuestion findChoiceQuestionById(int id) {
+		return choiceQuestionMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public BlankFillingQuestion findBlankFillingQuestionById(int id) {
+		return blankFillingQuestionMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public EassyQuestion findEassyQuestionById(int id) {
+		return eassyQuestionMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateChoiceQuestion(ChoiceQuestion choiceQuestion) {
+		return choiceQuestionMapper.updateByPrimaryKey(choiceQuestion);
+	}
+
+	@Override
+	public int updateBlankFillingQuestion(BlankFillingQuestion blankFillingQuestion) {
+		System.out.println("-----------------------还未补坑--------------------------");
+		return 0;
+	}
+
+	@Override
+	public int updateEassyQuestion(EassyQuestion eassyQuestion) {
+		return eassyQuestionMapper.updateByPrimaryKeyWithBLOBs(eassyQuestion);
+	}
 }

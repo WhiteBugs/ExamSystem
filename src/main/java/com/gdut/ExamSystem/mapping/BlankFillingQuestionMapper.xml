@@ -5,7 +5,7 @@
     <id column="Blank_Filling_Question_ID" jdbcType="INTEGER" property="blankFillingQuestionId" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.BlankFillingQuestion">
-    <result column="Tittle" jdbcType="LONGVARCHAR" property="tittle" />
+    <result column="Title" jdbcType="LONGVARCHAR" property="title" />
   </resultMap>
   <!-- <resultMap type="com.gdut.ExamSystem.model.BlankFillingQuestion" id="result">
     <collection property="answer" javaType="ArrayList" column="Blank_Filling_Question_ID" ofType="com.gdut.ExamSystem.model.BlankFillingAnswer" 
@@ -15,7 +15,7 @@
     Blank_Filling_Question_ID
   </sql>
   <sql id="Blob_Column_List">
-    Tittle
+    Title
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
@@ -37,9 +37,9 @@
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" useGeneratedKeys="true" keyProperty="blankFillingQuestionId" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
-    insert into blank_filling_question (Blank_Filling_Question_ID, Tittle
+    insert into blank_filling_question (Blank_Filling_Question_ID, Title
       )
-    values (#{blankFillingQuestionId,jdbcType=INTEGER}, #{tittle,jdbcType=LONGVARCHAR}
+    values (#{blankFillingQuestionId,jdbcType=INTEGER}, #{title,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
@@ -48,31 +48,31 @@
       <if test="blankFillingQuestionId != null">
         Blank_Filling_Question_ID,
       </if>
-      <if test="tittle != null">
-        Tittle,
+      <if test="title != null">
+        Title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="blankFillingQuestionId != null">
         #{blankFillingQuestionId,jdbcType=INTEGER},
       </if>
-      <if test="tittle != null">
-        #{tittle,jdbcType=LONGVARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
     update blank_filling_question
     <set>
-      <if test="tittle != null">
-        Tittle = #{tittle,jdbcType=LONGVARCHAR},
+      <if test="title != null">
+        Title = #{title,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.BlankFillingQuestion">
     update blank_filling_question
-    set Tittle = #{tittle,jdbcType=LONGVARCHAR}
+    set Title = #{title,jdbcType=LONGVARCHAR}
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -18,6 +18,10 @@ public interface ExamService {
 	
 	int addExam(TestPaper testPaper);
 	
+	int addStudentOfExam(int examId, long studentId);
+	
+	int changeStudentScore(int examId, long studentId, int score);
+	
 	List<ChoiceQuestion> findAllChoiceQuestion();
 	
 	List<BlankFillingQuestion> findAllBlankFillingQuestion();

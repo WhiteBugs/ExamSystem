@@ -171,4 +171,21 @@ public class ExamServiceImp implements ExamService {
 		return testPaperMapper.findAllExamByTeacherCount(count);
 	}
 
+	@Override
+	public int addStudentOfExam(int examId, long studentId) {
+		StudentExamJunction record = new StudentExamJunction();
+		record.setExamId(examId);
+		record.setStudentId(studentId);
+		return studentExamJunctionMapper.insert(record);
+	}
+
+	@Override
+	public int changeStudentScore(int examId, long studentId, int score) {
+		StudentExamJunction record = new StudentExamJunction();
+		record.setExamId(examId);
+		record.setStudentId(studentId);
+		record.setScore(score);
+		return studentExamJunctionMapper.updateByPrimaryKey(record);
+	}
+
 }

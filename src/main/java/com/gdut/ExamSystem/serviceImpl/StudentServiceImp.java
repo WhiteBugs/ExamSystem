@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import com.gdut.ExamSystem.enums.Major;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.StudentMapper;
 import com.gdut.ExamSystem.model.Student;
@@ -87,10 +85,21 @@ public class StudentServiceImp implements StudentService {
 		return (ArrayList<Student>)studentMapper.selectByClass(classes);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Student> findStudentByMajor(Major major) {
+	public ArrayList<Student> findStudentByMajor(String[] majors) {
 		logger.debug("进入service层");
-		return (ArrayList<Student>)studentMapper.selectByMajor(major.toString());
+		ArrayList<Student> students = new ArrayList<>();
+		ArrayList<Student> temp;
+		for(String major : majors){
+			if((temp=(ArrayList<Student>)studentMapper.selectByMajor(major))!=null){
+				for(Student student : temp){
+					students.add(student);
+				}
+				temp=null;
+			}
+		}
+		return students;
 	}
 
 	@Override
@@ -169,5 +178,31 @@ public class StudentServiceImp implements StudentService {
 	@Override
 	public List<Student> findAllStudent() {
 		return studentMapper.selectAll();
+	}
+
+	@Override
+	public ArrayList<Student> findStudentByMajorAndClasses(String major, int classes) {
+		ArrayList<Student> students = new ArrayList<>();
+		String[] majors = {major};
+		students = findStudentByMajor(majors);
+		for(int i=0;i<students.size();i++){
+			if(students.get(i).getClasses()!=classes){
+				students.remove(i);
+				if(students.size()==i){
+					break;
+				}
+			}
+		}
+		return students;
+	}
+
+	@Override
+	public List<Integer> findClassesByMajor(String major) {
+		return studentMapper.selectClassesByMajor(major);
+	}
+
+	@Override
+	public List<String> findAllMajor() {
+		return studentMapper.selectAllMajor();
 	}
 }

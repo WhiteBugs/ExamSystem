@@ -1,5 +1,9 @@
 package com.gdut.ExamSystem.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +52,102 @@ public class AdminController {
 	
 	@RequestMapping(value="addExam")
 	public ModelAndView addExam(HttpServletRequest requests, HttpServletResponse response){
-		return new ModelAndView("admin/addExam");
+		ModelAndView model = new ModelAndView("admin/addExam");
+		model.addObject("teachers", teacherService.findAllTeacher());
+		model.addObject("majors", studentService.findAllMajor());
+		return model;
+	}
+	
+	@RequestMapping(value="addExam/studentType")
+	public ModelAndView studentType(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView();
+		String studentType = request.getParameter("studentType");
+		if(studentType!=null){
+			switch (studentType) {
+			case "major":
+				model.addObject("majors", studentService.findAllMajor());
+				model.setViewName("admin/addExam/addStudent/major");
+				break;
+			case "class":
+				model.addObject("majors", studentService.findAllMajor());
+				model.setViewName("admin/addExam/addStudent/class");
+				break; 
+			case "person":
+				model.addObject("majors", studentService.findAllMajor());
+				model.setViewName("admin/addExam/addStudent/person");
+				break;
+			default:
+				break;
+			}
+		}
+		return model;
+	}
+	@RequestMapping(value="addExam/studentType/class")
+	public ModelAndView typeOfClass(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView();
+		String major = request.getParameter("major");
+		if(major!=null){
+			System.out.println("--------------"+major);
+			model.addObject("classes",studentService.findClassesByMajor(major));
+			model.setViewName("admin/addExam/addStudent/classOfMajor");
+		}else{
+			model.setViewName("admin/addExam/addStudent/blank");
+		}
+		return model;
+	}
+	@RequestMapping(value="addExam/studentType/person")
+	public ModelAndView person(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView();
+		String major = request.getParameter("major");
+		String classs = request.getParameter("class");
+		if(major!=null && classs!=null){
+			model.addObject("persons", studentService.findStudentByMajorAndClasses(major, Integer.parseInt(classs)));
+			model.setViewName("admin/addExam/addStudent/personSelection");
+		}else{
+			model.setViewName("admin/addExam/addStudent/blank");
+		}
+		return model;
+	}
+	
+	@RequestMapping(value="addExam/commit",method=RequestMethod.POST)
+	public ModelAndView commit(HttpServletRequest request, HttpServletResponse response) throws ParseException{
+		ModelAndView model = new ModelAndView("admin/addExam/commit");
+		String[] students = request.getParameterValues("student");
+		String[] majors = request.getParameterValues("major");
+		String classs = request.getParameter("class");
+ 		ArrayList<Student> studentList = new ArrayList<>();
+ 		if(majors!=null){
+ 			if(classs!=null){
+ 				if(students!=null){
+ 					for(String studentId : students){
+ 						studentList.add(studentService.findStudentByStudentID(Long.parseLong(studentId)));
+ 					}
+ 				}else {
+ 					studentList = studentService.findStudentByMajorAndClasses(majors[0], Integer.parseInt(classs));
+				}
+ 			}else{
+ 				studentList = studentService.findStudentByMajor(majors);
+ 			}
+ 		}
+		String teacher = request.getParameter("teacher");
+		String examName = request.getParameter("examName");
+		String date = request.getParameter("date");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
+		TestPaper exam = new TestPaper();
+		SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date begin = time.parse(date+" "+beginTime);
+		Date end = time.parse(date+" "+endTime);
+		exam.setCount(teacher);
+		exam.setBeginTime(begin);
+		exam.setEndTime(end);
+		exam.setExamName(examName);
+		examService.addExam(exam);
+		int examId = exam.getExamId();
+		for(Student student : studentList){
+			examService.addStudentOfExam(examId, student.getStudentId());
+		}
+		return model;
 	}
 	
 	@RequestMapping(value="manageTeacher")

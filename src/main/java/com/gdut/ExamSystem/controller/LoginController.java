@@ -138,7 +138,7 @@ public class LoginController {
 	@RequestMapping(value="/loginOut", method = RequestMethod.GET)
 	public ModelAndView loginOut(HttpServletRequest request , HttpServletResponse response){
 		request.getSession().removeAttribute("user");
-		ModelAndView model = new ModelAndView("redirect:/login.jsp");
+		ModelAndView model = new ModelAndView("redirect:/login/login");
 		return model;
 	}
 	

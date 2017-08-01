@@ -142,7 +142,13 @@
     from student
     where Student_ID = #{studentId,jdbcType=BIGINT}
   </select>
-  
+  <select id="selectClassesByMajor" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select distinct Classes from student
+    where Major = #{major,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllMajor" resultType="java.lang.String">
+    select distinct  Major from student
+  </select>
   <select id="selectSelective" parameterType="com.gdut.ExamSystem.model.Student" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

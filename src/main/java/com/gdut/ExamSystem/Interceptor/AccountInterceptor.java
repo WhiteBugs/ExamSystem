@@ -27,18 +27,18 @@ public class AccountInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		String url = request.getRequestURI();
+		String url = request.getRequestURI()+"?"+request.getQueryString();
 		System.out.println("-------------"+url+"--------------");
 		Object user = request.getSession().getAttribute("user");
-		if(user instanceof Student&&(url.contains("admin")||url.contains("teacher"))){
+		if(user instanceof Student&&(url.contains("/admin/")||url.contains("/teacher/"))){
 			response.sendRedirect(request.getContextPath()+"/login/cannotAccess");
 			return false;
 		}
-		if(user instanceof Teacher&&(url.contains("admin")||url.contains("student"))){
+		if(user instanceof Teacher&&(url.contains("/admin/")||url.contains("/student/"))){
 			response.sendRedirect(request.getContextPath()+"/login/cannotAccess");
 			return false;
 		}
-		if(user instanceof Adminstrator&&(url.contains("student")||url.contains("teacher"))){
+		if(user instanceof Adminstrator&&(url.contains("/student/")||url.contains("/teacher/"))){
 			response.sendRedirect(request.getContextPath()+"/login/cannotAccess");
 			return false;
 		}

@@ -43,7 +43,7 @@
     delete from test_paper
     where Exam_ID = #{examId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.gdut.ExamSystem.model.TestPaper">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="examId" parameterType="com.gdut.ExamSystem.model.TestPaper">
     insert into test_paper (Exam_ID, Count, Begin_Time, 
       End_Time, Exam_Name, Answer
       )
