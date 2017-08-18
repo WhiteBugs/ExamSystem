@@ -20,6 +20,6 @@ public interface EassyAnswerOfStudentMapper {
 
     int updateByPrimaryKey(EassyAnswerOfStudent record);
     
-    List<EassyAnswerOfStudent> selectStudentAllEassyAnswer(int examId, long studentId);
+    List<EassyAnswerOfStudent> selectStudentAllEassyAnswer(String examId, long studentId);
     
 }

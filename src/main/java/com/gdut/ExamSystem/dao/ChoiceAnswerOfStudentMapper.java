@@ -18,6 +18,6 @@ public interface ChoiceAnswerOfStudentMapper {
 
     int updateByPrimaryKey(ChoiceAnswerOfStudent record);
     
-    List<ChoiceAnswerOfStudent> selectStudentAllChoiceAnswer(int examId, long studentId);
+    List<ChoiceAnswerOfStudent> selectStudentAllChoiceAnswer(String examId, long studentId);
 
 }

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.MultipleChoiceQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.MultipleChoiceQuestion">
+    <id column="multiple_choice_question_id" jdbcType="INTEGER" property="multipleChoiceQuestionId" />
+    <result column="choice1" jdbcType="VARCHAR" property="choice1" />
+    <result column="choice2" jdbcType="VARCHAR" property="choice2" />
+    <result column="choice3" jdbcType="VARCHAR" property="choice3" />
+    <result column="choice4" jdbcType="VARCHAR" property="choice4" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.MultipleChoiceQuestion">
+    <result column="titlt" jdbcType="LONGVARCHAR" property="titlt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    multiple_choice_question_id, choice1, choice2, choice3, choice4, answer
+  </sql>
+  <sql id="Blob_Column_List">
+    titlt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from multiple_choice_question
+    where multiple_choice_question_id = #{multipleChoiceQuestionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from multiple_choice_question
+    where multiple_choice_question_id = #{multipleChoiceQuestionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.MultipleChoiceQuestion">
+    insert into multiple_choice_question (multiple_choice_question_id, choice1, 
+      choice2, choice3, choice4, 
+      answer, titlt)
+    values (#{multipleChoiceQuestionId,jdbcType=INTEGER}, #{choice1,jdbcType=VARCHAR}, 
+      #{choice2,jdbcType=VARCHAR}, #{choice3,jdbcType=VARCHAR}, #{choice4,jdbcType=VARCHAR}, 
+      #{answer,jdbcType=VARCHAR}, #{titlt,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.MultipleChoiceQuestion">
+    insert into multiple_choice_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="multipleChoiceQuestionId != null">
+        multiple_choice_question_id,
+      </if>
+      <if test="choice1 != null">
+        choice1,
+      </if>
+      <if test="choice2 != null">
+        choice2,
+      </if>
+      <if test="choice3 != null">
+        choice3,
+      </if>
+      <if test="choice4 != null">
+        choice4,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="titlt != null">
+        titlt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="multipleChoiceQuestionId != null">
+        #{multipleChoiceQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="choice1 != null">
+        #{choice1,jdbcType=VARCHAR},
+      </if>
+      <if test="choice2 != null">
+        #{choice2,jdbcType=VARCHAR},
+      </if>
+      <if test="choice3 != null">
+        #{choice3,jdbcType=VARCHAR},
+      </if>
+      <if test="choice4 != null">
+        #{choice4,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="titlt != null">
+        #{titlt,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.MultipleChoiceQuestion">
+    update multiple_choice_question
+    <set>
+      <if test="choice1 != null">
+        choice1 = #{choice1,jdbcType=VARCHAR},
+      </if>
+      <if test="choice2 != null">
+        choice2 = #{choice2,jdbcType=VARCHAR},
+      </if>
+      <if test="choice3 != null">
+        choice3 = #{choice3,jdbcType=VARCHAR},
+      </if>
+      <if test="choice4 != null">
+        choice4 = #{choice4,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="titlt != null">
+        titlt = #{titlt,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where multiple_choice_question_id = #{multipleChoiceQuestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gdut.ExamSystem.model.MultipleChoiceQuestion">
+    update multiple_choice_question
+    set choice1 = #{choice1,jdbcType=VARCHAR},
+      choice2 = #{choice2,jdbcType=VARCHAR},
+      choice3 = #{choice3,jdbcType=VARCHAR},
+      choice4 = #{choice4,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      titlt = #{titlt,jdbcType=LONGVARCHAR}
+    where multiple_choice_question_id = #{multipleChoiceQuestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.MultipleChoiceQuestion">
+    update multiple_choice_question
+    set choice1 = #{choice1,jdbcType=VARCHAR},
+      choice2 = #{choice2,jdbcType=VARCHAR},
+      choice3 = #{choice3,jdbcType=VARCHAR},
+      choice4 = #{choice4,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR}
+    where multiple_choice_question_id = #{multipleChoiceQuestionId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -12,7 +12,7 @@ public interface ChoiceQuestionJunctionMapper {
 
     int insertSelective(ChoiceQuestionJunction record);
     
-    List<Integer> findAllChoiceQuestionOfExam(int examID);
+    List<ChoiceQuestionJunction> findAllChoiceQuestionOfExam(String examID);
 
     ChoiceQuestionJunction selectByPrimaryKey(ChoiceQuestionJunctionKey key);
 

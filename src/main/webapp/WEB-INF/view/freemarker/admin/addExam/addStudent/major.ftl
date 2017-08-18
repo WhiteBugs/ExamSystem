@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<#list majors as major><input type="checkbox" name="major">${major}</#list>
+<div>
+  <#list majors as major><input type="checkbox" name="major">${major}</#list>
+</div>
+<div>
+  <input type="submit">
+</div>
+
 </body>
 </html>

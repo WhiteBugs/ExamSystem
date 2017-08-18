@@ -3,7 +3,7 @@
 <mapper namespace="com.gdut.ExamSystem.dao.StudentExamJunctionMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.StudentExamJunction">
     <id column="Student_ID" jdbcType="BIGINT" property="studentId" />
-    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
+    <id column="Exam_ID" jdbcType="VARCHAR" property="examId" />
     <result column="score" jdbcType="INTEGER" property="score" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -14,17 +14,17 @@
     <include refid="Base_Column_List" />
     from student_exam_junction
     where Student_ID = #{studentId,jdbcType=BIGINT}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey">
     delete from student_exam_junction
     where Student_ID = #{studentId,jdbcType=BIGINT}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.StudentExamJunction">
     insert into student_exam_junction (Student_ID, Exam_ID, score
       )
-    values (#{studentId,jdbcType=BIGINT}, #{examId,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}
+    values (#{studentId,jdbcType=BIGINT}, #{examId,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.StudentExamJunction">
@@ -45,7 +45,7 @@
         #{studentId,jdbcType=BIGINT},
       </if>
       <if test="examId != null">
-        #{examId,jdbcType=INTEGER},
+        #{examId,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
         #{score,jdbcType=INTEGER},
@@ -60,28 +60,27 @@
       </if>
     </set>
     where Student_ID = #{studentId,jdbcType=BIGINT}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.StudentExamJunction">
     update student_exam_junction
     set score = #{score,jdbcType=INTEGER}
     where Student_ID = #{studentId,jdbcType=BIGINT}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
- 
-
-  <delete id="deleteByExamID" parameterType="java.lang.Integer">
+  
+  <delete id="deleteByExamID" parameterType="java.lang.String">
     delete from student_exam_junction
-      where Exam_ID = #{examId,jdbcType=INTEGER}
+      where Exam_ID = #{examId,jdbcType=VARCHAR}
   </delete>
 
-  <select id="findAllStudentIDByExamID" parameterType="java.lang.Integer" resultType="java.lang.Long">
+  <select id="findAllStudentIDByExamID" parameterType="java.lang.String" resultType="java.lang.Long">
     select Student_ID from student_exam_junction
-     where Exam_ID=#{examId,jdbcType=INTEGER}
+     where Exam_ID=#{examId,jdbcType=VARCHAR}
   </select>
   <select id="findOneStudentIDInExam" parameterType="com.gdut.ExamSystem.model.StudentExamJunctionKey" resultType="java.lang.Long">
     select Student_ID from student_exam_junction
-     where Exam_ID=#{examId,jdbcType=INTEGER}
+     where Exam_ID=#{examId,jdbcType=VARCHAR}
        and Student_ID=#{studentId,jdbcType=BIGINT}
   </select>
   <select id="findStudentAllExam" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -92,17 +91,17 @@
   </select>
   <select id="findStudentScoreBelow" resultType="java.lang.Long">
     select Student_ID from student_exam_junction
-      where Exam_ID=#{examId,jdbcType=INTEGER}
+      where Exam_ID=#{examId,jdbcType=VARCHAR}
       and score &lt; #{score,jdbcType=INTEGER}
   </select>
-  <select id="findStudentScoreHiger"  resultType="java.lang.Long">
+  <select id="findStudentScoreHiger" resultType="java.lang.Long">
     select Student_ID from student_exam_junction
-      where Exam_ID=#{examId,jdbcType=INTEGER}
+      where Exam_ID=#{examId,jdbcType=VARCHAR}
       and score &gt; #{score,jdbcType=INTEGER}
   </select>
   <select id="findStudentScoreBetween" resultType="java.lang.Long">
     select Student_ID from student_exam_junction
-      where Exam_ID=#{examId,jdbcType=INTEGER}
+      where Exam_ID=#{examId,jdbcType=VARCHAR}
       and score &lt; #{highScore,jdbcType=INTEGER}
       and score &gt; #{lowScore,jdbcType=INTEGER}
   </select>

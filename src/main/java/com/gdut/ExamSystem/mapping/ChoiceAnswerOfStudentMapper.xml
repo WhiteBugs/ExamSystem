@@ -2,53 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdut.ExamSystem.dao.ChoiceAnswerOfStudentMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.ChoiceAnswerOfStudent">
-    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
     <id column="Student_ID" jdbcType="BIGINT" property="studentId" />
     <id column="Orders" jdbcType="INTEGER" property="orders" />
+    <id column="test_paper_Exam_ID" jdbcType="VARCHAR" property="testPaperExamId" />
     <result column="Answer" jdbcType="VARCHAR" property="answer" />
     <result column="Score" jdbcType="INTEGER" property="score" />
   </resultMap>
   <sql id="Base_Column_List">
-    Exam_ID, Student_ID, Orders, Answer, Score
+    Student_ID, Orders, test_paper_Exam_ID, Answer, Score
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from choice_answer_of_student
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Student_ID = #{studentId,jdbcType=BIGINT}
+    where Student_ID = #{studentId,jdbcType=BIGINT}
       and Orders = #{orders,jdbcType=INTEGER}
-  </select>
-  <select id="selectStudentAllChoiceAnswer" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from choice_answer_of_student
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Student_ID = #{studentId,jdbcType=BIGINT}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey">
     delete from choice_answer_of_student
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Student_ID = #{studentId,jdbcType=BIGINT}
+    where Student_ID = #{studentId,jdbcType=BIGINT}
       and Orders = #{orders,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudent">
-    insert into choice_answer_of_student (Exam_ID, Student_ID, Orders, 
+    insert into choice_answer_of_student (Student_ID, Orders, test_paper_Exam_ID, 
       Answer, Score)
-    values (#{examId,jdbcType=INTEGER}, #{studentId,jdbcType=BIGINT}, #{orders,jdbcType=INTEGER}, 
+    values (#{studentId,jdbcType=BIGINT}, #{orders,jdbcType=INTEGER}, #{testPaperExamId,jdbcType=VARCHAR}, 
       #{answer,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudent">
     insert into choice_answer_of_student
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="examId != null">
-        Exam_ID,
-      </if>
       <if test="studentId != null">
         Student_ID,
       </if>
       <if test="orders != null">
         Orders,
+      </if>
+      <if test="testPaperExamId != null">
+        test_paper_Exam_ID,
       </if>
       <if test="answer != null">
         Answer,
@@ -58,14 +51,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="examId != null">
-        #{examId,jdbcType=INTEGER},
-      </if>
       <if test="studentId != null">
         #{studentId,jdbcType=BIGINT},
       </if>
       <if test="orders != null">
         #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperExamId != null">
+        #{testPaperExamId,jdbcType=VARCHAR},
       </if>
       <if test="answer != null">
         #{answer,jdbcType=VARCHAR},
@@ -85,16 +78,17 @@
         Score = #{score,jdbcType=INTEGER},
       </if>
     </set>
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Student_ID = #{studentId,jdbcType=BIGINT}
+    where Student_ID = #{studentId,jdbcType=BIGINT}
       and Orders = #{orders,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceAnswerOfStudent">
     update choice_answer_of_student
     set Answer = #{answer,jdbcType=VARCHAR},
       Score = #{score,jdbcType=INTEGER}
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Student_ID = #{studentId,jdbcType=BIGINT}
+    where Student_ID = #{studentId,jdbcType=BIGINT}
       and Orders = #{orders,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </update>
+
 </mapper>

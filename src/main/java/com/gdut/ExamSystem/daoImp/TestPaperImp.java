@@ -18,7 +18,7 @@ public class TestPaperImp implements TestPaperMapper {
 	private static final String NAME_SPACE = "com.gdut.ExamSystem.dao.TestPaperMapper.";
 	
 	@Override
-	public int deleteByPrimaryKey(Integer examId) {
+	public int deleteByPrimaryKey(String examId) {
 		return sqlSession.delete(NAME_SPACE+"deleteByPrimaryKey",examId);
 	}
 
@@ -33,7 +33,7 @@ public class TestPaperImp implements TestPaperMapper {
 	}
 
 	@Override
-	public TestPaper selectByPrimaryKey(Integer examId) {
+	public TestPaper selectByPrimaryKey(String examId) {
 		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",examId);
 	}
 
@@ -55,11 +55,6 @@ public class TestPaperImp implements TestPaperMapper {
 	@Override
 	public List<TestPaper> findAllExam() {
 		return sqlSession.selectList(NAME_SPACE+"findAllExam");
-	}
-
-	@Override
-	public List<TestPaper> findAllExamByTeacherCount(String count) {
-		return sqlSession.selectList(NAME_SPACE+"selectByCount",count);
 	}
 
 }

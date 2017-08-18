@@ -3,7 +3,7 @@
 <mapper namespace="com.gdut.ExamSystem.dao.EassyQuestionJunctionMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.EassyQuestionJunction">
     <id column="Eassy_Question_ID" jdbcType="INTEGER" property="eassyQuestionId" />
-    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
+    <id column="Exam_ID" jdbcType="VARCHAR" property="examId" />
     <result column="orders" jdbcType="INTEGER" property="orders" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -14,21 +14,23 @@
     <include refid="Base_Column_List" />
     from eassy_question_junction
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </select>
-  <select id="findAllEassyQuestionOfExam" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select Eassy_Question_ID from eassy_question_junction
-     where Exam_ID = #{examId,jdbcType=INTEGER}
+  <select id="findAllEassyQuestionOfExam" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from eassy_question_junction
+    where Exam_ID = #{examId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunctionKey">
     delete from eassy_question_junction
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction">
     insert into eassy_question_junction (Eassy_Question_ID, Exam_ID, orders
       )
-    values (#{eassyQuestionId,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, #{orders,jdbcType=INTEGER}
+    values (#{eassyQuestionId,jdbcType=INTEGER}, #{examId,jdbcType=VARCHAR}, #{orders,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction">
@@ -49,7 +51,7 @@
         #{eassyQuestionId,jdbcType=INTEGER},
       </if>
       <if test="examId != null">
-        #{examId,jdbcType=INTEGER},
+        #{examId,jdbcType=VARCHAR},
       </if>
       <if test="orders != null">
         #{orders,jdbcType=INTEGER},
@@ -64,12 +66,13 @@
       </if>
     </set>
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction">
     update eassy_question_junction
     set orders = #{orders,jdbcType=INTEGER}
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
+  
 </mapper>

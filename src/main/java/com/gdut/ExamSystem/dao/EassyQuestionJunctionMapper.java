@@ -14,7 +14,7 @@ public interface EassyQuestionJunctionMapper {
 
     EassyQuestionJunction selectByPrimaryKey(EassyQuestionJunctionKey key);
 
-    List<Integer> findAllEassyQuestionOfExam(int examID);
+    List<EassyQuestionJunction> findAllEassyQuestionOfExam(String examID);
     
     int updateByPrimaryKeySelective(EassyQuestionJunction record);
 

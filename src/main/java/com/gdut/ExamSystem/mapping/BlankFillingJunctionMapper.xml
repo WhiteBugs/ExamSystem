@@ -2,56 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdut.ExamSystem.dao.BlankFillingJunctionMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.BlankFillingJunction">
-    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
     <id column="Blank_Filling_Question_ID" jdbcType="INTEGER" property="blankFillingQuestionId" />
+    <id column="test_paper_Exam_ID" jdbcType="VARCHAR" property="testPaperExamId" />
     <result column="Orders" jdbcType="INTEGER" property="orders" />
   </resultMap>
   <sql id="Base_Column_List">
-    Exam_ID, Blank_Filling_Question_ID, Orders
+    Blank_Filling_Question_ID, test_paper_Exam_ID, Orders
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingJunctionKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blank_filling_junction
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </select>
-  <select id="findAllBlankFillingQuestionOfExam" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findAllBlankFillingQuestionOfExam" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from blank_filling_junction
-    where Exam_ID = #{examId,jdbcType=INTEGER}
+    where test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingJunctionKey">
     delete from blank_filling_junction
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingJunction">
-    insert into blank_filling_junction (Exam_ID, Blank_Filling_Question_ID, Orders
-      )
-    values (#{examId,jdbcType=INTEGER}, #{blankFillingQuestionId,jdbcType=INTEGER}, #{orders,jdbcType=INTEGER}
-      )
+    insert into blank_filling_junction (Blank_Filling_Question_ID, test_paper_Exam_ID, 
+      Orders)
+    values (#{blankFillingQuestionId,jdbcType=INTEGER}, #{testPaperExamId,jdbcType=VARCHAR}, 
+      #{orders,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.BlankFillingJunction">
     insert into blank_filling_junction
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="examId != null">
-        Exam_ID,
-      </if>
       <if test="blankFillingQuestionId != null">
         Blank_Filling_Question_ID,
+      </if>
+      <if test="testPaperExamId != null">
+        test_paper_Exam_ID,
       </if>
       <if test="orders != null">
         Orders,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="examId != null">
-        #{examId,jdbcType=INTEGER},
-      </if>
       <if test="blankFillingQuestionId != null">
         #{blankFillingQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperExamId != null">
+        #{testPaperExamId,jdbcType=VARCHAR},
       </if>
       <if test="orders != null">
         #{orders,jdbcType=INTEGER},
@@ -65,13 +65,13 @@
         Orders = #{orders,jdbcType=INTEGER},
       </if>
     </set>
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.BlankFillingJunction">
     update blank_filling_junction
     set Orders = #{orders,jdbcType=INTEGER}
-    where Exam_ID = #{examId,jdbcType=INTEGER}
-      and Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+    where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </update>
 </mapper>

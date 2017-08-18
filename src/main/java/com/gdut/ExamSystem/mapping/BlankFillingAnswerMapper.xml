@@ -23,7 +23,7 @@
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
       and orders = #{orders,jdbcType=INTEGER}
   </select>
-  <select id="selectByQuestionId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByQuestionID" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />
     ,

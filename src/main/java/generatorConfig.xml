@@ -33,24 +33,13 @@
          </javaClientGenerator>
          <!--生成对应表及类名-->
          <table 
-         tableName="student" 
-         domainObjectName="Student"
+         tableName="count_exam_junction"
+         domainObjectName="CountExamJunction"
          enableCountByExample="false" 
          enableUpdateByExample="false" 
          enableDeleteByExample="false" 
          enableSelectByExample="false" 
          selectByExampleQueryId="false">
-         </table>
-         
-         <table 
-         tableName="student_exam_junction"
-         domainObjectName="StudentExamJunction"
-         enableCountByExample="false" 
-         enableUpdateByExample="false" 
-         enableDeleteByExample="false" 
-         enableSelectByExample="false" 
-         selectByExampleQueryId="false">
-         </table>
-         
+         </table>   
      </context>
  </generatorConfiguration>

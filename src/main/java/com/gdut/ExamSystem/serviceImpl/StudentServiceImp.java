@@ -167,8 +167,8 @@ public class StudentServiceImp implements StudentService {
 	}
 
 	@Override
-	public List<Integer> findStudentExamID(long studentID) {
-		List<Integer> examIdList = new ArrayList<>();
+	public List<String> findStudentExamID(long studentID) {
+		List<String> examIdList = new ArrayList<>();
 		for(StudentExamJunction examJunction : studentExamJunctionMapper.findStudentAllExamJunction(studentID)){
 			examIdList.add(examJunction.getExamId());
 		}

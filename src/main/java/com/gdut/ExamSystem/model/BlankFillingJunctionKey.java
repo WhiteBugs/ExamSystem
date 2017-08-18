@@ -1,17 +1,9 @@
 package com.gdut.ExamSystem.model;
 
 public class BlankFillingJunctionKey {
-    private Integer examId;
-
     private Integer blankFillingQuestionId;
 
-    public Integer getExamId() {
-        return examId;
-    }
-
-    public void setExamId(Integer examId) {
-        this.examId = examId;
-    }
+    private String testPaperExamId;
 
     public Integer getBlankFillingQuestionId() {
         return blankFillingQuestionId;
@@ -19,5 +11,13 @@ public class BlankFillingJunctionKey {
 
     public void setBlankFillingQuestionId(Integer blankFillingQuestionId) {
         this.blankFillingQuestionId = blankFillingQuestionId;
+    }
+
+    public String getTestPaperExamId() {
+        return testPaperExamId;
+    }
+
+    public void setTestPaperExamId(String testPaperExamId) {
+        this.testPaperExamId = testPaperExamId == null ? null : testPaperExamId.trim();
     }
 }

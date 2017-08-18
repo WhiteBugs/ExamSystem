@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.gdut.ExamSystem.Util.GenerateMD5;
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.Teacher;
@@ -21,6 +23,7 @@ import com.gdut.ExamSystem.service.AdminService;
 import com.gdut.ExamSystem.service.ExamService;
 import com.gdut.ExamSystem.service.StudentService;
 import com.gdut.ExamSystem.service.TeacherService;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 
 
@@ -101,6 +104,7 @@ public class AdminController {
 		String major = request.getParameter("major");
 		String classs = request.getParameter("class");
 		if(major!=null && classs!=null){
+			System.out.println("--------------------------进入person");
 			model.addObject("persons", studentService.findStudentByMajorAndClasses(major, Integer.parseInt(classs)));
 			model.setViewName("admin/addExam/addStudent/personSelection");
 		}else{
@@ -110,8 +114,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="addExam/commit",method=RequestMethod.POST)
-	public ModelAndView commit(HttpServletRequest request, HttpServletResponse response) throws ParseException{
-		ModelAndView model = new ModelAndView("admin/addExam/commit");
+	public ModelAndView commit(HttpServletRequest request, HttpServletResponse response) throws ParseException, MySQLIntegrityConstraintViolationException{
+		ModelAndView model = new ModelAndView();
 		String[] students = request.getParameterValues("student");
 		String[] majors = request.getParameterValues("major");
 		String classs = request.getParameter("class");
@@ -129,7 +133,7 @@ public class AdminController {
  				studentList = studentService.findStudentByMajor(majors);
  			}
  		}
-		String teacher = request.getParameter("teacher");
+		String[] teacher = request.getParameterValues("teachers");
 		String examName = request.getParameter("examName");
 		String date = request.getParameter("date");
 		String beginTime = request.getParameter("beginTime");
@@ -138,14 +142,33 @@ public class AdminController {
 		SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date begin = time.parse(date+" "+beginTime);
 		Date end = time.parse(date+" "+endTime);
-		exam.setCount(teacher);
-		exam.setBeginTime(begin);
-		exam.setEndTime(end);
-		exam.setExamName(examName);
-		examService.addExam(exam);
-		int examId = exam.getExamId();
-		for(Student student : studentList){
-			examService.addStudentOfExam(examId, student.getStudentId());
+        List<String> counts = new ArrayList<>();
+        for(String teachs : teacher){
+        	counts.add(teachs);
+        }
+		StringBuilder md5Torrent = new StringBuilder();
+		//用考试名称，日期生成摘要作为ID
+		md5Torrent.append(examName);
+		md5Torrent.append(date);
+		md5Torrent.append(beginTime);
+		md5Torrent.append(endTime);
+		String examId = GenerateMD5.getMD5(md5Torrent.toString());
+		
+		if(examService.findExamById(examId)==null){
+			exam.setExamId(examId);
+			exam.setBeginTime(begin);
+			exam.setEndTime(end);
+			exam.setExamName(examName);
+			examService.addExam(exam);
+			adminService.addTeacher(examId, counts);
+			for(Student student : studentList){
+				examService.addStudentOfExam(examId, student.getStudentId());
+			}
+			model.addObject("info", "添加成功");
+			model.setViewName("admin/info");
+		}else{
+			model.addObject("info", "已经添加过同样的考试了");
+			model.setViewName("admin/info");
 		}
 		return model;
 	}

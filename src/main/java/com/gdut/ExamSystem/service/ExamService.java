@@ -3,6 +3,7 @@ package com.gdut.ExamSystem.service;
 import java.util.List;
 
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
+import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
 import com.gdut.ExamSystem.model.EassyQuestion;
 import com.gdut.ExamSystem.model.StudentExamJunction;
@@ -10,35 +11,35 @@ import com.gdut.ExamSystem.model.TestPaper;
 
 
 public interface ExamService {
-	List<Integer> findChoiceQuestionOfExam(int examID);
+	List<ChoiceQuestion> findChoiceQuestionOfExam(String examID);
 	
-	List<Integer> findBlankFillingQuestionOfExam(int examID);
+	List<BlankFillingQuestionWithAnswers> findBlankFillingQuestionOfExam(String examID);
 	
-	List<Integer> findEassyQuestionOfExam(int examID);
+	List<EassyQuestion> findEassyQuestionOfExam(String examID);
 	
 	int addExam(TestPaper testPaper);
 	
-	int addStudentOfExam(int examId, long studentId);
+	int addStudentOfExam(String examId, long studentId);
 	
-	int changeStudentScore(int examId, long studentId, int score);
+	int changeStudentScore(String examId, long studentId, int score);
 	
 	List<ChoiceQuestion> findAllChoiceQuestion();
 	
-	List<BlankFillingQuestion> findAllBlankFillingQuestion();
+	List<BlankFillingQuestionWithAnswers> findAllBlankFillingQuestion();
 	
 	List<EassyQuestion> findAllEassyQuestion();
 	
-	String generateAnswer(int examID);
+	String generateAnswer(String examID);
 	
-	int findStudentScore(int examId, long studentId);
+	int findStudentScore(String examId, long studentId);
 	
-	TestPaper findExamById(int examid);
+	TestPaper findExamById(String examid);
 	
-    List<Long> findStudentScoreBelow(int examId, int score);
+    List<Long> findStudentScoreBelow(String examId, int score);
     
-    List<Long> findStudentScoreHiger(int examId, int score);
+    List<Long> findStudentScoreHiger(String examId, int score);
     
-    List<Long> findStudentScoreBetween(int examId, int highScore, int lowScore);
+    List<Long> findStudentScoreBetween(String examId, int highScore, int lowScore);
     
     List<StudentExamJunction> findStudentAllExamJunction(long studentId);
     

@@ -3,9 +3,7 @@ package com.gdut.ExamSystem.model;
 import java.util.Date;
 
 public class TestPaper {
-    private Integer examId;
-
-    private String count;
+    private String examId;
 
     private Date beginTime;
 
@@ -13,22 +11,16 @@ public class TestPaper {
 
     private String examName;
 
+    private String path;
+
     private String answer;
 
-    public Integer getExamId() {
+    public String getExamId() {
         return examId;
     }
 
-    public void setExamId(Integer examId) {
-        this.examId = examId;
-    }
-
-    public String getCount() {
-        return count;
-    }
-
-    public void setCount(String count) {
-        this.count = count == null ? null : count.trim();
+    public void setExamId(String examId) {
+        this.examId = examId == null ? null : examId.trim();
     }
 
     public Date getBeginTime() {
@@ -53,6 +45,14 @@ public class TestPaper {
 
     public void setExamName(String examName) {
         this.examName = examName == null ? null : examName.trim();
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path == null ? null : path.trim();
     }
 
     public String getAnswer() {

@@ -22,13 +22,13 @@ public interface AdminService {
 	
     void changeSafeAnswer(String count,String answer);
     
-    void addStudent(int examId, Student student);
+    void addStudent(String examId, Student student);
     
     void updateStudent(Student student);
     
-    void deleteStudent(int examId, Student student);
+    void deleteStudent(String examId, Student student);
     
-    void addTeacher(int examId, Teacher teacher);
+    void addTeacher(String examId, List<String> teacher);
     
     void updateTeacher(TeacherWithBLOBs teacher);
     

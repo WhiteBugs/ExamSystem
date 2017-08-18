@@ -57,7 +57,7 @@
 </nav>	
 <div class="panel panel-success">
 	<div class="">
-		<form id="test" action="/ExamSystem/teacher/addTest/submit" >
+		<form id="test" action="/ExamSystem/teacher/addQuestion/submit" >
 			<select id="type" name="type" onchange="loadPage()">
 				<option value="choice">选择题</option>
 				<option value="blankFilling">填空题</option>

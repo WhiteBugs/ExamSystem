@@ -14,17 +14,15 @@
 			color:#fff;
 		}
 	</style>
-
 </head>
 <body>
-
 	<div class="main">
 		<!--nr start-->
 		<div class="test_main">
 			<div class="nr_left">
 				<div class="nr_left">
 					<div class="jumbotron">
-						<h3 class="block-center">考试名称</h3>
+						<h3 class="block-center">${exam.examName }</h3>
 						</div>
 						<div>
 							<div id="section-1" class="panel panel-success">
@@ -34,9 +32,8 @@
 								<ul>
 									<li>
 										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum </p>
-										<p>vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget risus. Integer aliquet quam ut elit suscipit, id interdum neque porttitor. Integer faucibus ligula.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum </p>
-										<p>vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget risus. Integer aliquet quam ut elit suscipit, id interdum neque porttitor. Integer faucibus ligula.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum </p>
-										<p>vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget risus. Integer aliquet quam ut elit suscipit, id interdum neque porttitor. Integer faucibus ligula.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum </p>
+										<p>vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget risus. Integer aliquet quam ut elit suscipit, id interdum neque porttitor. Integer faucibus ligula.</p>
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum </p>
 										<p>vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget risus. Integer aliquet quam ut elit suscipit, id interdum neque porttitor. Integer faucibus ligula.</p>
 									</li>
 								</ul>
@@ -44,14 +41,14 @@
 						</div>
 					</div>
 					<div class="test">
-					    <ul>
-					       <li><a href="/ExamSystem/teacher/editTest/addChoiceQuestion">添加单选题</a></li>
-					       <li><a href="#">添加多选题</a></li>
-					       <li><a href="#">添加判断题</a></li>
-					       <li><a href="/ExamSystem/teacher/editTest/addBlankFillingQuestion">添加填空题</a></li>
-					       <li><a href="/ExamSystem/teacher/editTest/addEassyQuestion">添加简答题</a></li>
-					    </ul>
 						<form action="" method="post">
+						   <div class="test_title">
+						       <p class="test_time">
+							      <i class="icon iconfont"></i><b class="alt-1">01:40</b>
+						       </p>
+						       <font><input type="submit" name="test_jiaojuan" value="交卷"></font>
+					       </div>
+						
 						    <#if choiceQuestions??>
 							<div class="test_content">
 								<div class="test_content_title">
@@ -67,12 +64,11 @@
 									<li id="qu_0_${choiceQuestion_index}">
 										<div class="test_content_nr_tt">
 											<i>${choiceQuestion_index+1}</i><span>(1分)</span><font>${choiceQuestion.title}</font><b class="icon iconfont"></b>
-											<button><a href="/ExamSystem/teacher/editTest?type=choiceQuestion&id=${choiceQuestion.choiceQuestionId }">编辑试题</a></button>
 										</div>
 										<div class="test_content_nr_main">
 											<ul>
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1" id="0_answer_${choiceQuestion_index+1}_option_1"/>
+													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_1" value="A"/>
 													<label for="0_answer_${choiceQuestion_index+1}_option_1">
 														A.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice1}</p>
@@ -80,15 +76,14 @@
 												</li>
 												
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1" id="0_answer_${choiceQuestion_index+1}_option_2" />
+													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_2" value="B"/>
 													<label for="0_answer_${choiceQuestion_index+1}_option_2">
 														B.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice2}</p>
 													</label>
 												</li>
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1"
-													id="0_answer_${choiceQuestion_index+1}_option_3" />
+													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_3" value="C"/>
 													<label for="0_answer_${choiceQuestion_index+1}_option_3">
 														C.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice3}</p>
@@ -96,127 +91,102 @@
 												</li>
 												
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1"
-													id="0_answer_${choiceQuestion_index+1}_option_4" />
+													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_4" value="D"/>
 													<label for="0_answer_${choiceQuestion_index+1}_option_4">
 														D.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice4}</p>
 													</label>
 												</li> 
 											</ul>
-											<div>
-												answer:    ${choiceQuestion.answer}
-											</div>
 										</div>
 									</li>
 									</#list>
 								</ul>
 							</div>
 							</#if>
-							<#if duoxuanti??>
+							<#if multipleChoiceQuestions??>
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>多选题</h2>
 									<p>
-										<span>共</span><i class="content_lit">30</i><span>题，</span><span>合计</span><i class="content_fs">30</i><span>分</span>
+										<span>共</span><i class="content_lit">${multipleChoiceQuestion?size }</i><span>题，</span><span>合计</span><i class="content_fs">30</i><span>分</span>
 									</p>
 								</div>
 							</div>
 							<div class="test_content_nr">
 								<ul>
-									<li id="qu_1_0">
+								<#list multipleChoiceQuestions as multipleChoiceQuestion>
+									<li id="qu_1_${multipleChoiceQuestion_index}">
 										<div class="test_content_nr_tt">
-											<i>1</i><span>(1分)</span><font>以下属于南方电网员工职业操守中明文规定的有()</font><b class="icon iconfont"></b>
+											<i>${multipleChoiceQuestion_index+1 }</i><span>(1分)</span><font>${multipleChoiceQuestion.title }</font><b class="icon iconfont"></b>
 										</div>
-
 										<div class="test_content_nr_main">
 											<ul>
-												
 												<li class="option">
-
-
-													<input type="checkbox" class="radioOrCheck" name="answer1"
-													id="1_answer_1_option_1"
-													/>
-
-													<label for="1_answer_1_option_1">
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_1" value="A"/>
+													<label for="1_answer_${multipleChoiceQuestion_index}_option_1">
 														A.
-														<p class="ue" style="display: inline;">热爱祖国、热爱南网、热爱岗位</p>
+														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice1 }</p>
 													</label>
 												</li>
 												
 												<li class="option">
-
-
-													<input type="checkbox" class="radioOrCheck" name="answer1"
-													id="1_answer_1_option_2"
-													/>
-
-													<label for="1_answer_1_option_2">
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_2" value="B"/>
+													<label for="1_answer_${multipleChoiceQuestion_index}_option_2">
 														B.
-														<p class="ue" style="display: inline;">遵纪守法、忠于职守、令行禁止</p>
+														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice2}</p>
 													</label>
 												</li>
 												
 												<li class="option">
-
-
-													<input type="checkbox" class="radioOrCheck" name="answer1"
-													id="1_answer_1_option_3"
-													/>
-
-													<label for="1_answer_1_option_3">
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_3" value="C" />
+													<label for="1_answer_${multipleChoiceQuestion_index}_option_3">
 														C.
-														<p class="ue" style="display: inline;">客户至上、诚实守信、优质服务</p>
+														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice3}</p>
 													</label>
 												</li>
 												
 												<li class="option">
-
-
-													<input type="checkbox" class="radioOrCheck" name="answer1"
-													id="1_answer_1_option_4"
-													/>
-
-													<label for="1_answer_1_option_4">
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_4" value="D"/>
+													<label for="1_answer_${multipleChoiceQuestion_index}_option_4">
 														D.
-														<p class="ue" style="display: inline;">公平竞争、互相监督、服从监管</p>
+														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice4}</p>
 													</label>
 												</li>
-												
 											</ul>
 										</div>
 									</li>
-
+                                </#list>
 								</ul>
 							</div>
 							</#if>
-							<#if panduanti??>
+							<#if trueFalseQuestions??>
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>判断题</h2>
 									<p>
-										<span>共</span><i class="content_lit">30</i><span>题，</span><span>共计</span><i class="content_fs">30</i><span>分</span>
+										<span>共</span><i class="content_lit">${tureFalseQuestions?size }</i><span>题，</span><span>共计</span><i class="content_fs">30</i><span>分</span>
 									</p>
 								</div>
 							</div>
 							<dir class="test_content_nr">
 								<ul>
-									<li id="qu_1_0">
+								<#list trueFalseQuestions as trueFalseQuestion>
+									<li id="qu_2_${trueFalseQuestion_index }">
 										<div class="test_content_nr_tt">
-											<i>1</i><span>(1分)</span><font>以下属于南方电网员工职业操守中明文规定的有()</font><b class="icon iconfont"></b>
+											<i>1</i><span>(1分)</span><font>${trueFalseQuestion.title}</font><b class="icon iconfont"></b>
 										</div>
 										<div class="test_content_nr_main">
 											<ul>
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1" id="1_answer_1_option_1"/>
+													<input type="radio" class="radioOrCheck" name="trueFalseAnswer" id="1_answer_1_option_1" value="true"/>
 													<label for="1_answer_1_option_1">
 														<p class="ue" style="display: inline;">对</p>
 													</label>
 												</li>
 
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1" id="1_answer_1_option_2"/>
+													<input type="radio" class="radioOrCheck" name="trueFalseAnswer" id="1_answer_1_option_2" value="false"/>
 													<label for="1_answer_1_option_2">
 														<p class="ue" style="display: inline;">错</p>
 													</label>
@@ -224,6 +194,7 @@
 											</ul>
 										</div>
 									</li>
+								</#list>
 								</ul>
 							</dir>
 							</#if>
@@ -243,24 +214,10 @@
 										<div class="test_content_nr_tt">
 											<i>1</i><span>(1分)</span><font>${blankFillingQuestion.title}</font><b class="icon iconfont"></b>
 										</div>
-										<div class="test_content_nr_main">
-											<ul>
-												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1" id="1_answer_1_option_1"/>
-													<label for="1_answer_1_option_1">
-														<p class="ue" style="display: inline;">对</p>
-													</label>
-												</li>
-
-												<li class="option">
-													<input type="radio" class="radioOrCheck" name="answer1" id="1_answer_1_option_2"/>
-													<label for="1_answer_1_option_2">
-														<p class="ue" style="display: inline;">错</p>
-													</label>
-												</li>
-											</ul>
-										</div>
 									</li>
+									<div name="#">
+									    答案：<input>
+									</div>
 									</#list>
 								</ul>
 							</div>
@@ -281,10 +238,10 @@
 										<div class="test_content_nr_tt">
 											<i>${eassyQuestion_index+1}</i><span>(1分)</span><font>${eassyQuestion.title}</font><b class="icon iconfont"></b>
 										</div>
-										<div class="test_content_nr_main">
-											<i>${eassyQuestion.answer }</i>
-										</div>
 									</li>
+									<div name="answer">
+									    答案 ：<input>
+									</div>
 									</#list>
 								</ul>
 							</div>
@@ -399,10 +356,10 @@
 				<div class="foot"></div>
 			</div>
 
-			<script src="js/jquery-1.11.3.min.js"></script>
-			<script src="js/jquery.easy-pie-chart.js"></script>
+			<script src="/ExamSystem/js/jquery-1.11.3.min.js"></script>
+			<script src="/ExamSystem/js/jquery.easy-pie-chart.js"></script>
 			<!--时间js-->
-			<script src="js/jquery.countdown.js"></script>
+			<script src="/ExamSystem/js/jquery.countdown.js"></script>
 			<script>
 				window.jQuery(function($) {
 					"use strict";

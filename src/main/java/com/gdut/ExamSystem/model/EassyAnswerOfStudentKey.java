@@ -3,9 +3,9 @@ package com.gdut.ExamSystem.model;
 public class EassyAnswerOfStudentKey {
     private Long studentId;
 
-    private Integer examId;
-
     private Integer orders;
+
+    private String testPaperExamId;
 
     public Long getStudentId() {
         return studentId;
@@ -15,19 +15,19 @@ public class EassyAnswerOfStudentKey {
         this.studentId = studentId;
     }
 
-    public Integer getExamId() {
-        return examId;
-    }
-
-    public void setExamId(Integer examId) {
-        this.examId = examId;
-    }
-
     public Integer getOrders() {
         return orders;
     }
 
     public void setOrders(Integer orders) {
         this.orders = orders;
+    }
+
+    public String getTestPaperExamId() {
+        return testPaperExamId;
+    }
+
+    public void setTestPaperExamId(String testPaperExamId) {
+        this.testPaperExamId = testPaperExamId == null ? null : testPaperExamId.trim();
     }
 }

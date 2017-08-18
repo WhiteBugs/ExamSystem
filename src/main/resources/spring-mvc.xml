@@ -50,35 +50,12 @@
          </property>
      </bean>
  
-     <!-- 配置ViewResolver。可用多个ViewResolver。使用order属性排序。 InternalResourceViewResolver 
-         放在最后 -->
-     <bean
-         class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-         <property name="order" value="1"></property>
-         <property name="mediaTypes">
-             <map>
-                 <!-- 告诉视图解析器,返回的类型是json格式 -->
-                 <entry key="json" value="application/json"></entry>
-                 
-                 <entry key="xml" value="application/xml"></entry>
-                 <entry key="html" value="text/html"></entry>
-             </map>
-         </property>
-         <property name="defaultViews">
-             <list>
-                 <!-- ModelAndView里的数据变成JSON -->
-                 <bean
-                     class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"></bean>
-             </list>
-         </property>
-         <property name="ignoreAcceptHeader" value="true"></property>
-     </bean>
      <!-- 定义跳转的文件的前后缀,视图模式配置 -->
-     <!-- spring-freemarker-config里面还有一个视图解析器 -->
+     <!-- 在spring-freemarker-config里面还有一个视图解析器 -->
      <bean
          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
          <property name="prefix" value="/WEB-INF/view/"></property>
-         <property name="suffix" value=".jsp"></property>
+         <property name="suffix" value=".html"></property>
          <property name="order" value="1"/>
          <property name="viewClass">  
             <value>org.springframework.web.servlet.view.InternalResourceView</value>  
@@ -87,15 +64,15 @@
      
      <!-- 拦截器 -->
      <mvc:interceptors>
-        <mvc:interceptor>
+        <mvc:interceptor> 
            <mvc:mapping path="/**"/>
            <mvc:mapping path="/login/hadLogin"/>
-           <mvc:exclude-mapping path="/login/**"/>
+           <mvc:exclude-mapping path="/**/login/**"/>
            <mvc:exclude-mapping path="/**/css/**"/>
            <mvc:exclude-mapping path="/**/js/**"/>
            <bean class="com.gdut.ExamSystem.Interceptor.AccessInterceptor"></bean>
-        </mvc:interceptor>
-        <mvc:interceptor>
+        </mvc:interceptor> 
+        <mvc:interceptor> 
            <mvc:mapping path="/**"/>
            <bean class="com.gdut.ExamSystem.Interceptor.AccountInterceptor"></bean>
         </mvc:interceptor>

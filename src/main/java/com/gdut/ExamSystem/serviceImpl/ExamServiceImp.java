@@ -1,5 +1,6 @@
 package com.gdut.ExamSystem.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -8,14 +9,19 @@ import com.gdut.ExamSystem.dao.BlankFillingJunctionMapper;
 import com.gdut.ExamSystem.dao.BlankFillingQuestionMapper;
 import com.gdut.ExamSystem.dao.ChoiceQuestionJunctionMapper;
 import com.gdut.ExamSystem.dao.ChoiceQuestionMapper;
+import com.gdut.ExamSystem.dao.CountExamJunctionMapper;
 import com.gdut.ExamSystem.dao.EassyQuestionJunctionMapper;
 import com.gdut.ExamSystem.dao.EassyQuestionMapper;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.TestPaperMapper;
 import com.gdut.ExamSystem.model.BlankFillingAnswer;
+import com.gdut.ExamSystem.model.BlankFillingJunction;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
+import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
+import com.gdut.ExamSystem.model.ChoiceQuestionJunction;
 import com.gdut.ExamSystem.model.EassyQuestion;
+import com.gdut.ExamSystem.model.EassyQuestionJunction;
 import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.TestPaper;
@@ -50,19 +56,42 @@ public class ExamServiceImp implements ExamService {
 	@Resource(name="StudentExamJunctionMapper")
 	private StudentExamJunctionMapper studentExamJunctionMapper;
 	
+	@Resource(name="CountExamJunctionMapper")
+	private CountExamJunctionMapper countExamJunctionMapper;
+	
 	@Override
-	public List<Integer> findChoiceQuestionOfExam(int examID) {
-		return choiceQuestionJunctionMapper.findAllChoiceQuestionOfExam(examID);
+	public List<ChoiceQuestion> findChoiceQuestionOfExam(String examID) {
+		List<ChoiceQuestionJunction> choices = choiceQuestionJunctionMapper.findAllChoiceQuestionOfExam(examID);
+		List<ChoiceQuestion> choiceQuestions = new ArrayList<>();
+		for(ChoiceQuestionJunction choice : choices){
+			choiceQuestions.add(choiceQuestionMapper.selectByPrimaryKey(choice.getChoiceQuestionId()));
+		}
+		return choiceQuestions;
+	}
+
+	@Override 
+	public List<BlankFillingQuestionWithAnswers> findBlankFillingQuestionOfExam(String examID) {
+		List<BlankFillingJunction> blanks = blankFillingJunctionMapper.findAllBlankFillingQuestionOfExam(examID);
+		List<BlankFillingQuestionWithAnswers> blankFillingQuestions = new ArrayList<>();
+		for(BlankFillingJunction blank  : blanks){
+			int blankFillingQuestionId = blank.getBlankFillingQuestionId();
+			BlankFillingQuestionWithAnswers item = new BlankFillingQuestionWithAnswers();
+			item.setBlankFillingQuestionId(blankFillingQuestionId);
+			item.setTitle(blankFillingQuestionMapper.selectByPrimaryKey(blankFillingQuestionId).getTitle());
+			item.setAnswers(blankFillingAnswerMapper.selectByQuestionID(blankFillingQuestionId));
+			blankFillingQuestions.add(item);
+		}
+		return blankFillingQuestions;
 	}
 
 	@Override
-	public List<Integer> findBlankFillingQuestionOfExam(int examID) {
-		return blankFillingJunctionMapper.findAllBlankFillingQuestionOfExam(examID);
-	}
-
-	@Override
-	public List<Integer> findEassyQuestionOfExam(int examID) {
-		return eassyQuestionJunctionMapper.findAllEassyQuestionOfExam(examID);
+	public List<EassyQuestion> findEassyQuestionOfExam(String examID) {
+		List<EassyQuestionJunction> eassyQuestion = eassyQuestionJunctionMapper.findAllEassyQuestionOfExam(examID);
+		List<EassyQuestion> eassyQuestions = new ArrayList<>();
+		for(EassyQuestionJunction eassy : eassyQuestion){
+			eassyQuestions.add(eassyQuestionMapper.selectByPrimaryKey(eassy.getEassyQuestionId()));
+		}
+		return eassyQuestions;
 	}
 
 	@Override
@@ -76,8 +105,18 @@ public class ExamServiceImp implements ExamService {
 	}
 
 	@Override
-	public List<BlankFillingQuestion> findAllBlankFillingQuestion() {
-		return blankFillingQuestionMapper.selectAll();
+	public List<BlankFillingQuestionWithAnswers> findAllBlankFillingQuestion() {
+		List<BlankFillingQuestion> blank = blankFillingQuestionMapper.selectAll();
+		List<BlankFillingQuestionWithAnswers> blankFillingQuestions = new ArrayList<>();
+		for(int i=0;i<blank.size();i++){
+			BlankFillingQuestionWithAnswers item = new BlankFillingQuestionWithAnswers();
+			item.setBlankFillingQuestionId(blank.get(i).getBlankFillingQuestionId());
+			item.setTitle(blank.get(i).getTitle());
+			item.setAnswers(blankFillingAnswerMapper.selectByQuestionID(blank.get(i).getBlankFillingQuestionId()));
+			blankFillingQuestions.add(item);
+		}
+		
+		return blankFillingQuestions;
 	}
 
 	@Override
@@ -86,18 +125,18 @@ public class ExamServiceImp implements ExamService {
 	}
 
 	@Override
-	public String generateAnswer(int examID) {
-		List<Integer> choiceQuestionID = findChoiceQuestionOfExam(examID);
+	public String generateAnswer(String examID) {
+		List<ChoiceQuestionJunction> choiceQuestionID = choiceQuestionJunctionMapper.findAllChoiceQuestionOfExam(examID);
 		ChoiceQuestion choiceQuestion = new ChoiceQuestion();
-		List<Integer> blankFillingQuestionID = findBlankFillingQuestionOfExam(examID);
-		List<Integer> eassyQuestionID = findEassyQuestionOfExam(examID);
+		List<BlankFillingJunction> blankFillingQuestionID = blankFillingJunctionMapper.findAllBlankFillingQuestionOfExam(examID);
+		List<EassyQuestionJunction> eassyQuestionID = eassyQuestionJunctionMapper.findAllEassyQuestionOfExam(examID);
 		EassyQuestion eassyQuestion = new EassyQuestion();
 		
 		StringBuilder save = new StringBuilder();
 		save.append("标准答案如下：/n 一、选择题:/n");
 		for(int i=1;i<=choiceQuestionID.size();i++){
 			save.append(i+".");
-			int choiceQuestionId = choiceQuestionID.get(i-1);
+			int choiceQuestionId = choiceQuestionID.get(i-1).getChoiceQuestionId();
 			choiceQuestion = choiceQuestionMapper.selectByPrimaryKey(choiceQuestionId);
 			save.append(choiceQuestion.getAnswer()+"   ");
 		}
@@ -105,21 +144,20 @@ public class ExamServiceImp implements ExamService {
 		List<BlankFillingAnswer> bfAnswer = null;
 		for(int i=1;i<=blankFillingQuestionID.size();i++){
 			save.append(i+".");
-			int blankFillingQuestionId = blankFillingQuestionID.get(i-1);
+			int blankFillingQuestionId = blankFillingQuestionID.get(i-1).getBlankFillingQuestionId();
 			bfAnswer = blankFillingAnswerMapper.selectByQuestionID(blankFillingQuestionId);
 			for(int j=1;j<=bfAnswer.size();j++){
 				for(int k=0;k<bfAnswer.size();k++){
 					if (j==bfAnswer.get(k).getOrders()) {
 						save.append(bfAnswer.get(k).getAnswer());
 					}
-				}
+				} 
 			}
-			
-		}
+		} 
 		save.append("/n三、简答题：/n");
 		for(int i=1;i<=eassyQuestionID.size();i++){
 			save.append(i+".");
-			int eassyQuestionId = eassyQuestionID.get(i-1);
+			int eassyQuestionId = eassyQuestionID.get(i-1).getEassyQuestionId();
 			eassyQuestion = eassyQuestionMapper.selectByPrimaryKey(eassyQuestionId);
 			save.append(eassyQuestion.getAnswer()+"    ");
 		}
@@ -129,27 +167,27 @@ public class ExamServiceImp implements ExamService {
 	}
 
 	@Override
-	public TestPaper findExamById(int  examId) {
+	public TestPaper findExamById(String  examId) {
 		return  testPaperMapper.selectByPrimaryKey(examId);
 	}
 
 	@Override
-	public List<Long> findStudentScoreBelow(int examId, int score) {
+	public List<Long> findStudentScoreBelow(String examId, int score) {
 		return studentExamJunctionMapper.findStudentScoreBelow(examId, score);
 	}
 
 	@Override
-	public List<Long> findStudentScoreHiger(int examId, int score) {
+	public List<Long> findStudentScoreHiger(String examId, int score) {
 		return studentExamJunctionMapper.findStudentScoreHiger(examId, score);
 	}
 
 	@Override
-	public List<Long> findStudentScoreBetween(int examId, int highScore, int lowScore) {
+	public List<Long> findStudentScoreBetween(String examId, int highScore, int lowScore) {
 		return studentExamJunctionMapper.findStudentScoreBetween(examId, highScore, lowScore);
 	}
 
 	@Override
-	public int findStudentScore(int examId, long studentId) {
+	public int findStudentScore(String examId, long studentId) {
 		StudentExamJunctionKey key = new StudentExamJunctionKey();
 		key.setExamId(examId);
 		key.setStudentId(studentId);
@@ -168,11 +206,16 @@ public class ExamServiceImp implements ExamService {
 
 	@Override
 	public List<TestPaper> findAllExamByTeacherCount(String count) {
-		return testPaperMapper.findAllExamByTeacherCount(count);
+		List<String> examIds = countExamJunctionMapper.findAllExamByTeacherCount(count);
+		List<TestPaper> exams = new ArrayList<>();
+		for(String examId : examIds){
+			exams.add(testPaperMapper.selectByPrimaryKey(examId));
+		}
+		return exams;
 	}
 
 	@Override
-	public int addStudentOfExam(int examId, long studentId) {
+	public int addStudentOfExam(String examId, long studentId) {
 		StudentExamJunction record = new StudentExamJunction();
 		record.setExamId(examId);
 		record.setStudentId(studentId);
@@ -180,7 +223,7 @@ public class ExamServiceImp implements ExamService {
 	}
 
 	@Override
-	public int changeStudentScore(int examId, long studentId, int score) {
+	public int changeStudentScore(String examId, long studentId, int score) {
 		StudentExamJunction record = new StudentExamJunction();
 		record.setExamId(examId);
 		record.setStudentId(studentId);

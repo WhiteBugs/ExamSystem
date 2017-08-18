@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.TrueFalseQuestionJunctionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.TrueFalseQuestionJunction">
+    <id column="true_false_question_true_false_question_id" jdbcType="INTEGER" property="trueFalseQuestionTrueFalseQuestionId" />
+    <id column="test_paper_Exam_ID" jdbcType="VARCHAR" property="testPaperExamId" />
+    <result column="order" jdbcType="VARCHAR" property="order" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    true_false_question_true_false_question_id, test_paper_Exam_ID, order
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestionJunctionKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from true_false_question_junction
+    where true_false_question_true_false_question_id = #{trueFalseQuestionTrueFalseQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestionJunctionKey">
+    delete from true_false_question_junction
+    where true_false_question_true_false_question_id = #{trueFalseQuestionTrueFalseQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestionJunction">
+    insert into true_false_question_junction (true_false_question_true_false_question_id, test_paper_Exam_ID, 
+      order)
+    values (#{trueFalseQuestionTrueFalseQuestionId,jdbcType=INTEGER}, #{testPaperExamId,jdbcType=VARCHAR}, 
+      #{order,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestionJunction">
+    insert into true_false_question_junction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trueFalseQuestionTrueFalseQuestionId != null">
+        true_false_question_true_false_question_id,
+      </if>
+      <if test="testPaperExamId != null">
+        test_paper_Exam_ID,
+      </if>
+      <if test="order != null">
+        order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trueFalseQuestionTrueFalseQuestionId != null">
+        #{trueFalseQuestionTrueFalseQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="testPaperExamId != null">
+        #{testPaperExamId,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null">
+        #{order,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestionJunction">
+    update true_false_question_junction
+    <set>
+      <if test="order != null">
+        order = #{order,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where true_false_question_true_false_question_id = #{trueFalseQuestionTrueFalseQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestionJunction">
+    update true_false_question_junction
+    set order = #{order,jdbcType=VARCHAR}
+    where true_false_question_true_false_question_id = #{trueFalseQuestionTrueFalseQuestionId,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+  </update>
+</mapper>

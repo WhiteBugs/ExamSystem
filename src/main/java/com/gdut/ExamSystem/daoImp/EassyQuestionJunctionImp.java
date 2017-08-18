@@ -51,7 +51,7 @@ public class EassyQuestionJunctionImp implements EassyQuestionJunctionMapper {
 	}
 
 	@Override
-	public List<Integer> findAllEassyQuestionOfExam(int examID) {
+	public List<EassyQuestionJunction> findAllEassyQuestionOfExam(String examID) {
 		return sqlSession.selectList(NAME_SPACE+"findAllEassyQuestionOfExam",examID);
 	}
 

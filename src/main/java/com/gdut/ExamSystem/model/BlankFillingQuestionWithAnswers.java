@@ -1,16 +1,17 @@
 package com.gdut.ExamSystem.model;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class BlankFillingQuestionWithAnswers extends BlankFillingQuestion {
 
-	private ArrayList<BlankFillingAnswer> answers;
+	private List<BlankFillingAnswer> answers;
 	
-	private void setAnswers(ArrayList<BlankFillingAnswer> answers){
+	public void setAnswers(List<BlankFillingAnswer> answers){
 		this.answers = answers;
 	}
 	
-	private ArrayList<BlankFillingAnswer> getAnswers(){
+	public List<BlankFillingAnswer> getAnswers(){
 		return this.answers;
 	}
 }

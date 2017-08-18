@@ -50,10 +50,10 @@ public class BlankFillingAnswerOfStudentJunctionMapperImp implements BlankFillin
 	}
 
 	@Override
-	public List<BlankFillingAnswerOfStudentJunction> selectStudentAllBlankFillingAnswerJunction(int examId,
+	public List<BlankFillingAnswerOfStudentJunction> selectStudentAllBlankFillingAnswerJunction(String examId,
 			long studentId) {
 		BlankFillingAnswerOfStudentJunctionKey key = new BlankFillingAnswerOfStudentJunctionKey();
-		key.setExamId(examId);
+		key.setTestPaperExamId(examId);
 		key.setStudentId(studentId);
 		return sqlSession.selectList(NAME_SPACE+"selectStudentAllBlankFilling",key);
 	}

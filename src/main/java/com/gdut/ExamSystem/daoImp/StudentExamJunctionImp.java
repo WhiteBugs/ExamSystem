@@ -46,24 +46,24 @@ public class StudentExamJunctionImp implements StudentExamJunctionMapper {
 	}
 	
 	@Override
-	public List<Long> findStudentScoreBelow(int examId, int score) {
-		Map<String, Integer> map = new HashMap<>();
+	public List<Long> findStudentScoreBelow(String examId, int score) {
+		Map map = new HashMap<>();
 		map.put("examId", examId);
 		map.put("score", score);
 		return sqlSession.selectList(NAME_SPACE+"findStudentScoreBelow",map);
 	}
 	
 	@Override
-	public List<Long> findStudentScoreHiger(int examId, int score) {
-		Map<String, Integer> map = new HashMap<>();
+	public List<Long> findStudentScoreHiger(String examId, int score) {
+		Map map = new HashMap<>();
 		map.put("examId", examId);
 		map.put("score", score);
 		return sqlSession.selectList(NAME_SPACE+"findStudentScoreHiger",map);
 	}
 	
 	@Override
-	public List<Long> findStudentScoreBetween(int examId, int highScore, int lowScore) {
-		Map<String, Integer> map = new HashMap<>();
+	public List<Long> findStudentScoreBetween(String examId, int highScore, int lowScore) {
+		Map map = new HashMap<>();
 		map.put("examId", examId);
 		map.put("highScore", highScore);
 		map.put("lowScore", lowScore);
@@ -71,12 +71,12 @@ public class StudentExamJunctionImp implements StudentExamJunctionMapper {
 	}
 	
 	@Override
-	public int deleteByExamID(int examID) {
+	public int deleteByExamID(String examID) {
 		return sqlSession.delete(NAME_SPACE+"deleteByExamID",examID);
 	}
 	
 	@Override
-	public List<Long> findAllStudentIDByExamID(int examID) {
+	public List<Long> findAllStudentIDByExamID(String examID) {
 		return sqlSession.selectList(NAME_SPACE+"findAllStudentIDByExamID",examID);
 	}
 	

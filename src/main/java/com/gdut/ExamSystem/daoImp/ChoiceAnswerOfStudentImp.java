@@ -51,9 +51,9 @@ public class ChoiceAnswerOfStudentImp implements ChoiceAnswerOfStudentMapper {
 	}
 
 	@Override
-	public List<ChoiceAnswerOfStudent> selectStudentAllChoiceAnswer(int examId, long studentId) {
+	public List<ChoiceAnswerOfStudent> selectStudentAllChoiceAnswer(String examId, long studentId) {
 		ChoiceAnswerOfStudentKey key = new ChoiceAnswerOfStudentKey();
-		key.setExamId(examId);
+		key.setTestPaperExamId(examId);
 		key.setStudentId(studentId);
 		return sqlSession.selectList(NAME_SPACE+"selectStudentAllChoiceAnswer",key);
 	}

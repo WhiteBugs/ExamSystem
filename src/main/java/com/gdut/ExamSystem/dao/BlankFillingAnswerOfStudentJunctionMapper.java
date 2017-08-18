@@ -18,5 +18,5 @@ public interface BlankFillingAnswerOfStudentJunctionMapper {
 
     int updateByPrimaryKey(BlankFillingAnswerOfStudentJunction record);
    
-    List<BlankFillingAnswerOfStudentJunction> selectStudentAllBlankFillingAnswerJunction(int examId, long studentId);
+    List<BlankFillingAnswerOfStudentJunction> selectStudentAllBlankFillingAnswerJunction(String examId, long studentId);
 }

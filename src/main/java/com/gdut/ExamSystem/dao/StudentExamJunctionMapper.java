@@ -18,15 +18,15 @@ public interface StudentExamJunctionMapper {
 
     int updateByPrimaryKey(StudentExamJunction record);
     
-    List<Long> findStudentScoreBelow(int examId, int score);
+    List<Long> findStudentScoreBelow(String examId, int score);
     
-    List<Long> findStudentScoreHiger(int examId, int score);
+    List<Long> findStudentScoreHiger(String examId, int score);
     
-    List<Long> findStudentScoreBetween(int examId, int highScore, int lowScore);
+    List<Long> findStudentScoreBetween(String examId, int highScore, int lowScore);
 
-	int deleteByExamID(int ExamID);
+	int deleteByExamID(String ExamID);
 
-	List<Long> findAllStudentIDByExamID(int examID);
+	List<Long> findAllStudentIDByExamID(String examID);
 
 	Long findOneStudentIDInExam(StudentExamJunctionKey key);
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.CountExamJunctionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.CountExamJunctionKey">
+    <id column="teacher_COUNT" jdbcType="VARCHAR" property="teacherCount" />
+    <id column="test_paper_Exam_ID" jdbcType="VARCHAR" property="testPaperExamId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.CountExamJunctionKey">
+    delete from count_exam_junction
+    where teacher_COUNT = #{teacherCount,jdbcType=VARCHAR}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.CountExamJunctionKey">
+    insert into count_exam_junction (teacher_COUNT, test_paper_Exam_ID)
+    values (#{teacherCount,jdbcType=VARCHAR}, #{testPaperExamId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.CountExamJunctionKey">
+    insert into count_exam_junction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherCount != null">
+        teacher_COUNT,
+      </if>
+      <if test="testPaperExamId != null">
+        test_paper_Exam_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherCount != null">
+        #{teacherCount,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperExamId != null">
+        #{testPaperExamId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="findAllTeacherCountsByExam" parameterType="java.lang.String" resultType="java.lang.String">
+    select teacher_COUNT from count_exam_junction
+    where test_paper_Exam_ID=#{testPaperExamId,jdbcType=VARCHAR}
+  </select>
+  <select id="findAllExamByTeacherCounts" parameterType="java.lang.String" resultType="java.lang.String">
+    select test_paper_Exam_ID from count_exam_junction
+    where teacher_COUNT=#{teacherCount,jdbcType=VARCHAR}
+  </select>
+</mapper>

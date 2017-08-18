@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.TrueFalseQuestionMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.TrueFalseQuestion">
+    <id column="true_false_question_id" jdbcType="INTEGER" property="trueFalseQuestionId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    true_false_question_id, title, answer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from true_false_question
+    where true_false_question_id = #{trueFalseQuestionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from true_false_question
+    where true_false_question_id = #{trueFalseQuestionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestion">
+    insert into true_false_question (true_false_question_id, title, answer
+      )
+    values (#{trueFalseQuestionId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestion">
+    insert into true_false_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trueFalseQuestionId != null">
+        true_false_question_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trueFalseQuestionId != null">
+        #{trueFalseQuestionId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestion">
+    update true_false_question
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where true_false_question_id = #{trueFalseQuestionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.TrueFalseQuestion">
+    update true_false_question
+    set title = #{title,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR}
+    where true_false_question_id = #{trueFalseQuestionId,jdbcType=INTEGER}
+  </update>
+</mapper>

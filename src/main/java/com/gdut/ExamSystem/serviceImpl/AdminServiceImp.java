@@ -4,11 +4,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.gdut.ExamSystem.dao.AdminstratorMapper;
+import com.gdut.ExamSystem.dao.CountExamJunctionMapper;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.StudentMapper;
 import com.gdut.ExamSystem.dao.TeacherMapper;
 import com.gdut.ExamSystem.dao.TestPaperMapper;
 import com.gdut.ExamSystem.model.AdminstratorWithBLOBs;
+import com.gdut.ExamSystem.model.CountExamJunctionKey;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.model.StudentExamJunctionKey;
@@ -34,6 +36,9 @@ public class AdminServiceImp implements AdminService {
 	
 	@Resource(name="StudentExamJunctionMapper")
 	private StudentExamJunctionMapper studentExamJunctionMapper;
+	
+	@Resource(name="CountExamJunctionMapper")
+	private CountExamJunctionMapper countExamJunctionMapper;
 
 	
 	@Override
@@ -72,9 +77,9 @@ public class AdminServiceImp implements AdminService {
 	}
 
 	@Override
-	public void addStudent(int examId, Student student) {
+	public void addStudent(String examId, Student student) {
 		StudentExamJunction record = new StudentExamJunction();
-		record.setExamId(examId);
+		record.setExamId(examId);;
 		record.setStudentId(student.getStudentId());
 		record.setScore(0);
 		studentExamJunctionMapper.insert(record);
@@ -86,7 +91,7 @@ public class AdminServiceImp implements AdminService {
 	}
 
 	@Override
-	public void deleteStudent(int examId,  Student student) {
+	public void deleteStudent(String examId,  Student student) {
 		StudentExamJunctionKey record = new StudentExamJunctionKey();
 		record.setExamId(examId);
 		record.setStudentId(student.getStudentId());
@@ -94,10 +99,14 @@ public class AdminServiceImp implements AdminService {
 	}
 
 	@Override
-	public void addTeacher(int examId, Teacher teacher) {
+	public void addTeacher(String examId, List<String> teachers) {
 		TestPaper testPaper = testPaperMapper.selectByPrimaryKey(examId);
-		testPaper.setCount(teacher.getCount());
-		testPaperMapper.updateByPrimaryKey(testPaper);
+		for(String teacher : teachers){
+			CountExamJunctionKey key = new CountExamJunctionKey();
+			key.setTeacherCount(teacher);
+			key.setTestPaperExamId(examId);
+			countExamJunctionMapper.insert(key);
+		}
 	}
 
 	@Override

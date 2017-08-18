@@ -3,7 +3,7 @@ package com.gdut.ExamSystem.model;
 public class EassyQuestionJunctionKey {
     private Integer eassyQuestionId;
 
-    private Integer examId;
+    private String examId;
 
     public Integer getEassyQuestionId() {
         return eassyQuestionId;
@@ -13,11 +13,11 @@ public class EassyQuestionJunctionKey {
         this.eassyQuestionId = eassyQuestionId;
     }
 
-    public Integer getExamId() {
+    public String getExamId() {
         return examId;
     }
 
-    public void setExamId(Integer examId) {
-        this.examId = examId;
+    public void setExamId(String examId) {
+        this.examId = examId == null ? null : examId.trim();
     }
 }

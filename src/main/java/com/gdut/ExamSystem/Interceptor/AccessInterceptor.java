@@ -28,6 +28,7 @@ public class AccessInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession(true);
 		if(session.getAttribute("user")==null){
+			System.out.println("----------------------enter  prehandle  user  == null ----------");
 			response.sendRedirect(request.getContextPath()+"/login/login");
 			return false;
 		}else if(request.getRequestURI().equals("/ExamSystem/")||request.getRequestURI().equals("/ExamSystem")){

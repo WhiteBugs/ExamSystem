@@ -3,7 +3,7 @@ package com.gdut.ExamSystem.model;
 public class ChoiceQuestionJunctionKey {
     private Integer choiceQuestionId;
 
-    private Integer examId;
+    private String examId;
 
     public Integer getChoiceQuestionId() {
         return choiceQuestionId;
@@ -13,11 +13,11 @@ public class ChoiceQuestionJunctionKey {
         this.choiceQuestionId = choiceQuestionId;
     }
 
-    public Integer getExamId() {
+    public String getExamId() {
         return examId;
     }
 
-    public void setExamId(Integer examId) {
-        this.examId = examId;
+    public void setExamId(String examId) {
+        this.examId = examId == null ? null : examId.trim();
     }
 }

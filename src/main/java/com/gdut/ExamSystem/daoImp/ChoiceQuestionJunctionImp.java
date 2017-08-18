@@ -37,7 +37,7 @@ public class ChoiceQuestionJunctionImp implements ChoiceQuestionJunctionMapper {
 	public ChoiceQuestionJunction selectByPrimaryKey(ChoiceQuestionJunctionKey key) {
 		return sqlSession.selectOne(NAME_SPACE+"selectByPrimaryKey",key);
 	}
-
+  
 	@Override
 	public int updateByPrimaryKeySelective(ChoiceQuestionJunction record) {
 		return sqlSession.update(NAME_SPACE+"updateByPrimaryKeySelective",record);
@@ -49,8 +49,8 @@ public class ChoiceQuestionJunctionImp implements ChoiceQuestionJunctionMapper {
 	}
 
 	@Override
-	public List<Integer> findAllChoiceQuestionOfExam(int examID) {
-		return sqlSession.selectList(NAME_SPACE+"findAllChoiceQuestion",examID);
+	public List<ChoiceQuestionJunction> findAllChoiceQuestionOfExam(String examID) {
+		return sqlSession.selectList(NAME_SPACE+"findAllChoiceQuestionByExamId",examID);
 	}
 
 }

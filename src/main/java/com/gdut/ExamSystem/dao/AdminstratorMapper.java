@@ -8,7 +8,7 @@ import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.TeacherWithBLOBs;
 
 public interface AdminstratorMapper {
-    int deleteByPrimaryKey(String count);
+	int deleteByPrimaryKey(String count);
 
     int insert(AdminstratorWithBLOBs record);
 

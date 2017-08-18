@@ -3,7 +3,7 @@
 <mapper namespace="com.gdut.ExamSystem.dao.ChoiceQuestionJunctionMapper">
   <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.ChoiceQuestionJunction">
     <id column="Choice_Question_ID" jdbcType="INTEGER" property="choiceQuestionId" />
-    <id column="Exam_ID" jdbcType="INTEGER" property="examId" />
+    <id column="Exam_ID" jdbcType="VARCHAR" property="examId" />
     <result column="orders" jdbcType="INTEGER" property="orders" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -14,21 +14,23 @@
     <include refid="Base_Column_List" />
     from choice_question_junction
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </select>
-  <select id="findAllChoiceQuestion" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select Choice_Question_ID from choice_question_junction
-      where Exam_ID = #{examId,jdbcType=INTEGER}
+  <select id="findAllChoiceQuestionByExamId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from choice_question_junction
+    where Exam_ID = #{examId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceQuestionJunctionKey">
     delete from choice_question_junction
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.ChoiceQuestionJunction">
     insert into choice_question_junction (Choice_Question_ID, Exam_ID, orders
       )
-    values (#{choiceQuestionId,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, #{orders,jdbcType=INTEGER}
+    values (#{choiceQuestionId,jdbcType=INTEGER}, #{examId,jdbcType=VARCHAR}, #{orders,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.ChoiceQuestionJunction">
@@ -49,7 +51,7 @@
         #{choiceQuestionId,jdbcType=INTEGER},
       </if>
       <if test="examId != null">
-        #{examId,jdbcType=INTEGER},
+        #{examId,jdbcType=VARCHAR},
       </if>
       <if test="orders != null">
         #{orders,jdbcType=INTEGER},
@@ -64,12 +66,12 @@
       </if>
     </set>
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ChoiceQuestionJunction">
     update choice_question_junction
     set orders = #{orders,jdbcType=INTEGER}
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
-      and Exam_ID = #{examId,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
 </mapper>

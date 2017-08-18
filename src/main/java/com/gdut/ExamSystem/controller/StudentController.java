@@ -1,10 +1,10 @@
 package com.gdut.ExamSystem.controller;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
+import com.gdut.ExamSystem.model.ChoiceQuestion;
+import com.gdut.ExamSystem.model.EassyQuestion;
 import com.gdut.ExamSystem.model.ExamInfo;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.StudentExamJunction;
@@ -48,15 +50,48 @@ public class StudentController {
 	public ModelAndView Exam(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView();
 		Student student = (Student) request.getSession().getAttribute("user");
-		List<Integer> examId = studentService.findStudentExamID(student.getStudentId());
+		List<String> examId = studentService.findStudentExamID(student.getStudentId());
 		ArrayList<TestPaper> examList = new ArrayList<>();
 		if(examId!=null)
-			for(int examid : examId){
+			for(String examid : examId){
 				examList.add(examService.findExamById(examid));
 			} 
 		model.addObject("examList", examList);
 		
 		model.setViewName("student/exam/examList");
+		return model;
+	}
+	
+	@RequestMapping(value="enterExam")
+	public ModelAndView enterExam(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("exam/examTemplet");
+		String examId = request.getParameter("examId");
+		if(examId==null){
+			model.setViewName("student/info");
+			model.addObject("info", "没有获得试卷ID");
+			return model;
+		}
+		File dir = new File(request.getSession().getServletContext().getRealPath("/")+"/WEB-INF/view/exam/"+examId+"/"+examId+".html");
+		if(dir.exists()){
+			System.out.println("采用了静态页面------路径是"+dir.getPath());
+			model.setViewName("exam/"+examId+"/"+examId);
+			return model;
+		}else{
+			TestPaper exam = examService.findExamById(examId);
+			model.addObject("exam", exam);
+			List<ChoiceQuestion> choiceQuestions = examService.findChoiceQuestionOfExam(examId);
+			if(choiceQuestions!=null&&choiceQuestions.size()>0){
+				model.addObject("choiceQuestions", choiceQuestions);
+			}
+			List<BlankFillingQuestionWithAnswers> blankFillingQuestions = examService.findBlankFillingQuestionOfExam(examId);
+			if(blankFillingQuestions!=null&&blankFillingQuestions.size()>0){
+				model.addObject("blankFillingQuestions", blankFillingQuestions);
+			}
+			List<EassyQuestion> eassyQuestions = examService.findEassyQuestionOfExam(examId);
+			if(eassyQuestions!=null&&eassyQuestions.size()>0){
+				model.addObject("eassyQuestions", eassyQuestions);
+			}
+		}
 		return model;
 	}
 

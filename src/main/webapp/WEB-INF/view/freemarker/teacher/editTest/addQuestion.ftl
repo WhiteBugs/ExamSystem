@@ -35,11 +35,13 @@
 
 <div class="panel panel-default panel-group" id="accordion">
     <div class="panel panel-default">
-    <form action="/ExamSystem/teacher/editTest/addQuestion/commmit">
+    <form action="/ExamSystem/teacher/editQuestion/addQuestion/commit">
+    <input type="hidden" name="examId" value="${examId}">
     <#if choiceQuestions??>
+    <input type="hidden" name="type" value="choiceQuestion">
     <#list choiceQuestions as choiceQuestion>
        <div class="panel-heading">
-            <input type="checkbox" name="${choiceQuestion_index}">
+            <input type="checkbox" name="id" value="${choiceQuestion.choiceQuestionId}">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse_${choiceQuestion_index}">
                ${choiceQuestion.title}
             </a>
@@ -59,9 +61,10 @@
     </#if>
     
     <#if blankFillingQuestions??>
+    <input type="hidden" name="type" value="blankFillingQuestion">
     <#list blankFillingQuestions as blankFillingQuestion>
        <div class="panel-heading">
-            <input type="checkbox" name="${blankFillingQuestion_index}">
+            <input type="checkbox" name="id" value="${blankFillingQuestion.blankFillingQuestionId}">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse_${blankFillingQuestion_index}">
                ${blankFillingQuestion.title}
             </a>
@@ -69,7 +72,7 @@
         <div id="collapse_${blankFillingQuestion_index}" class="panel-collapse collapse">
             <div class="panel-body">
                　　　　　<#list blankFillingQuestion.answers as answer>
-               ${answer_index }. ${answer }     
+               ${answer_index+1 }. ${answer.answer }     
             </#list>
             </div>
         </div>
@@ -78,9 +81,10 @@
     
     
     <#if eassyQuestions??>
+    <input type="hidden" name="type" value="eassyQuestion">
     <#list eassyQuestions as eassyQuestion>
         <div class="panel-heading">
-            <input type="checkbox" name="${eassyQuestion_index}">
+            <input type="checkbox" name="id" value="${eassyQuestion.eassyQuestionId}">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse_${eassyQuestion_index}">
                ${eassyQuestion.title}
             </a>
@@ -92,6 +96,7 @@
         </div>
     </#list>
     </#if>
+    <input type="submit">
     </form>
     </div>
 </div>

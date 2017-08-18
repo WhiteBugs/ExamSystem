@@ -3,11 +3,11 @@ package com.gdut.ExamSystem.model;
 public class BlankFillingAnswerOfStudentJunctionKey {
     private Integer blankFillingAnswerIdOfStudent;
 
-    private Integer examId;
-
     private Long studentId;
 
     private Integer orders;
+
+    private String testPaperExamId;
 
     public Integer getBlankFillingAnswerIdOfStudent() {
         return blankFillingAnswerIdOfStudent;
@@ -15,14 +15,6 @@ public class BlankFillingAnswerOfStudentJunctionKey {
 
     public void setBlankFillingAnswerIdOfStudent(Integer blankFillingAnswerIdOfStudent) {
         this.blankFillingAnswerIdOfStudent = blankFillingAnswerIdOfStudent;
-    }
-
-    public Integer getExamId() {
-        return examId;
-    }
-
-    public void setExamId(Integer examId) {
-        this.examId = examId;
     }
 
     public Long getStudentId() {
@@ -39,5 +31,13 @@ public class BlankFillingAnswerOfStudentJunctionKey {
 
     public void setOrders(Integer orders) {
         this.orders = orders;
+    }
+
+    public String getTestPaperExamId() {
+        return testPaperExamId;
+    }
+
+    public void setTestPaperExamId(String testPaperExamId) {
+        this.testPaperExamId = testPaperExamId == null ? null : testPaperExamId.trim();
     }
 }

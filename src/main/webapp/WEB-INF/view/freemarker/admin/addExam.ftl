@@ -60,6 +60,10 @@
 		xmlhttp.open("GET","/ExamSystem/admin/addExam/studentType/person?major="+document.getElementById("major").value+"&&class="+document.getElementById("class").value,true);
 		xmlhttp.send();
     }
+    function loadSubmit(){
+    	document.getElementById("submit").innerHTML="<input type=\"submit\">";
+    }
+    
    </script>
 </head>
 <body>
@@ -84,7 +88,6 @@
    </div>
    </div>
 </nav>	
-<body>
 <h3>添加考试</h3>
 <form action="/ExamSystem/admin/addExam/commit" method="post">
     <div class="panel">
@@ -107,10 +110,8 @@
     		
     	</div>
     	<div name="selectTeacher" >
-    	    <label for="teacher">添加考官</label>
-    	    <select id="teacher" name="teacher">
-    	      <#list teachers as teacher><option value="${teacher.count}">${teacher.count}</option></#list>
-    	    </select>
+    	    <label for="teachers">添加考官</label>
+    	    <#list teachers as teacher><input type="checkbox" name="teachers" value="${teacher.count}">${teacher.count}</#list>    
     		
     	</div>
     	<div>
@@ -122,13 +123,12 @@
     			<option value="person">以个体为单位添加</option>
     		</select>
     		<div id="selectStudent">
-    			<#list majors as major><input type="checkbox" name="major">${major}</#list>
+    			
     		</div>
     		
     	</div>
     </div>
-    <input type="submit">
+    
 </form>
-</body>
 </body>
 </html>

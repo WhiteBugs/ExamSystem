@@ -57,9 +57,9 @@ public class EassyAnswerOfStudentImp implements EassyAnswerOfStudentMapper {
 	}
 
 	@Override
-	public List<EassyAnswerOfStudent> selectStudentAllEassyAnswer(int examId, long studentId) {
+	public List<EassyAnswerOfStudent> selectStudentAllEassyAnswer(String examId, long studentId) {
 		EassyAnswerOfStudentKey key = new EassyAnswerOfStudentKey();
-		key.setExamId(examId);
+		key.setTestPaperExamId(examId);
 		key.setStudentId(studentId);
 		return sqlSession.selectList(NAME_SPACE+"selectStudentAllEassyAnswer",key);
 	}

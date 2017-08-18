@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<#list persons as person><input type="checkbox" name="student" value="${person.studentId}">${person.studentId}</#list>
+<div>
+   <#list persons as person><input type="checkbox" name="student" value="${person.studentId}">${person.studentId}</#list>
+</div>
+<div>
+   <input type="submit">
+</div>
 </body>
 </html>

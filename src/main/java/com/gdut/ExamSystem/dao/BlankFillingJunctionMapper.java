@@ -14,7 +14,7 @@ public interface BlankFillingJunctionMapper {
 
     BlankFillingJunction selectByPrimaryKey(BlankFillingJunctionKey key);
 
-    List<Integer> findAllBlankFillingQuestionOfExam(int examID);
+    List<BlankFillingJunction> findAllBlankFillingQuestionOfExam(String examID);
     
     int updateByPrimaryKeySelective(BlankFillingJunction record);
 

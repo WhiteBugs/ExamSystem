@@ -23,6 +23,7 @@ import com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction;
 import com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunctionKey;
 import com.gdut.ExamSystem.model.BlankFillingJunction;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
+import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudent;
 import com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
@@ -50,6 +51,7 @@ public class TeacherServiceImp implements TeacherService {
 	
 	@Resource(name="BlankFillingAnswerMapper")
 	private BlankFillingAnswerMapper blankFillingAnswerMapper;
+	
 	
 	@Resource(name="BlankFillingQuestionMapper")
 	private BlankFillingQuestionMapper blankFillingQuestionMapper;
@@ -136,7 +138,7 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int addChoiceQuestionOfExam(int examId, int choiceQuestionId, int order) {
+	public int addChoiceQuestionOfExam(String examId, int choiceQuestionId, int order) {
 		ChoiceQuestionJunction record = new ChoiceQuestionJunction();
 		record.setChoiceQuestionId(choiceQuestionId);
 		record.setExamId(examId);
@@ -145,9 +147,9 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int addBlankFillingQuestionOfExam(int examId, int blankFillingQuestionId, int order) {
+	public int addBlankFillingQuestionOfExam(String examId, int blankFillingQuestionId, int order) {
 		BlankFillingJunction record = new BlankFillingJunction();
-		record.setExamId(examId);
+		record.setTestPaperExamId(examId);
 		record.setBlankFillingQuestionId(blankFillingQuestionId);
 		record.setOrders(order);
 		return blankFillingJunctionMapper.insert(record);
@@ -155,7 +157,7 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int addEassyQuestionOfExam(int examId, int eassyQuestionId, int order) {
+	public int addEassyQuestionOfExam(String examId, int eassyQuestionId, int order) {
 		EassyQuestionJunction record = new EassyQuestionJunction();
 		record.setEassyQuestionId(eassyQuestionId);
 		record.setExamId(examId);
@@ -164,9 +166,9 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int updateChoiceQuestionScoreOfStudent(int examId, long studentId, int orders, int score) {
+	public int updateChoiceQuestionScoreOfStudent(String examId, long studentId, int orders, int score) {
 		ChoiceAnswerOfStudentKey key = new ChoiceAnswerOfStudentKey();
-		key.setExamId(examId);
+		key.setTestPaperExamId(examId);;
 		key.setStudentId(studentId);
 		key.setOrders(orders);
         ChoiceAnswerOfStudent record = choiceAnswerOfStudentMapper.selectByPrimaryKey(key);
@@ -175,9 +177,9 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int updateBlankFillingQuestionScoreOfStudent(int examId, long studentId, int orders, int score) {
+	public int updateBlankFillingQuestionScoreOfStudent(String examId, long studentId, int orders, int score) {
 		BlankFillingAnswerOfStudentJunctionKey key = new BlankFillingAnswerOfStudentJunctionKey();
-		key.setExamId(examId);
+		key.setTestPaperExamId(examId);
 		key.setStudentId(studentId);
 		key.setOrders(orders);
 		BlankFillingAnswerOfStudentJunction record = blankFillingAnswerOfStudentJunctionMapper.selectByPrimaryKey(key);
@@ -186,9 +188,9 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int updateEassyQuestionScoreOfStudent(int examId, long studentId, int orders, int score) {
+	public int updateEassyQuestionScoreOfStudent(String examId, long studentId, int orders, int score) {
 		EassyAnswerOfStudentKey key = new EassyAnswerOfStudentKey();
-		key.setExamId(examId);
+		key.setTestPaperExamId(examId);
 		key.setStudentId(studentId);
 		key.setOrders(orders);
 		EassyAnswerOfStudent record = eassyAnswerOfStudentMapper.selectByPrimaryKey(key);
@@ -197,7 +199,7 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int getChoiceQuestionScoreOfStudent(int examId, long studentId) {
+	public int getChoiceQuestionScoreOfStudent(String examId, long studentId) {
 		List<ChoiceAnswerOfStudent> answerList = choiceAnswerOfStudentMapper.selectStudentAllChoiceAnswer(examId, studentId);
 		int score = 0;
 		for(ChoiceAnswerOfStudent answer : answerList){
@@ -207,7 +209,7 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int getBlankFillingQuestionScoreOfStudent(int examId, long studentId) {
+	public int getBlankFillingQuestionScoreOfStudent(String examId, long studentId) {
 		List<BlankFillingAnswerOfStudentJunction> answerList = blankFillingAnswerOfStudentJunctionMapper.selectStudentAllBlankFillingAnswerJunction(examId, studentId);
 		int score = 0;
 		for(BlankFillingAnswerOfStudentJunction answer : answerList){
@@ -217,7 +219,7 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public int getEassyQuestionScoreOfStudent(int examId, long studentId) {
+	public int getEassyQuestionScoreOfStudent(String examId, long studentId) {
 		List<EassyAnswerOfStudent> answerList = eassyAnswerOfStudentMapper.selectStudentAllEassyAnswer(examId, studentId);
 		int score = 0;
 		for(EassyAnswerOfStudent answer : answerList){
@@ -271,8 +273,12 @@ public class TeacherServiceImp implements TeacherService {
 	}
 
 	@Override
-	public BlankFillingQuestion findBlankFillingQuestionById(int id) {
-		return blankFillingQuestionMapper.selectByPrimaryKey(id);
+	public BlankFillingQuestionWithAnswers findBlankFillingQuestionById(int id) {
+		BlankFillingQuestionWithAnswers blankFillingQuestion = new BlankFillingQuestionWithAnswers();
+		blankFillingQuestion.setBlankFillingQuestionId(id);
+		blankFillingQuestion.setTitle(blankFillingQuestionMapper.selectByPrimaryKey(id).getTitle());
+		blankFillingQuestion.setAnswers(blankFillingAnswerMapper.selectByQuestionID(id));
+		return blankFillingQuestion;
 	}
 
 	@Override

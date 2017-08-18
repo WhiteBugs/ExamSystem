@@ -38,7 +38,7 @@ public class BlankFillingJunctionMapperImp implements BlankFillingJunctionMapper
 	}
 
 	@Override
-	public List<Integer> findAllBlankFillingQuestionOfExam(int examID) {
+	public List<BlankFillingJunction> findAllBlankFillingQuestionOfExam(String examID) {
 		return sqlSession.selectList(NAME_SPACE+"findAllBlankFillingQuestionOfExam",examID);
 	}
 

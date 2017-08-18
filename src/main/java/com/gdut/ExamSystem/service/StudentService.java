@@ -26,7 +26,7 @@ public interface StudentService {
      public ArrayList<Student> findStudentByName(String name);
      public ArrayList<Student> findStudentByClasses(int classes);
      public ArrayList<Student> findStudentByMajor(String[] majors);
-     public List<Integer> findStudentExamID(long studentID);
+     public List<String> findStudentExamID(long studentID);
      public ArrayList<Student> findStudentByMajorAndClasses(String major,int classes);
      public List<Integer> findClassesByMajor(String major);
      public List<String> findAllMajor();
