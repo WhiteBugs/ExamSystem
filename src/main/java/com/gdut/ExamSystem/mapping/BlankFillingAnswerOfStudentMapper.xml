@@ -21,7 +21,7 @@
     where Blank_Filling_Answer_ID = #{blankFillingAnswerId,jdbcType=INTEGER}
       and Orders = #{orders,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudent">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="blankFillingAnswerId" parameterType="com.gdut.ExamSystem.model.BlankFillingAnswerOfStudent">
     insert into blank_filling_answer_of_student (Blank_Filling_Answer_ID, Orders, Answer
       )
     values (#{blankFillingAnswerId,jdbcType=INTEGER}, #{orders,jdbcType=INTEGER}, #{answer,jdbcType=VARCHAR}

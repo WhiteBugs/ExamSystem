@@ -1,36 +1,43 @@
 package com.gdut.ExamSystem.controller;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.gdut.ExamSystem.Util.GenerateHTML;
+import com.gdut.ExamSystem.Util.Generate;
+import com.gdut.ExamSystem.enums.QuestionType;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
 import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
-import com.gdut.ExamSystem.model.ChoiceQuestionJunction;
 import com.gdut.ExamSystem.model.EassyQuestion;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.service.ExamService;
 import com.gdut.ExamSystem.service.TeacherService;
+import freemarker.core.ParseException;
+import freemarker.template.Configuration;
+import freemarker.template.MalformedTemplateNameException;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateNotFoundException;
 
 
 
 @Controller
 @RequestMapping(value="teacher")
 public class TeacherController {
-	
+	private static final Logger logger = LoggerFactory.getLogger(TeacherController.class);
 	
 	@Resource(name="ExamService")
 	private ExamService examService;
@@ -51,7 +58,7 @@ public class TeacherController {
 	}
 	
 	@RequestMapping(value="exam")
-	public ModelAndView Exam(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView ExamList(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("teacher/exam/examList");
 		Teacher teacher = (Teacher)request.getSession().getAttribute("user");
 		List<TestPaper> examList = examService.findAllExamByTeacherCount(teacher.getCount());
@@ -78,8 +85,8 @@ public class TeacherController {
 			if(eassyQuestions!=null&&eassyQuestions.size()>0){
 				model.addObject("eassyQuestions", eassyQuestions);
 			}
-			
-			model.setViewName("/teacher/editTest/exam/examTemplet");
+			model.addObject("time", exam.getExamTime().toString());
+			model.setViewName("/teacher/editExam/exam/examTemplet");
 			
 		}
 		return model;
@@ -108,20 +115,44 @@ public class TeacherController {
 			if(eassyQuestions!=null&&eassyQuestions.size()>0){
 				models.put("eassyQuestions", eassyQuestions);
 			}
+			models.put("time", exam.getExamTime().toString());
 			try{
-				GenerateHTML.generateExamHTML(request, models);
-				model.addObject("info", "生成成功");
+				Generate.generateExamHTML(request, models);
+				model.addObject("info", "生成试卷成功");
 			}catch (Exception e) {
-				model.addObject("info", "生成失败");
+				model.addObject("info", "生成试卷失败");
+			}
+			try{
+				generateExamAnswer(request, examId);
+			}catch (Exception e) {
+				logger.error("------------生成答案失败--------");
+				e.printStackTrace();
 			}
 		}
 		return model;
 	}
 	
-	
-	@RequestMapping(value="addQuestion(HttpServletRequest, HttpServletResponse)")
+	@RequestMapping(value="exam/answer")
+	public ModelAndView answer (HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("teacher/info");
+		String examId = request.getParameter("examId");
+		if(examId == null){
+			model.addObject("info", "没有获得examId");
+			return model;
+		}
+		File answer = new File(request.getSession().getServletContext().getRealPath("/")+"WEB-INF/view/exam/"+examId+"/answer.html");
+		if(!answer.exists()){
+			model.addObject("info", "还没有生成答案，请先于试卷编辑页面按下生成按钮同时生成试卷和答案");
+			return model;
+		}else {
+			model.setViewName("exam/"+examId+"/answer");
+		}
+		return model;
+	}
+ 	
+	@RequestMapping(value="addQuestion")
 	public ModelAndView addQuestion(HttpServletRequest request , HttpServletResponse response){
-		ModelAndView model = new ModelAndView("teacher/addTest");	
+		ModelAndView model = new ModelAndView("teacher/addQuestion");	
 		return model;
 	}
 	
@@ -131,7 +162,7 @@ public class TeacherController {
 		String type = request.getParameter("type");
 		String id = request.getParameter("id");
 		if(id!=null){
-			model.setViewName("/teacher/editTest/editQuestion");
+			model.setViewName("/teacher/editExam/editQuestion");
 			switch (type) {
 			case "choiceQuestion":
 				model.addObject("choiceQuestion",teacherService.findChoiceQuestionById(Integer.parseInt(id)));
@@ -186,7 +217,7 @@ public class TeacherController {
 	
 	@RequestMapping(value="editQuestion/addQuestion")
 	public ModelAndView addQuestionIntoExam(HttpServletRequest request, HttpServletResponse response){
-		ModelAndView model = new ModelAndView("teacher/editTest/addQuestion");
+		ModelAndView model = new ModelAndView("teacher/editExam/addQuestion");
 		String type = request.getParameter("type");
 		String examId = request.getParameter("examId");
 		if(examId==null){
@@ -240,12 +271,12 @@ public class TeacherController {
 		String[] ids = request.getParameterValues("id");
 		if(ids==null||ids.length==0){
 			model.setViewName("teacher/info");
-			model.addObject("info", "没有选择试题，请返回上一页<a href=\"/ExamSystem/teacher/editTest/addQuestion?type=choiceQuestion\">链接</a>");
+			model.addObject("info", "没有选择试题，请返回上一页<a href=\"/ExamSystem/teacher/editExam/addQuestion?type=choiceQuestion\">链接</a>");
 			return model;
 		}
 		if(examId==null){
 			model.setViewName("teacher/info");
-			model.addObject("info", "没有获得试卷ID<a href=\"/ExamSystem/teacher/editTest/addQuestion?type=choiceQuestion\">链接</a>");
+			model.addObject("info", "没有获得试卷ID<a href=\"/ExamSystem/teacher/editExam/addQuestion?type=choiceQuestion\">链接</a>");
 			return model;
 		}
 		int order = 0;
@@ -304,7 +335,7 @@ public class TeacherController {
 			question.setAnswer(request.getParameter("answer"));
 			System.out.println("---------------------"+question.getTitle());
 			teacherService.addChoiceQuestionIntoDB(question);
-			model.setViewName("teacher/addTest/result/success");
+			model.setViewName("teacher/addQuestion/result/success");
 			break;
 		case "blankFilling":
 			BlankFillingQuestion question2 =new BlankFillingQuestion();
@@ -314,39 +345,104 @@ public class TeacherController {
 				System.out.print("--"+answer+"---");
 			}
 			teacherService.addBlankFillingQuestionIntoDB(question2, answers);
-			model.setViewName("teacher/addTest/result/success");
+			model.setViewName("teacher/addQuestion/result/success");
 			break;
 		case "eassy":
 			EassyQuestion question3 = new EassyQuestion();
 			question3.setTitle(request.getParameter("title"));
 			question3.setAnswer(request.getParameter("answer"));
 			teacherService.addEassyQuestionIntoDB(question3);
-			model.setViewName("teacher/addTest/result/success");
+			model.setViewName("teacher/addQuestion/result/success");
 			break;
-		default:model.setViewName("teacher/addTest/result/failed");
+		default:model.setViewName("teacher/addQuestion/result/failed");
 			break;
 		}
 		return model;
 	}
 	
-	@RequestMapping(value="addTest/loadPage")
+	@RequestMapping(value="addQuestion/loadPage")
 	public ModelAndView loadPage(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView();
 		System.out.println("--------loadPage---------");
 		String type = request.getParameter("type");
 		switch (type) {
 		case "choice":
-			model.setViewName("teacher/addTest/loadPage/choice");
+			model.setViewName("teacher/addQuestion/loadPage/choice");
 			break;
 		case "blankFilling":
-			model.setViewName("teacher/addTest/loadPage/blankFilling");
+			model.setViewName("teacher/addQuestion/loadPage/blankFilling");
 			break;
 		case "eassy":
-			model.setViewName("teacher/addTest/loadPage/eassy");
+			model.setViewName("teacher/addQuestion/loadPage/eassy");
 			break;
 		default:model.setViewName("/ExamSystem/info/404");
 			break;
 		}
 		return model;
+	}
+	
+	private int generateExamAnswer(HttpServletRequest request, String examId) {
+		String path = request.getSession().getServletContext().getRealPath("/")+"WEB-INF/view/exam/"+examId;
+		File dir = new File(path);
+		 if(!dir.exists()){
+			 dir.mkdirs();
+		 }
+		 File file = new File(path,"answer.html");
+		 if(!file.exists()){
+			 try {
+				file.createNewFile();
+			} catch (IOException e) {
+				logger.error("-------------创建answer.html失败-----------");
+				e.printStackTrace();
+				return -1;
+			}
+		 }
+		 FileWriter writer = null;
+		 try {
+			writer = new FileWriter(file);
+		 } catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		 } 
+		 TestPaper exam = examService.findExamById(examId);
+		 Map<Integer, String> choiceQuestionAnswers = examService.findQuestionAnswer(examId, QuestionType.choiceQuestion);
+		 Map<Integer, String> multipleQuestionAnswers = examService.findQuestionAnswer(examId, QuestionType.multipleChoiceQuestion);
+		 Map<Integer, String> trueFalseQuestionAnswers = examService.findQuestionAnswer(examId, QuestionType.trueFalseQuestion);
+		 Map<Integer, String> blankQuestionAnswers = examService.findQuestionAnswer(examId, QuestionType.blankFillingQuestion);
+		 Map<Integer, String> eassyQuestionAnswers = examService.findQuestionAnswer(examId, QuestionType.eassyQuestion);
+		 Map<String , Object> dataModel = new HashMap<>();
+		 dataModel.put("choiceQuestionAnswers", choiceQuestionAnswers);
+		 dataModel.put("multipleQuestionAnswers", multipleQuestionAnswers);
+		 dataModel.put("trueFalseQuestionAnswers", trueFalseQuestionAnswers);
+		 dataModel.put("blankQuestionAnswers", blankQuestionAnswers);
+		 dataModel.put("eassyQuestionAnswers", eassyQuestionAnswers);
+		 dataModel.put("exam", exam);
+		 Configuration configuration = new Configuration(Configuration.VERSION_2_3_26);
+		 configuration.setServletContextForTemplateLoading(request.getSession().getServletContext(), "WEB-INF/view/freemarker/exam/");
+		 try {
+			Template template = configuration.getTemplate("answerTemplet.ftl");
+			template.process(dataModel, writer);
+		} catch (TemplateNotFoundException e) {
+			logger.error("----------没有找到模板");
+			e.printStackTrace();
+			return -1;
+		} catch (MalformedTemplateNameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		} catch (ParseException e) {
+			logger.error("------------模板转换错误-----------");
+			e.printStackTrace();
+			return -1;
+		} catch (IOException e) {
+			logger.error("-------------IOException--------------");
+			e.printStackTrace();
+			return -1;
+		} catch (TemplateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		 return 0;
 	}
 }

@@ -31,7 +31,7 @@
 </nav>
 <div>
    <#if choiceQuestion??>
-   <form  role="form" action="/ExamSystem/teacher/editTest/commit">
+   <form  role="form" action="/ExamSystem/teacher/editQuestion/commit">
        <input name="type" type="text" style="display:none" value="choiceQuestion">
        <input name="id" type="text" style="display:none" value="${choiceQuestion.choiceQuestionId}">
        <div class="form-group">
@@ -66,7 +66,7 @@
    </form>
    </#if>
    <#if multipleChoiceQuestion??>
-   <form  role="form" action="/ExamSystem/teacher/editTest/commit">
+   <form  role="form" action="/ExamSystem/teacher/editQuestion/commit">
        <input name="type" type="text" style="display:none" value="multipleChoiceQuestion">
        <input name="id" type="text" style="display:none" value="${multipleChoiceQuestion.multipleChoiceQuestionId}">
        <div class="form-group">
@@ -97,7 +97,7 @@
    </form>
    </#if> 
    <#if trueFalseQuestion??>
-   <form  role="form" action="/ExamSystem/teacher/editTest/commit">
+   <form  role="form" action="/ExamSystem/teacher/editQuestion/commit">
        <input name="type" type="text" style="display:none" value="trueFalseQuestion">
        <input name="id" type="text" style="display:none" value="${trueFalseQuestion.trueFalseQuestionId}">
        <div class="form-group">
@@ -118,7 +118,7 @@
    </form>
    </#if>
    <#if blankFillingQuestion??>
-   <form  role="form" action="/ExamSystem/teacher/editTest/commit">
+   <form  role="form" action="/ExamSystem/teacher/editQuestion/commit">
        <input name="type" type="text" style="display:none" value="blankFillingQuestion">
        <input name="id" type="text" style="display:none" value="${blankFillingQuestion.blankFillingQuestionId}">
        <div class="form-group">
@@ -133,7 +133,7 @@
    </form>
    </#if> 
    <#if eassyQuestion??>
-   <form  role="form" action="/ExamSystem/teacher/editTest/commit">
+   <form  role="form" action="/ExamSystem/teacher/editQuestion/commit">
        <input name="type" type="text" style="display:none" value="eassyQuestion">
        <input name="id" type="text" style="display:none" value="${eassyQuestion.eassyQuestionId}">
        <div class="form-group">

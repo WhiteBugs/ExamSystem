@@ -30,6 +30,6 @@
    </div>
 </nav>
 添加成功  
-<a href="/ExamSystem/teacher/addTest">返回添加试题页面</a>
+<a href="/ExamSystem/teacher/addQuestion">返回添加试题页面</a>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.gdut.ExamSystem.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,8 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.gdut.ExamSystem.Util.GenerateMD5;
+import com.gdut.ExamSystem.Util.Generate;
 import com.gdut.ExamSystem.model.Adminstrator;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.Teacher;
@@ -23,6 +24,7 @@ import com.gdut.ExamSystem.service.AdminService;
 import com.gdut.ExamSystem.service.ExamService;
 import com.gdut.ExamSystem.service.StudentService;
 import com.gdut.ExamSystem.service.TeacherService;
+import com.mysql.jdbc.TimeUtil;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 
@@ -58,6 +60,76 @@ public class AdminController {
 		ModelAndView model = new ModelAndView("admin/addExam");
 		model.addObject("teachers", teacherService.findAllTeacher());
 		model.addObject("majors", studentService.findAllMajor());
+		return model;
+	}
+	
+	@RequestMapping(value="addExam/commit",method=RequestMethod.POST)
+	public ModelAndView addExamCommit(HttpServletRequest request, HttpServletResponse response) throws ParseException, MySQLIntegrityConstraintViolationException, UnsupportedEncodingException{
+		ModelAndView model = new ModelAndView();
+		request.setCharacterEncoding("UTF-8");
+		String[] students = request.getParameterValues("student");
+		String[] majors = request.getParameterValues("major");
+		String classs = request.getParameter("class");
+ 		ArrayList<Student> studentList = new ArrayList<>();
+ 		if(majors!=null){
+ 			if(classs!=null){
+ 				if(students!=null){
+ 					for(String studentId : students){
+ 						studentList.add(studentService.findStudentByStudentID(Long.parseLong(studentId)));
+ 					}
+ 				}else {
+ 					studentList = studentService.findStudentByMajorAndClasses(majors[0], Integer.parseInt(classs));
+				}
+ 			}else{
+ 				studentList = studentService.findStudentByMajor(majors);
+ 			}
+ 		}
+		String[] teacher = request.getParameterValues("teachers");
+		String examName = request.getParameter("examName");
+		String beginDate = request.getParameter("beginDate");
+		String endDate = request.getParameter("endDate");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
+		String examtime = request.getParameter("examTime");
+		TestPaper exam = new TestPaper();
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date begin = date.parse(beginDate+" "+beginTime);
+		Date end = date.parse(endDate+" "+endTime);
+		SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+		Time examTime = new Time(time.parse(examtime+":00").getTime());
+        List<String> counts = new ArrayList<>();
+        for(String teachs : teacher){
+        	counts.add(teachs);
+        }
+		StringBuilder md5Torrent = new StringBuilder();
+		//用考试名称，日期生成摘要作为ID
+		md5Torrent.append(examName);
+		md5Torrent.append(beginDate);
+		md5Torrent.append(beginTime);
+		md5Torrent.append(endDate);
+		md5Torrent.append(endTime);
+		md5Torrent.append(examtime);
+		String examId = Generate.generateMD5(md5Torrent.toString());
+		
+		if(examService.findExamById(examId)==null){
+			exam.setExamId(examId);
+			exam.setBeginTime(begin);
+			exam.setEndTime(end);
+			exam.setExamTime(examTime);
+			exam.setExamName(examName);
+			examService.addExam(exam);
+			System.out.println(examId+"----"+examTime);
+			adminService.addTeacher(examId, counts); 
+			for(Student student : studentList){
+				examService.addStudentOfExam(examId, student.getStudentId());
+			}
+			model.addObject("info", "添加成功");
+			model.setViewName("admin/info");
+		}else{
+			System.out.println(examName+"----"+examTime.toString());
+			model.addObject("info", examName+"----"+examTime.toString());
+			model.setViewName("admin/info");
+		}
 		return model;
 	}
 	
@@ -113,65 +185,7 @@ public class AdminController {
 		return model;
 	}
 	
-	@RequestMapping(value="addExam/commit",method=RequestMethod.POST)
-	public ModelAndView commit(HttpServletRequest request, HttpServletResponse response) throws ParseException, MySQLIntegrityConstraintViolationException{
-		ModelAndView model = new ModelAndView();
-		String[] students = request.getParameterValues("student");
-		String[] majors = request.getParameterValues("major");
-		String classs = request.getParameter("class");
- 		ArrayList<Student> studentList = new ArrayList<>();
- 		if(majors!=null){
- 			if(classs!=null){
- 				if(students!=null){
- 					for(String studentId : students){
- 						studentList.add(studentService.findStudentByStudentID(Long.parseLong(studentId)));
- 					}
- 				}else {
- 					studentList = studentService.findStudentByMajorAndClasses(majors[0], Integer.parseInt(classs));
-				}
- 			}else{
- 				studentList = studentService.findStudentByMajor(majors);
- 			}
- 		}
-		String[] teacher = request.getParameterValues("teachers");
-		String examName = request.getParameter("examName");
-		String date = request.getParameter("date");
-		String beginTime = request.getParameter("beginTime");
-		String endTime = request.getParameter("endTime");
-		TestPaper exam = new TestPaper();
-		SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Date begin = time.parse(date+" "+beginTime);
-		Date end = time.parse(date+" "+endTime);
-        List<String> counts = new ArrayList<>();
-        for(String teachs : teacher){
-        	counts.add(teachs);
-        }
-		StringBuilder md5Torrent = new StringBuilder();
-		//用考试名称，日期生成摘要作为ID
-		md5Torrent.append(examName);
-		md5Torrent.append(date);
-		md5Torrent.append(beginTime);
-		md5Torrent.append(endTime);
-		String examId = GenerateMD5.getMD5(md5Torrent.toString());
-		
-		if(examService.findExamById(examId)==null){
-			exam.setExamId(examId);
-			exam.setBeginTime(begin);
-			exam.setEndTime(end);
-			exam.setExamName(examName);
-			examService.addExam(exam);
-			adminService.addTeacher(examId, counts);
-			for(Student student : studentList){
-				examService.addStudentOfExam(examId, student.getStudentId());
-			}
-			model.addObject("info", "添加成功");
-			model.setViewName("admin/info");
-		}else{
-			model.addObject("info", "已经添加过同样的考试了");
-			model.setViewName("admin/info");
-		}
-		return model;
-	}
+	
 	
 	@RequestMapping(value="manageTeacher")
 	public ModelAndView manageTeacher(HttpServletRequest requests, HttpServletResponse response){

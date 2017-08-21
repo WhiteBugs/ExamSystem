@@ -11,13 +11,6 @@
 <nav class="navbar navbar-default" role="navigation">
    <div class="container-fluid"> 
    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse"
-            data-target="#example-navbar-collapse">
-         <span class="sr-only">切换导航</span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="/ExamSystem/teacher/welcome">主页</a>
    </div>
    <div class="collapse navbar-collapse" id="example-navbar-collapse">
@@ -33,7 +26,7 @@
   <table class="table">
   <tr><td>考试名称
   <#list examList as exam>
-    <tr><td>${exam.examName }<td><a href="#">编辑考生试卷</a><td><a href="/ExamSystem/teacher/exam/editExam?examId=${exam.examId}">编辑试卷</a>
+    <tr><td>${exam.examName }<td><a href="#">编辑考生试卷</a><td><a href="/ExamSystem/teacher/exam/editExam?examId=${exam.examId}">编辑试卷</a><td><a href="/ExamSystem/teacher/exam/answer?examId=${exam.examId}">查看答案</a>
   </#list>
   </table>
 </div>

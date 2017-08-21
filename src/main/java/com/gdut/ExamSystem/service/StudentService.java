@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.gdut.ExamSystem.enums.QuestionType;
 import com.gdut.ExamSystem.model.Student;
 
 
@@ -13,6 +15,7 @@ import com.gdut.ExamSystem.model.Student;
 public interface StudentService {
 	
      public void add(Student student);
+     public int addAnswer(long studentId, String examId, String answer, int order,QuestionType type);
      
      public void delete(Student student);
      public void deleteByGrade(int grade);

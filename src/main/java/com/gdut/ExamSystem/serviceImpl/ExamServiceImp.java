@@ -2,6 +2,8 @@ package com.gdut.ExamSystem.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.gdut.ExamSystem.dao.BlankFillingAnswerMapper;
@@ -14,6 +16,7 @@ import com.gdut.ExamSystem.dao.EassyQuestionJunctionMapper;
 import com.gdut.ExamSystem.dao.EassyQuestionMapper;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.TestPaperMapper;
+import com.gdut.ExamSystem.enums.QuestionType;
 import com.gdut.ExamSystem.model.BlankFillingAnswer;
 import com.gdut.ExamSystem.model.BlankFillingJunction;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
@@ -219,6 +222,7 @@ public class ExamServiceImp implements ExamService {
 		StudentExamJunction record = new StudentExamJunction();
 		record.setExamId(examId);
 		record.setStudentId(studentId);
+		record.setScore(-2);
 		return studentExamJunctionMapper.insert(record);
 	}
 
@@ -229,6 +233,52 @@ public class ExamServiceImp implements ExamService {
 		record.setStudentId(studentId);
 		record.setScore(score);
 		return studentExamJunctionMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public Map findQuestionAnswer(String examId, QuestionType type) {
+		TreeMap<Integer, String> answer = new TreeMap<>();
+		switch (type.toString()) {
+		case "choiceQuestion":
+			for(ChoiceQuestionJunction item : choiceQuestionJunctionMapper.findAllChoiceQuestionOfExam(examId)){
+				answer.put(item.getOrders(), choiceQuestionMapper.selectByPrimaryKey(item.getChoiceQuestionId()).getAnswer());
+			}
+			return answer;
+			
+		case "multipleChoiceQuestion":
+			
+			return answer;
+			
+		case "trueFalseQuestion":
+			
+			return answer;
+			
+		case "blankFillingQuestion":
+			for(BlankFillingJunction item : blankFillingJunctionMapper.findAllBlankFillingQuestionOfExam(examId)){
+				List<BlankFillingAnswer> answerItems = blankFillingAnswerMapper.selectByQuestionID(item.getBlankFillingQuestionId());
+				TreeMap<Integer, String> answerItem = new TreeMap<>();
+				for(int i=0; i<answerItems.size(); i++){
+					answerItem.put(answerItems.get(i).getOrders(), answerItems.get(i).getAnswer());
+				}
+				StringBuilder save = new StringBuilder();
+				for(int i=1; i<answerItem.size()+1; i++ ){
+					save.append(answerItem.get(i));
+					save.append("  ");
+				}
+				answer.put(item.getOrders(), save.toString());
+			}
+			return answer;
+			
+		case "eassyQuestion":
+			for(EassyQuestionJunction item : eassyQuestionJunctionMapper.findAllEassyQuestionOfExam(examId)){
+				answer.put(item.getOrders(), eassyQuestionMapper.selectByPrimaryKey(item.getEassyQuestionId()).getAnswer());
+			}
+			return answer;
+		default:
+			break;
+		}
+		
+		return null;
 	}
 
 }

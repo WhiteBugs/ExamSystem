@@ -96,14 +96,19 @@
     	    <input type="text" name="examName">
         </div>
     	<div>
-    		<label for="examTime">考试开始时间</label>
+    		<label for="examBeginTime">考试开始时间</label>
     		<div name="examBeginTime">
-    			<input type="date" name="date">
+    			<input type="date" name="beginDate">
     			<input type="time" name="beginTime">
     		</div>
     		<label for="examEndTime">考试结束时间</label>
     		<div name="examEndTime">
+    		    <input type="date" name="endDate">
     		    <input type="time" name="endTime">
+    		</div>
+    		<label for="examTime">考试时间</label>
+    		<div >
+    		    <input type="time" name="examTime">
     		</div>
     	</div>
     	<div id="examStaff">

@@ -12,13 +12,12 @@ public interface TestPaperMapper {
     int insertSelective(TestPaper record);
 
     TestPaper selectByPrimaryKey(String examId);
-    
+
     int updateByPrimaryKeySelective(TestPaper record);
 
     int updateByPrimaryKeyWithBLOBs(TestPaper record);
 
     int updateByPrimaryKey(TestPaper record);
-    
-    List<TestPaper> findAllExam();
 
+    List<TestPaper> findAllExam();
 }

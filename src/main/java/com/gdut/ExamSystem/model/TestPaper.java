@@ -1,5 +1,6 @@
 package com.gdut.ExamSystem.model;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class TestPaper {
@@ -12,6 +13,8 @@ public class TestPaper {
     private String examName;
 
     private String path;
+
+    private Time examTime;
 
     private String answer;
 
@@ -53,6 +56,14 @@ public class TestPaper {
 
     public void setPath(String path) {
         this.path = path == null ? null : path.trim();
+    }
+
+    public Date getExamTime() {
+        return examTime;
+    }
+
+    public void setExamTime(Time examTime) {
+        this.examTime = examTime;
     }
 
     public String getAnswer() {

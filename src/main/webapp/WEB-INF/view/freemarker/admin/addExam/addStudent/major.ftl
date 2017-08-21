@@ -5,7 +5,7 @@
 </head>
 <body>
 <div>
-  <#list majors as major><input type="checkbox" name="major">${major}</#list>
+  <#list majors as major><input type="checkbox" name="major" value="${major}">${major}</#list>
 </div>
 <div>
   <input type="submit">

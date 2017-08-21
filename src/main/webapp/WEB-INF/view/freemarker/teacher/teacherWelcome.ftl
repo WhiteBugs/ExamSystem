@@ -36,7 +36,7 @@
          <a href="/ExamSystem/teacher/exam">进入考试管理页面</a>
       </li>
       <li>
-         <a href="/ExamSystem/teacher/addTest">添加试题</a>
+         <a href="/ExamSystem/teacher/addQuestion">添加试题</a>
       </li>
    </ul>
 </div>

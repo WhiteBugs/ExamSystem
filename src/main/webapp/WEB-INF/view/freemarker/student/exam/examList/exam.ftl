@@ -48,7 +48,7 @@
 				<form action="" method="post">
 					<div class="test_title">
 						<p class="test_time">
-							<i class="icon iconfont">图片</i><b class="alt-1">01:20</b>
+							<i class="icon iconfont">图片</i><b class="alt-1">${time }</b>
 						</p>
 						<font><input type="button" name="test_jiaojuan" value="交卷"></font>
 					</div>
@@ -368,7 +368,7 @@
 							<i class="icon iconfont">图片</i>答题卡
 						</h1>
 						<p class="test_time">
-							<i class="icon iconfont">图片</i><b class="alt-1">01:40</b>
+							<i class="icon iconfont">图片</i><b class="alt-1">${time }</b>
 						</p>
 					</div>
 					
@@ -419,10 +419,10 @@
 	<div class="foot"></div>
 </div>
 
-<script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/jquery.easy-pie-chart.js"></script>
+<script src="/ExamSystem/js/jquery-1.11.3.min.js"></script>
+<script src="/ExamSystem/js/jquery.easy-pie-chart.js"></script>
 <!--时间js-->
-<script src="js/jquery.countdown.js"></script>
+<script src="/ExamSystem/js/jquery.countdown.js"></script>
 <script>
 	window.jQuery(function($) {
 		"use strict";

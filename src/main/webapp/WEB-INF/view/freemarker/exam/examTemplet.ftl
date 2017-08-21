@@ -41,20 +41,21 @@
 						</div>
 					</div>
 					<div class="test">
-						<form action="" method="post">
+						<form action="/ExamSystem/student/exam/commit" method="post">
 						   <div class="test_title">
 						       <p class="test_time">
-							      <i class="icon iconfont"></i><b class="alt-1">01:40</b>
+							      <i class="icon iconfont"></i><b class="alt-1">${time }</b>
 						       </p>
 						       <font><input type="submit" name="test_jiaojuan" value="交卷"></font>
 					       </div>
-						
+						   <input type="hidden" name="examId" value="${exam.examId }">
 						    <#if choiceQuestions??>
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>单选题</h2>
 									<p>
 										<span>共</span><i class="content_lit">${choiceQuestions?size}</i><span>题，</span><span>合计</span><i class="content_fs">60</i><span>分</span>
+										<input type="hidden" name="choiceQuestionSize" value="${choiceQuestions?size}">
 									</p>
 								</div>
 							</div> 
@@ -110,6 +111,7 @@
 									<h2>多选题</h2>
 									<p>
 										<span>共</span><i class="content_lit">${multipleChoiceQuestion?size }</i><span>题，</span><span>合计</span><i class="content_fs">30</i><span>分</span>
+										<input type="hidden" name="multipleChoiceQuestionSize" value="${multipleChoiceQuestion?size }">
 									</p>
 								</div>
 							</div>
@@ -123,7 +125,7 @@
 										<div class="test_content_nr_main">
 											<ul>
 												<li class="option">
-													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_1" value="A"/>
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer${multipleChoiceQuestion_index}" id="1_answer_${multipleChoiceQuestion_index}_option_1" value="A"/>
 													<label for="1_answer_${multipleChoiceQuestion_index}_option_1">
 														A.
 														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice1 }</p>
@@ -131,7 +133,7 @@
 												</li>
 												
 												<li class="option">
-													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_2" value="B"/>
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer${multipleChoiceQuestion_index}" id="1_answer_${multipleChoiceQuestion_index}_option_2" value="B"/>
 													<label for="1_answer_${multipleChoiceQuestion_index}_option_2">
 														B.
 														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice2}</p>
@@ -139,7 +141,7 @@
 												</li>
 												
 												<li class="option">
-													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_3" value="C" />
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer${multipleChoiceQuestion_index}" id="1_answer_${multipleChoiceQuestion_index}_option_3" value="C" />
 													<label for="1_answer_${multipleChoiceQuestion_index}_option_3">
 														C.
 														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice3}</p>
@@ -147,7 +149,7 @@
 												</li>
 												
 												<li class="option">
-													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer" id="1_answer_${multipleChoiceQuestion_index}_option_4" value="D"/>
+													<input type="checkbox" class="radioOrCheck" name="multipleChoiceAnswer${multipleChoiceQuestion_index}" id="1_answer_${multipleChoiceQuestion_index}_option_4" value="D"/>
 													<label for="1_answer_${multipleChoiceQuestion_index}_option_4">
 														D.
 														<p class="ue" style="display: inline;">${multipleChoiceQuestion.choice4}</p>
@@ -166,6 +168,7 @@
 									<h2>判断题</h2>
 									<p>
 										<span>共</span><i class="content_lit">${tureFalseQuestions?size }</i><span>题，</span><span>共计</span><i class="content_fs">30</i><span>分</span>
+										<input type="hidden" name="tureFalseQuestionSize" value="${tureFalseQuestions?size }">
 									</p>
 								</div>
 							</div>
@@ -203,7 +206,8 @@
 								<div class="test_content_title">
 									<h2>填空题</h2>
 									<p>
-										<span>共</span><i class="content_lit"></i><span>题，</span><span>共计</span><i class="content_fs"></i><span>分</span>
+										<span>共</span><i class="content_lit">${blankFillingQuestions?size }</i><span>题，</span><span>共计</span><i class="content_fs"></i><span>分</span>
+										<input type="hidden" name="blankFillingQuestionSize" value="${blankFillingQuestions?size }">
 									</p>
 								</div>
 							</div>
@@ -215,10 +219,10 @@
 											<i>1</i><span>(1分)</span><font>${blankFillingQuestion.title}</font><b class="icon iconfont"></b>
 										</div>
 									</li>
-									<div name="#">
-									    答案：<input>
+									<div >
+									    答案：<input name="blankQuestionAnswer${blankFillingQuestion_index}">
 									</div>
-									</#list>
+								</#list>
 								</ul>
 							</div>
 							</#if>
@@ -228,6 +232,7 @@
 									<h2>简答题</h2>
 									<p>
 										<span>共</span><i class="content_lit">${eassyQuestions?size}</i><span>题，</span><span>共计</span><i class="content_fs"></i><span>分</span>
+										<input type="hidden" name="eassyQuestionSize" value="${eassyQuestions?size}">
 									</p>
 								</div>
 							</div>
@@ -239,8 +244,8 @@
 											<i>${eassyQuestion_index+1}</i><span>(1分)</span><font>${eassyQuestion.title}</font><b class="icon iconfont"></b>
 										</div>
 									</li>
-									<div name="answer">
-									    答案 ：<input>
+									<div >
+									    答案 ：<input name="eassyQuestionAnswer${eassyQuestion_index}">
 									</div>
 									</#list>
 								</ul>
@@ -258,7 +263,7 @@
 									<i class="icon iconfont">图片</i>答题卡
 								</h1>
 								<p class="test_time">
-									<i class="icon iconfont">图片</i><b class="alt-1">01:40</b>
+									<i class="icon iconfont">图片</i><b class="alt-1">${time }</b>
 								</p>
 							</div>
                             <#if choiceQuestions??>

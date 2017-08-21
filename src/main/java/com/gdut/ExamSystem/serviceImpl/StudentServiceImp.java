@@ -2,13 +2,22 @@ package com.gdut.ExamSystem.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentJunctionMapper;
+import com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentMapper;
+import com.gdut.ExamSystem.dao.ChoiceAnswerOfStudentMapper;
+import com.gdut.ExamSystem.dao.EassyAnswerOfStudentMapper;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.StudentMapper;
+import com.gdut.ExamSystem.enums.QuestionType;
+import com.gdut.ExamSystem.model.BlankFillingAnswerOfStudent;
+import com.gdut.ExamSystem.model.BlankFillingAnswerOfStudentJunction;
+import com.gdut.ExamSystem.model.ChoiceAnswerOfStudent;
+import com.gdut.ExamSystem.model.EassyAnswerOfStudent;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.service.StudentService;
@@ -22,6 +31,18 @@ public class StudentServiceImp implements StudentService {
 	
 	@Resource(name="StudentExamJunctionMapper")
 	private StudentExamJunctionMapper studentExamJunctionMapper;
+	
+	@Resource(name="ChoiceAnswerOfStudentMapper")
+	private ChoiceAnswerOfStudentMapper choiceAnswerOfStudentMapper;
+	
+	@Resource(name="BlankFillingAnswerOfStudentMapper")
+	private BlankFillingAnswerOfStudentMapper blankFillingAnswerOfStudentMapper;
+	
+	@Resource(name="BlankFillingAnswerOfStudentJunctionMapper")
+	private BlankFillingAnswerOfStudentJunctionMapper blankFillingAnswerOfStudentJunctionMapper;
+	
+	@Resource(name="EassyAnswerOfStudentMapper")
+	private EassyAnswerOfStudentMapper eassyAnswerOfStudentMapper;
 	
 	private static final Logger logger = LoggerFactory.getLogger(StudentServiceImp.class);
 
@@ -204,5 +225,58 @@ public class StudentServiceImp implements StudentService {
 	@Override
 	public List<String> findAllMajor() {
 		return studentMapper.selectAllMajor();
+	}
+
+	@Override
+	public int addAnswer(long studentId, String examId, String answer, int order, QuestionType type) {
+		
+		switch (type.toString()) {
+		case "choiceQuestion":
+			ChoiceAnswerOfStudent choiceAnswer = new ChoiceAnswerOfStudent();
+			choiceAnswer.setAnswer(answer);
+			choiceAnswer.setOrders(order);
+			choiceAnswer.setScore(-1);
+			choiceAnswer.setStudentId(studentId);
+			choiceAnswer.setTestPaperExamId(examId);
+			return choiceAnswerOfStudentMapper.insert(choiceAnswer);
+		case "multipleChoiceQuestion":
+			
+			break;
+		case "trueFalseQuestion":
+			
+			break;
+		case "blankFillingQuestion":
+			String[] answers = answer.split("\\s+");
+			try{
+				for(int i=1;i<answers.length+1;i++){
+					BlankFillingAnswerOfStudent blankAnswer = new BlankFillingAnswerOfStudent();
+					blankAnswer.setAnswer(answers[i-1]);
+					blankAnswer.setOrders(i);
+					blankFillingAnswerOfStudentMapper.insert(blankAnswer);
+					BlankFillingAnswerOfStudentJunction junction = new BlankFillingAnswerOfStudentJunction();
+					junction.setBlankFillingAnswerIdOfStudent(blankAnswer.getBlankFillingAnswerId());;
+					junction.setOrders(order);
+					junction.setScore(-1);
+					junction.setStudentId(studentId);
+					junction.setTestPaperExamId(examId);
+					blankFillingAnswerOfStudentJunctionMapper.insert(junction);
+				}
+				return 0;
+			}catch (Exception e) {
+				return -1;
+			}
+		case "eassyQuestion":
+			EassyAnswerOfStudent eassyAnswer = new EassyAnswerOfStudent();
+			eassyAnswer.setAnswer(answer);
+			eassyAnswer.setOrders(order);
+			eassyAnswer.setScore(-1);
+			eassyAnswer.setStudentId(studentId);
+			eassyAnswer.setTestPaperExamId(examId);
+			return eassyAnswerOfStudentMapper.insert(eassyAnswer);
+		default:
+			System.out.println("-------没有这种问题类型-----------");
+			break;
+		}
+		return 0;
 	}
 }

@@ -32,8 +32,12 @@ public class LoginController {
     @Resource(name="TeacherService")
     private TeacherService teacherService;
     
-
-	@RequestMapping(value="/loginCheck", method=RequestMethod.POST)
+	//--------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping(value="/loginCheck")//, method=RequestMethod.POST)
 	public ModelAndView checkAccount( HttpServletRequest request, HttpServletResponse response){
 		
 		if(request.getSession().getAttribute("user")!=null){
@@ -42,6 +46,17 @@ public class LoginController {
 		String userName = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
 		String countType = request.getParameter("countType");
+		
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		userName = "jason";
+		userPassword = "QPALZM";
+		countType = "teacher";
+
+		
 		logger.debug("进入loginController");
 		switch (countType) {
 		   case "admin":
@@ -89,12 +104,18 @@ public class LoginController {
 	@RequestMapping(value="login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response){
 		if(request.getSession().getAttribute("user")!=null){
-			return hadLogin(request, response);
+			return hadLogin( request, response);
 		}
 		System.out.println("-------------------进入login");
-		return new ModelAndView("/login/login");
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------------------
+		return checkAccount(request, response);
+		//return new ModelAndView("login/login");
 	}
-	
+	  
 	@RequestMapping(value="hadLogin")
 	public ModelAndView hadLogin(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("----------------------enter  hadLogin----------");

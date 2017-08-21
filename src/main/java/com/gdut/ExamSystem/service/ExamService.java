@@ -1,7 +1,9 @@
 package com.gdut.ExamSystem.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.gdut.ExamSystem.enums.QuestionType;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
 import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
@@ -41,10 +43,13 @@ public interface ExamService {
     
     List<Long> findStudentScoreBetween(String examId, int highScore, int lowScore);
     
+    Map findQuestionAnswer(String examId, QuestionType type);
+    
     List<StudentExamJunction> findStudentAllExamJunction(long studentId);
     
     List<TestPaper> findAllExam();
     
     List<TestPaper> findAllExamByTeacherCount(String count);
+
 }
  

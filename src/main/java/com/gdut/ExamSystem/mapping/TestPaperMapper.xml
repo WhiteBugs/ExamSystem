@@ -7,12 +7,13 @@
     <result column="End_Time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="Exam_Name" jdbcType="VARCHAR" property="examName" />
     <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="exam_time" jdbcType="TIMESTAMP" property="examTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.gdut.ExamSystem.model.TestPaper">
     <result column="Answer" jdbcType="LONGVARCHAR" property="answer" />
   </resultMap>
   <sql id="Base_Column_List">
-    Exam_ID, Begin_Time, End_Time, Exam_Name, path
+    Exam_ID, Begin_Time, End_Time, Exam_Name, path, exam_time
   </sql>
   <sql id="Blob_Column_List">
     Answer
@@ -31,11 +32,11 @@
   </delete>
   <insert id="insert" parameterType="com.gdut.ExamSystem.model.TestPaper">
     insert into test_paper (Exam_ID, Begin_Time, End_Time, 
-      Exam_Name, path, Answer
-      )
+      Exam_Name, path, exam_time, 
+      Answer)
     values (#{examId,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{examName,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{answer,jdbcType=LONGVARCHAR}
-      )
+      #{examName,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{examTime,jdbcType=TIME}, 
+      #{answer,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.TestPaper">
     insert into test_paper
@@ -54,6 +55,9 @@
       </if>
       <if test="path != null">
         path,
+      </if>
+      <if test="examTime != null">
+        exam_time,
       </if>
       <if test="answer != null">
         Answer,
@@ -75,6 +79,9 @@
       <if test="path != null">
         #{path,jdbcType=VARCHAR},
       </if>
+      <if test="examTime != null">
+        #{examTime,jdbcType=TIME},
+      </if>
       <if test="answer != null">
         #{answer,jdbcType=LONGVARCHAR},
       </if>
@@ -95,6 +102,9 @@
       <if test="path != null">
         path = #{path,jdbcType=VARCHAR},
       </if>
+      <if test="examTime != null">
+        exam_time = #{examTime,jdbcType=TIME},
+      </if>
       <if test="answer != null">
         Answer = #{answer,jdbcType=LONGVARCHAR},
       </if>
@@ -107,6 +117,7 @@
       End_Time = #{endTime,jdbcType=TIMESTAMP},
       Exam_Name = #{examName,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR},
+      exam_time = #{examTime,jdbcType=TIME},
       Answer = #{answer,jdbcType=LONGVARCHAR}
     where Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
@@ -115,10 +126,10 @@
     set Begin_Time = #{beginTime,jdbcType=TIMESTAMP},
       End_Time = #{endTime,jdbcType=TIMESTAMP},
       Exam_Name = #{examName,jdbcType=VARCHAR},
-      path = #{path,jdbcType=VARCHAR}
+      path = #{path,jdbcType=VARCHAR},
+      exam_time = #{examTime,jdbcType=TIME}
     where Exam_ID = #{examId,jdbcType=VARCHAR}
   </update>
-  
   <select id="selectByCount" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select
     <include refid="Base_Column_List" />

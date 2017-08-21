@@ -27,7 +27,7 @@
 			document.getElementById("myDiv1").innerHTML=xmlhttp.responseText;
 		}
 	}
-	xmlhttp.open("GET","/ExamSystem/teacher/addTest/loadPage?type="+document.getElementById("type").value,true);
+	xmlhttp.open("GET","/ExamSystem/teacher/addQuestion/loadPage?type="+document.getElementById("type").value,true);
 	xmlhttp.send();
    }
    
