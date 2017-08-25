@@ -52,4 +52,12 @@ public class BlankFillingJunctionMapperImp implements BlankFillingJunctionMapper
 		return sqlSession.update(NAME_SPACE+"updateByPrimaryKey",record);
 	}
 
+	@Override
+	public int findQuestionId(String examId, int order) {
+		BlankFillingJunction record = new BlankFillingJunction();
+		record.setTestPaperExamId(examId);
+		record.setOrders(order);
+		return sqlSession.selectOne(NAME_SPACE+"findQuestionId",record);
+	}
+
 }

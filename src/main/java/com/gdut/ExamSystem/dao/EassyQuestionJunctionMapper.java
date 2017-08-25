@@ -19,4 +19,6 @@ public interface EassyQuestionJunctionMapper {
     int updateByPrimaryKeySelective(EassyQuestionJunction record);
 
     int updateByPrimaryKey(EassyQuestionJunction record);
+    
+    int findQuestionId(String examId, int order);
 }

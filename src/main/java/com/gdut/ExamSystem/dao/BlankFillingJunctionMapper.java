@@ -19,4 +19,6 @@ public interface BlankFillingJunctionMapper {
     int updateByPrimaryKeySelective(BlankFillingJunction record);
 
     int updateByPrimaryKey(BlankFillingJunction record);
+    
+    int findQuestionId(String examId, int order);
 }

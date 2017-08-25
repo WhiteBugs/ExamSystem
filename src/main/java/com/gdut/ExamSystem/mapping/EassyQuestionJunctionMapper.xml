@@ -16,6 +16,13 @@
     where Eassy_Question_ID = #{eassyQuestionId,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=VARCHAR}
   </select>
+  <select id="findQuestionId" parameterType="com.gdut.ExamSystem.model.EassyQuestionJunction" resultType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from eassy_question_junction
+    where orders = #{orders,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
+  </select>
   <select id="findAllEassyQuestionOfExam" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -16,6 +16,13 @@
     where Choice_Question_ID = #{choiceQuestionId,jdbcType=INTEGER}
       and Exam_ID = #{examId,jdbcType=VARCHAR}
   </select>
+  <select id="findQuestionId" parameterType="com.gdut.ExamSystem.model.ChoiceQuestionJunction" resultType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from choice_question_junction
+    where orders = #{orders,jdbcType=INTEGER}
+      and Exam_ID = #{examId,jdbcType=VARCHAR}
+  </select>
   <select id="findAllChoiceQuestionByExamId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

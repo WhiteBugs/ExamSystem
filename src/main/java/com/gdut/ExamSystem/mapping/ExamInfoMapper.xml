@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdut.ExamSystem.dao.ExamInfoMapper">
+  <resultMap id="BaseResultMap" type="com.gdut.ExamSystem.model.ExamInfo">
+    <id column="test_paper_Exam_ID" jdbcType="VARCHAR" property="testPaperExamId" />
+    <id column="question_type" jdbcType="VARCHAR" property="questionType" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="exam_name" jdbcType="VARCHAR" property="examName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    test_paper_Exam_ID, question_type, score, exam_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ExamInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_info
+    where test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+      and question_type = #{questionType,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ExamInfoKey">
+    delete from exam_info
+    where test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+      and question_type = #{questionType,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gdut.ExamSystem.model.ExamInfo">
+    insert into exam_info (test_paper_Exam_ID, question_type, score, 
+      exam_name)
+    values (#{testPaperExamId,jdbcType=VARCHAR}, #{questionType,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+      #{examName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gdut.ExamSystem.model.ExamInfo">
+    insert into exam_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="testPaperExamId != null">
+        test_paper_Exam_ID,
+      </if>
+      <if test="questionType != null">
+        question_type,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="examName != null">
+        exam_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="testPaperExamId != null">
+        #{testPaperExamId,jdbcType=VARCHAR},
+      </if>
+      <if test="questionType != null">
+        #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="examName != null">
+        #{examName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gdut.ExamSystem.model.ExamInfo">
+    update exam_info
+    <set>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="examName != null">
+        exam_name = #{examName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+      and question_type = #{questionType,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gdut.ExamSystem.model.ExamInfo">
+    update exam_info
+    set score = #{score,jdbcType=INTEGER},
+      exam_name = #{examName,jdbcType=VARCHAR}
+    where test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+      and question_type = #{questionType,jdbcType=VARCHAR}
+  </update>
+</mapper>

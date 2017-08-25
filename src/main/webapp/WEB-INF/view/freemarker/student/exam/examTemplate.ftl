@@ -23,34 +23,14 @@
 				<div class="nr_left">
 					<div class="jumbotron">
 						<h2 class="block-center">${exam.examName }</h2>
-						</div>
-						<div>
-							<div id="section-1" class="panel panel-success">
-								<div class="panel-heading">
-									<h3 class="panel-title">考前必看</h3>
-								</div>
-								<ul>
-									<li>
-										<p>1. 考生只准携带必身份证、学生证进入考场,不得携带其他物品；</p>
-										<p>2. 考生提前10分钟到指定教室指定座位号调试计算机至考试页面，并核验屏幕上显示的姓名、学号等信息。 </p>
-										<p>3. 监考人员宣布考试正式开始后，迟到15分钟以上的考生不得进入考场；</p>
-										<p>4. 考试过程中如出现死机或系统错误等，应立刻停止操作，举手与监考员联系。</p>
-										<p>5. 考生在考场内必须保持安静，严格遵守考场纪律，自觉服从监考员管理，对于违反考场规定、不服从监考员管理和舞弊者，按违反考场规定处理；</p>  
-										<p>6.考生离开考场后，不准在考场附近逗留和交谈；</p>
-									</li>
-								</ul>
-							</div>
-						</div>
 					</div>
 					<div class="test">
 						<form action="/ExamSystem/student/exam/commit" method="post">
 						   <div class="test_title">
-						       <p class="test_time">
-							      <i class="icon iconfont"></i><b class="alt-1">${time }</b>
-						       </p>
-						       <font><input type="submit" name="test_jiaojuan" value="交卷"></font>
+						       <font><input type="submit" value="提交修改"></font>
 					       </div>
 						   <input type="hidden" name="examId" value="${exam.examId }">
+						   <input type="hidden" name="studentId" value="${studentId}">
 						    <#if choiceQuestions??>
 							<div class="test_content">
 								<div class="test_content_title">
@@ -67,7 +47,7 @@
 								<#list choiceQuestions as choiceQuestion>
 									<li id="qu_0_${choiceQuestion_index}">
 										<div class="test_content_nr_tt">
-											<i>${choiceQuestion_index+1}</i><span>(1分)</span><font>${choiceQuestion.title}</font><b class="icon iconfont"></b>
+											<i>${choiceQuestion_index+1}</i><span>(${choiceScore }分)</span><font>${choiceQuestion.title}</font><b class="icon iconfont"></b>
 										</div>
 										<div class="test_content_nr_main">
 											<ul>

@@ -53,4 +53,12 @@ public class ChoiceQuestionJunctionImp implements ChoiceQuestionJunctionMapper {
 		return sqlSession.selectList(NAME_SPACE+"findAllChoiceQuestionByExamId",examID);
 	}
 
+	@Override
+	public int findQuestionId(String examId, int order) {
+		ChoiceQuestionJunction record = new ChoiceQuestionJunction();
+		record.setExamId(examId);
+		record.setOrders(order);
+		return sqlSession.selectOne(NAME_SPACE+"findQuestionId",record);
+	}
+
 }

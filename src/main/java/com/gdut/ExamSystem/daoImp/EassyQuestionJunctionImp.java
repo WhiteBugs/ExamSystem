@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.gdut.ExamSystem.dao.EassyQuestionJunctionMapper;
+import com.gdut.ExamSystem.model.ChoiceQuestionJunction;
 import com.gdut.ExamSystem.model.EassyQuestionJunction;
 import com.gdut.ExamSystem.model.EassyQuestionJunctionKey;
 
@@ -53,6 +54,14 @@ public class EassyQuestionJunctionImp implements EassyQuestionJunctionMapper {
 	@Override
 	public List<EassyQuestionJunction> findAllEassyQuestionOfExam(String examID) {
 		return sqlSession.selectList(NAME_SPACE+"findAllEassyQuestionOfExam",examID);
+	}
+
+	@Override
+	public int findQuestionId(String examId, int order) {
+		EassyQuestionJunction record = new EassyQuestionJunction();
+		record.setExamId(examId);
+		record.setOrders(order);
+		return sqlSession.selectOne(NAME_SPACE+"findQuestionId",record);
 	}
 
 }

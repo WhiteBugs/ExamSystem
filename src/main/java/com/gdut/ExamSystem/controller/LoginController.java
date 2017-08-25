@@ -37,7 +37,7 @@ public class LoginController {
 	//--------------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------------------------------------------
-	@RequestMapping(value="/loginCheck")//, method=RequestMethod.POST)
+	@RequestMapping(value="/loginCheck",method=RequestMethod.POST)
 	public ModelAndView checkAccount( HttpServletRequest request, HttpServletResponse response){
 		
 		if(request.getSession().getAttribute("user")!=null){
@@ -52,9 +52,22 @@ public class LoginController {
 		//--------------------------------------------------------------------------------------------------------------------------
 		//--------------------------------------------------------------------------------------------------------------------------
 		//--------------------------------------------------------------------------------------------------------------------------
-		userName = "jason";
-		userPassword = "QPALZM";
-		countType = "teacher";
+		if(false){
+			userName = "jason";
+			userPassword = "QPALZM";
+			countType = "teacher";
+		}
+		if(false){
+			userName = "admin";
+			userPassword = "admin";
+			countType = "admin";
+		}
+		if(false){
+			userName = "3115000806";
+			userPassword = "QPALZM";
+			countType = "student";
+		}
+		
 
 		
 		logger.debug("进入loginController");
@@ -112,9 +125,10 @@ public class LoginController {
 		//--------------------------------------------------------------------------------------------------------------------------
 		//--------------------------------------------------------------------------------------------------------------------------
 		//--------------------------------------------------------------------------------------------------------------------------
-		return checkAccount(request, response);
-		//return new ModelAndView("login/login");
+		//return checkAccount(request, response);
+		return new ModelAndView("login/login");
 	}
+
 	  
 	@RequestMapping(value="hadLogin")
 	public ModelAndView hadLogin(HttpServletRequest request, HttpServletResponse response){

@@ -16,6 +16,13 @@
     where Blank_Filling_Question_ID = #{blankFillingQuestionId,jdbcType=INTEGER}
       and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
   </select>
+  <select id="findQuestionId" parameterType="com.gdut.ExamSystem.model.BlankFillingJunction" resultType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from blank_filling_junction
+    where Orders = #{orders,jdbcType=INTEGER}
+      and test_paper_Exam_ID = #{testPaperExamId,jdbcType=VARCHAR}
+  </select>
   <select id="findAllBlankFillingQuestionOfExam" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

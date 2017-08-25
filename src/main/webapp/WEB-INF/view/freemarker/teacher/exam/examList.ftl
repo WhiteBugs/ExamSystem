@@ -26,7 +26,7 @@
   <table class="table">
   <tr><td>考试名称
   <#list examList as exam>
-    <tr><td>${exam.examName }<td><a href="#">编辑考生试卷</a><td><a href="/ExamSystem/teacher/exam/editExam?examId=${exam.examId}">编辑试卷</a><td><a href="/ExamSystem/teacher/exam/answer?examId=${exam.examId}">查看答案</a>
+    <tr><td>${exam.examName }<td><a href="/ExamSystem/teacher/exam/studentExamList?examId=${exam.examId}">编辑考生试卷</a><td><a href="/ExamSystem/teacher/exam/editExam?examId=${exam.examId}">编辑试卷</a><td><a href="/ExamSystem/teacher/exam/answer?examId=${exam.examId}">查看答案</a>
   </#list>
   </table>
 </div>

@@ -19,4 +19,6 @@ public interface ChoiceQuestionJunctionMapper {
     int updateByPrimaryKeySelective(ChoiceQuestionJunction record);
 
     int updateByPrimaryKey(ChoiceQuestionJunction record);
+    
+    int findQuestionId(String examId, int order);
 }

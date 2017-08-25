@@ -7,13 +7,18 @@ import java.util.TreeMap;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.gdut.ExamSystem.dao.BlankFillingAnswerMapper;
+import com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentJunctionMapper;
+import com.gdut.ExamSystem.dao.BlankFillingAnswerOfStudentMapper;
 import com.gdut.ExamSystem.dao.BlankFillingJunctionMapper;
 import com.gdut.ExamSystem.dao.BlankFillingQuestionMapper;
+import com.gdut.ExamSystem.dao.ChoiceAnswerOfStudentMapper;
 import com.gdut.ExamSystem.dao.ChoiceQuestionJunctionMapper;
 import com.gdut.ExamSystem.dao.ChoiceQuestionMapper;
 import com.gdut.ExamSystem.dao.CountExamJunctionMapper;
+import com.gdut.ExamSystem.dao.EassyAnswerOfStudentMapper;
 import com.gdut.ExamSystem.dao.EassyQuestionJunctionMapper;
 import com.gdut.ExamSystem.dao.EassyQuestionMapper;
+import com.gdut.ExamSystem.dao.ExamInfoMapper;
 import com.gdut.ExamSystem.dao.StudentExamJunctionMapper;
 import com.gdut.ExamSystem.dao.TestPaperMapper;
 import com.gdut.ExamSystem.enums.QuestionType;
@@ -21,10 +26,17 @@ import com.gdut.ExamSystem.model.BlankFillingAnswer;
 import com.gdut.ExamSystem.model.BlankFillingJunction;
 import com.gdut.ExamSystem.model.BlankFillingQuestion;
 import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
+import com.gdut.ExamSystem.model.ChoiceAnswerOfStudent;
+import com.gdut.ExamSystem.model.ChoiceAnswerOfStudentKey;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
 import com.gdut.ExamSystem.model.ChoiceQuestionJunction;
+import com.gdut.ExamSystem.model.ChoiceQuestionJunctionKey;
 import com.gdut.ExamSystem.model.EassyQuestion;
 import com.gdut.ExamSystem.model.EassyQuestionJunction;
+import com.gdut.ExamSystem.model.ExamInfo;
+import com.gdut.ExamSystem.model.ExamInfoKey;
+import com.gdut.ExamSystem.model.Question;
+import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.TestPaper;
@@ -56,11 +68,26 @@ public class ExamServiceImp implements ExamService {
 	@Resource(name="EassyQuestionMapper")
 	private EassyQuestionMapper eassyQuestionMapper;
 	
+	@Resource(name="ChoiceAnswerOfStudentMapper")
+	private ChoiceAnswerOfStudentMapper choiceAnswerOfStudentMapper;
+	
+	@Resource(name="BlankFillingAnswerOfStudentMapper")
+	private BlankFillingAnswerOfStudentMapper blankFillingAnswerOfStudentMapper;
+	
+	@Resource(name="BlankFillingAnswerOfStudentJunctionMapper")
+	private BlankFillingAnswerOfStudentJunctionMapper blankFillingAnswerOfStudentJunctionMapper;
+	
+	@Resource(name="EassyAnswerOfStudentMapper")
+	private EassyAnswerOfStudentMapper eassyAnswerOfStudentMapper;
+	
 	@Resource(name="StudentExamJunctionMapper")
 	private StudentExamJunctionMapper studentExamJunctionMapper;
 	
 	@Resource(name="CountExamJunctionMapper")
 	private CountExamJunctionMapper countExamJunctionMapper;
+	
+	@Resource(name="ExamInfoMapper")
+	private ExamInfoMapper examInfoMapper;
 	
 	@Override
 	public List<ChoiceQuestion> findChoiceQuestionOfExam(String examID) {
@@ -278,6 +305,97 @@ public class ExamServiceImp implements ExamService {
 			break;
 		}
 		
+		return null;
+	}
+
+	@Override
+	public int addQuestionScore(ExamInfo examInfo) {
+		return examInfoMapper.insert(examInfo);
+	}
+
+	@Override
+	public ExamInfo findQuestionScoreOfExam(String examId, String questionType) {
+		ExamInfoKey key = new ExamInfoKey();
+		key.setTestPaperExamId(examId);
+		key.setQuestionType(questionType);
+		return examInfoMapper.selectByPrimaryKey(key);
+	}
+
+	@Override
+	public List<Long> findAllStudentIdByExamId(String examId) {
+		return studentExamJunctionMapper.findAllStudentIDByExamID(examId);
+	}
+
+	@Override
+	public int findQuestionIdOfExam(String examId, int order, QuestionType type) {
+		switch (type.toString()) {
+		case "choiceQuestion":
+			return choiceQuestionJunctionMapper.findQuestionId(examId, order);
+			
+		case "multipleChoiceQuestion":
+			
+			break;
+		case "trueFalseQuestion":
+			
+			break;
+		case "blankFillingQuestion":
+			return blankFillingJunctionMapper.findQuestionId(examId, order);
+		case "eassyQuestion":
+			return eassyQuestionJunctionMapper.findQuestionId(examId, order);
+		default:
+			break;
+		}
+		return -1;
+	}
+
+	@Override
+	public List findQuestionWithStudentAnswer(String examId, String studentID, QuestionType type) {
+		long studentId = Long.parseLong(studentID);
+		switch (type.toString()) {
+		case "choiceQuestion":
+			List<Question> questions = new ArrayList<>();
+			List<ChoiceQuestion> choiceQuestions = findChoiceQuestionOfExam(examId);
+			for(int i=0; i<choiceQuestions.size(); i++){
+				ChoiceQuestion item = choiceQuestions.get(i); 
+				Question question = new Question();
+				question.setTitle(item.getTitle());
+				question.setAnswer(item.getAnswer());
+				question.setChoice1(item.getChoice1());
+				question.setChoice2(item.getChoice2());
+				question.setChoice3(item.getChoice3());
+				question.setChoice4(item.getChoice4());
+				question.setQuestionId(item.getChoiceQuestionId());
+				question.setQuestionType(QuestionType.choiceQuestion.toString());
+				ChoiceAnswerOfStudentKey key = new ChoiceAnswerOfStudentKey();
+				key.setOrders(i+1);
+				key.setStudentId(studentId);
+				key.setTestPaperExamId(examId);
+				ChoiceAnswerOfStudent answer = choiceAnswerOfStudentMapper.selectByPrimaryKey(key);
+				if(answer != null){
+					question.setStudentAnswer(answer.getAnswer());
+					question.setStudentScore(answer.getScore());
+					question.setOrder(answer.getOrders());
+				}else{
+					question.setStudentAnswer("没有作答");
+					question.setStudentScore(0);
+					question.setOrder(answer.getOrders());
+				}
+				questions.add(question);
+			}
+			return questions;
+		case "multipleChoiceQuestion":
+			
+			break;
+		case "trueFalseQuestion":
+			
+			break;
+		case "blankFillingQuestion":
+			
+		case "eassyQuestion":
+			
+		default:
+			break;
+		}
 		return null;
 	}
 

@@ -25,12 +25,14 @@ import com.gdut.ExamSystem.model.ChoiceAnswerOfStudent;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
 import com.gdut.ExamSystem.model.EassyQuestion;
 import com.gdut.ExamSystem.model.ExamInfo;
+import com.gdut.ExamSystem.model.ExamName;
 import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.StudentExamJunction;
 import com.gdut.ExamSystem.model.StudentExamJunctionKey;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.service.ExamService;
 import com.gdut.ExamSystem.service.StudentService;
+import com.gdut.ExamSystem.service.TeacherService;
 @Controller
 @RequestMapping(value="student")
 public class StudentController {
@@ -39,6 +41,8 @@ public class StudentController {
 	@Resource(name="ExamService")
 	private ExamService examService;
 	
+	@Resource(name="TeacherService")
+	private TeacherService teacherService;
 	
 	@Resource(name="StudentService")
 	private StudentService studentService;
@@ -89,9 +93,18 @@ public class StudentController {
 			String choiceQuestionSize = request.getParameter("choiceQuestionSize");
 			if(choiceQuestionSize !=null){
 				int choiceSize = Integer.parseInt(choiceQuestionSize);
+				int choiceScore = examService.findQuestionScoreOfExam(examId, QuestionType.choiceQuestion.toString()).getScore();
 				for(int i=0;i<choiceSize;i++){
 					String answer1 = request.getParameter("choiceQuestionAnswer"+i);
-					studentService.addAnswer(studentId, examId, answer1, i+1, QuestionType.choiceQuestion);
+					if(answer1 != null){
+						studentService.addAnswer(studentId, examId, answer1, i+1, QuestionType.choiceQuestion);
+						int questionId = examService.findQuestionIdOfExam(examId, i+1, QuestionType.choiceQuestion);
+						if(teacherService.findChoiceQuestionById(questionId).getAnswer().equals(answer1)){
+							teacherService.updateChoiceQuestionScoreOfStudent(examId, studentId, i+1, choiceScore);
+						}else{
+							teacherService.updateChoiceQuestionScoreOfStudent(examId, studentId, i+1, 0);
+						}
+					}
 				}
 			}
 			String multipleChoiceQuestionSize = request.getParameter("multipleChoiceQuestionSize");
@@ -99,7 +112,9 @@ public class StudentController {
 				int multipleSize = Integer.parseInt(multipleChoiceQuestionSize);
 				for(int i=0;i<multipleSize;i++){
 					String answer2 = request.getParameter("multipleChoiceAnswer"+i);
-					studentService.addAnswer(studentId, examId, answer2, i+1, QuestionType.multipleChoiceQuestion);
+					if(answer2 != null){
+						studentService.addAnswer(studentId, examId, answer2, i+1, QuestionType.multipleChoiceQuestion);
+					}
 				}
 			}
 			String tureFalseQuestionSize = request.getParameter("tureFalseQuestionSize");
@@ -111,7 +126,9 @@ public class StudentController {
 				int blankSize = Integer.parseInt(blankFillingQuestionSize);
 				for(int i = 0; i <blankSize; i++){
 					String answer4 = request.getParameter("blankQuestionAnswer"+i);
-					studentService.addAnswer(studentId, examId, answer4, i+1, QuestionType.blankFillingQuestion);
+					if(answer4 != null){
+						studentService.addAnswer(studentId, examId, answer4, i+1, QuestionType.blankFillingQuestion);
+					}
 				}
 			}
 			String eassyQuestionSize = request.getParameter("eassyQuestionSize");
@@ -119,7 +136,9 @@ public class StudentController {
 				int eassySize = Integer.parseInt(eassyQuestionSize);
 				for(int i=0; i <eassySize; i++){
 					String answer5 = request.getParameter("eassyQuestionAnswer"+i);
-					studentService.addAnswer(studentId, examId, answer5, i+1, QuestionType.eassyQuestion);
+					if(answer5 != null){
+						studentService.addAnswer(studentId, examId, answer5, i+1, QuestionType.eassyQuestion);
+					}
 				}
 			}
 			//model.setViewName("student/info");
@@ -128,6 +147,7 @@ public class StudentController {
 		}catch (Exception e) {
 			//model.setViewName("student/info");
 			model.addObject("info", "提交失败");
+			e.printStackTrace();
 		}
 		return model;
 	}
@@ -175,14 +195,17 @@ public class StudentController {
 			List<ChoiceQuestion> choiceQuestions = examService.findChoiceQuestionOfExam(examId);
 			if(choiceQuestions!=null&&choiceQuestions.size()>0){
 				model.addObject("choiceQuestions", choiceQuestions);
+				model.addObject("choiceScore", examService.findQuestionScoreOfExam(examId, QuestionType.choiceQuestion.toString()).getScore());
 			}
 			List<BlankFillingQuestionWithAnswers> blankFillingQuestions = examService.findBlankFillingQuestionOfExam(examId);
 			if(blankFillingQuestions!=null&&blankFillingQuestions.size()>0){
 				model.addObject("blankFillingQuestions", blankFillingQuestions);
+				model.addObject("blankScore", examService.findQuestionScoreOfExam(examId, QuestionType.blankFillingQuestion.toString()).getScore());
 			}
 			List<EassyQuestion> eassyQuestions = examService.findEassyQuestionOfExam(examId);
 			if(eassyQuestions!=null&&eassyQuestions.size()>0){
 				model.addObject("eassyQuestions", eassyQuestions);
+				model.addObject("eassyScore", examService.findQuestionScoreOfExam(examId, QuestionType.eassyQuestion.toString()).getScore());
 			}
 			
 			model.addObject("time", exam.getExamTime());
@@ -207,16 +230,16 @@ public class StudentController {
 		long studentId = student.getStudentId();
 		
 	    List<StudentExamJunction> examJunctionList = examService.findStudentAllExamJunction(studentId);
-	    List<ExamInfo> examList = new ArrayList<>();
+	    List<ExamName> examList = new ArrayList<>();
 	    for(StudentExamJunction examJunction : examJunctionList){
 	    	String examName = examService.findExamById(examJunction.getExamId()).getExamName();
 	    	int score = examJunction.getScore();
-	    	ExamInfo examInfo = new ExamInfo();
+	    	ExamName examInfo = new ExamName();
 	    	examInfo.setExamName(examName);
 	    	examInfo.setScore(score);
 	    	examList.add(examInfo);
 	    }
-	    for(ExamInfo examInfo : examList){
+	    for(ExamName examInfo : examList){
 	    	System.out.print("---------------"+examInfo.getExamName()+"   "+examInfo.getScore()+"-------------");
 	    }
 	    model.addObject("examList", examList);

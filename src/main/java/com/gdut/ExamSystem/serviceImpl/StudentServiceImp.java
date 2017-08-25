@@ -111,12 +111,10 @@ public class StudentServiceImp implements StudentService {
 	public ArrayList<Student> findStudentByMajor(String[] majors) {
 		logger.debug("进入service层");
 		ArrayList<Student> students = new ArrayList<>();
-		ArrayList<Student> temp;
+		ArrayList<Student> temp = new ArrayList<>();
 		for(String major : majors){
 			if((temp=(ArrayList<Student>)studentMapper.selectByMajor(major))!=null){
-				for(Student student : temp){
-					students.add(student);
-				}
+				students.addAll(temp);
 				temp=null;
 			}
 		}

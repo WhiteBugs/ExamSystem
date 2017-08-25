@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,13 @@ import com.gdut.ExamSystem.model.BlankFillingQuestion;
 import com.gdut.ExamSystem.model.BlankFillingQuestionWithAnswers;
 import com.gdut.ExamSystem.model.ChoiceQuestion;
 import com.gdut.ExamSystem.model.EassyQuestion;
+import com.gdut.ExamSystem.model.ExamInfo;
+import com.gdut.ExamSystem.model.Question;
+import com.gdut.ExamSystem.model.Student;
 import com.gdut.ExamSystem.model.Teacher;
 import com.gdut.ExamSystem.model.TestPaper;
 import com.gdut.ExamSystem.service.ExamService;
+import com.gdut.ExamSystem.service.StudentService;
 import com.gdut.ExamSystem.service.TeacherService;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -41,6 +46,9 @@ public class TeacherController {
 	
 	@Resource(name="ExamService")
 	private ExamService examService;
+	
+	@Resource(name="StudentService")
+	private StudentService studentService;
 	
 	@Resource(name="TeacherService")
 	private TeacherService teacherService;
@@ -96,13 +104,53 @@ public class TeacherController {
 	public ModelAndView editExamCommit(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("teacher/info");
 		String examId = request.getParameter("examId");
+		String choiceScore = request.getParameter("choiceScore");
+		String multipleScore = request.getParameter("multipleScore");
+		String tfScore = request.getParameter("tfScore");
+		String blankScore = request.getParameter("blankScore");
+		String eassyScore = request.getParameter("eassyScore");
 		if(examId == null){
 			model.addObject("info", "没有得到试卷Id");
 			return model;
 		}else{
 			Map<Object, Object> models = new HashMap<>();
 			TestPaper exam = examService.findExamById(examId);
+			String examName = exam.getExamName();
+			ExamInfo examInfo = new ExamInfo();
+			examInfo.setExamName(examName);
+			examInfo.setTestPaperExamId(examId);
+			
 			models.put("exam", exam);
+			if(choiceScore != null){
+				models.put("choiceScore", Integer.parseInt(choiceScore));
+				examInfo.setQuestionType(QuestionType.choiceQuestion.toString());
+				examInfo.setScore(Integer.parseInt(choiceScore));
+				examService.addQuestionScore(examInfo);
+			}
+			if(multipleScore != null){
+				models.put("multipleScore", Integer.parseInt(multipleScore));
+				examInfo.setQuestionType(QuestionType.multipleChoiceQuestion.toString());
+				examInfo.setScore(Integer.parseInt(multipleScore));
+				examService.addQuestionScore(examInfo);
+			}
+			if(tfScore != null){
+				models.put("tfScore", Integer.parseInt(tfScore));
+				examInfo.setQuestionType(QuestionType.trueFalseQuestion.toString());
+				examInfo.setScore(Integer.parseInt(tfScore));
+				examService.addQuestionScore(examInfo);
+			}
+			if(blankScore != null){
+				models.put("blankScore", Integer.parseInt(blankScore));
+				examInfo.setQuestionType(QuestionType.blankFillingQuestion.toString());
+				examInfo.setScore(Integer.parseInt(blankScore));
+				examService.addQuestionScore(examInfo);
+			}
+			if(eassyScore != null){
+				models.put("eassyScore", Integer.parseInt(eassyScore));
+				examInfo.setQuestionType(QuestionType.eassyQuestion.toString());
+				examInfo.setScore(Integer.parseInt(eassyScore));
+				examService.addQuestionScore(examInfo);
+			}
 			List<ChoiceQuestion> choiceQuestions = examService.findChoiceQuestionOfExam(examId);
 			if(choiceQuestions!=null&&choiceQuestions.size()>0){
 				models.put("choiceQuestions", choiceQuestions);
@@ -129,6 +177,43 @@ public class TeacherController {
 				e.printStackTrace();
 			}
 		}
+		return model;
+	}
+	
+	@RequestMapping(value="exam/studentExamList")
+	public ModelAndView studentExamList(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("teacher/info");
+		String examId = request.getParameter("examId");
+		if(examId == null){
+			model.addObject("info", "没有获得examId");
+			return model;
+		}
+		model.setViewName("teacher/exam/editStudentExam");
+		List<Long> studentIds = examService.findAllStudentIdByExamId(examId);
+		List<Student> students = new ArrayList<Student>();
+		for(long studentId : studentIds){
+			students.add(studentService.findStudentByStudentID(studentId));
+		}
+		model.addObject("students", students);
+		model.addObject("examId", examId);
+		return model;
+	}
+	
+	@RequestMapping(value="exam/editStudentExam")
+	public ModelAndView editStudentExam(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView model = new ModelAndView("teacher/info");
+		String studentId = request.getParameter("studentId");
+		String examId = request.getParameter("examId");
+		if(true||studentId == null || examId == null){
+			model.addObject("info", "只写了单选题部分，其他还没写    位置 teacherController---》editStudentExam");
+			return  model;
+		}
+		model.setViewName("teacher/exam/studentExamTemplate");
+		model.addObject("student", studentService.findStudentByStudentID(Long.parseLong(studentId)));
+		model.addObject("choiceQuestions", examService.findQuestionWithStudentAnswer(examId, studentId, QuestionType.choiceQuestion));
+		model.addObject("choiceScore", examService.findQuestionScoreOfExam(examId, QuestionType.choiceQuestion.toString()).getScore());
+		
+		
 		return model;
 	}
 	

@@ -33,8 +33,12 @@
 								</div>
 								<ul>
 									<li>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum </p>
-										<p>vestibulum. Vivamus fermentum in arcu in aliquam. Quisque aliquam porta odio in fringilla. Vivamus nisl leo, blandit at bibendum eu, tristique eget risus. Integer aliquet quam ut elit suscipit, id interdum neque porttitor. Integer faucibus ligula.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum id metus ac nisl bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet sagittis. In tincidunt orci sit amet elementum </p>
+										<p>1. 考生只准携带必身份证、学生证进入考场,不得携带其他物品；</p>
+										<p>2. 考生提前10分钟到指定教室指定座位号调试计算机至考试页面，并核验屏幕上显示的姓名、学号等信息。 </p>
+										<p>3. 监考人员宣布考试正式开始后，迟到15分钟以上的考生不得进入考场；</p>
+										<p>4. 考试过程中如出现死机或系统错误等，应立刻停止操作，举手与监考员联系。</p>
+										<p>5. 考生在考场内必须保持安静，严格遵守考场纪律，自觉服从监考员管理，对于违反考场规定、不服从监考员管理和舞弊者，按违反考场规定处理；</p>  
+										<p>6.考生离开考场后，不准在考场附近逗留和交谈；</p>
 									</li>
 								</ul>
 							</div>
@@ -50,17 +54,22 @@
 					    </ul>
 						<form action="/ExamSystem/teacher/exam/editExam/commit?examId=${exam.examId }" method="post">
 						    <div class="test_title">
-			                     <font><input type="submit" name="test_jiaojuan" value="生成试卷"></font>
+			                     <font><input type="submit" value="生成试卷"></font>
 	                        </div>
 						    <#if choiceQuestions??>
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>单选题</h2>
-									<p>
-										<span>共</span><i class="content_lit">${choiceQuestions?size}</i><span>题，</span><span>合计</span><i class="content_fs">60</i><span>分</span>
-									</p>
+									分值
+									<select name="choiceScore">
+						                <option value="1">1</option>
+						                <option value="2">2</option>
+						                <option value="3">3</option>
+						                <option value="4">4</option>
+						                <option value="5">5</option>
+						            </select>
 								</div>
-							</div> 
+							</div>
 							<div class="test_content_nr">
 								<ul>
 								<#list choiceQuestions as choiceQuestion>
@@ -115,9 +124,14 @@
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>多选题</h2>
-									<p>
-										<span>共</span><i class="content_lit">${multipleChoiceQuestion?size }</i><span>题，</span><span>合计</span><i class="content_fs">30</i><span>分</span>
-									</p>
+									分值
+									<select name="multipleScore">
+						                <option value="1">1</option>
+						                <option value="2">2</option>
+						                <option value="3">3</option>
+						                <option value="4">4</option>
+						                <option value="5">5</option>
+						            </select>
 								</div>
 							</div>
 							<div class="test_content_nr">
@@ -172,9 +186,14 @@
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>判断题</h2>
-									<p>
-										<span>共</span><i class="content_lit">${tureFalseQuestions?size }</i><span>题，</span><span>共计</span><i class="content_fs">30</i><span>分</span>
-									</p>
+									分值
+									<select name="tfScore">
+						                <option value="1">1</option>
+						                <option value="2">2</option>
+						                <option value="3">3</option>
+						                <option value="4">4</option>
+						                <option value="5">5</option>
+						            </select>
 								</div>
 							</div>
 							<dir class="test_content_nr">
@@ -211,9 +230,14 @@
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>填空题</h2>
-									<p>
-										<span>共</span><i class="content_lit"></i><span>题，</span><span>共计</span><i class="content_fs"></i><span>分</span>
-									</p>
+									分值
+									<select name="blankScore">
+						                <option value="1">1</option>
+						                <option value="2">2</option>
+						                <option value="3">3</option>
+						                <option value="4">4</option>
+						                <option value="5">5</option>
+						            </select>
 								</div>
 							</div>
 							<div class="test_content_nr">
@@ -239,9 +263,19 @@
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>简答题</h2>
-									<p>
-										<span>共</span><i class="content_lit">${eassyQuestions?size}</i><span>题，</span><span>共计</span><i class="content_fs"></i><span>分</span>
-									</p>
+									分值
+									<select name="eassyScore">
+						                <option value="1">1</option>
+						                <option value="2">2</option>
+						                <option value="3">3</option>
+						                <option value="4">4</option>
+						                <option value="5">5</option>
+						                <option value="6">6</option>
+						                <option value="7">7</option>
+						                <option value="8">8</option>
+						                <option value="9">9</option>
+						                <option value="10">10</option>
+						            </select>
 								</div>
 							</div>
 							<div class="test_content_nr">

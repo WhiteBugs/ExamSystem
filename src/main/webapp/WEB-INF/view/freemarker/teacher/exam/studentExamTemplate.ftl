@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>在线考试</title>
+	<title>考生试卷</title>
     <link href="/ExamSystem/css/main.css" rel="stylesheet" type="text/css" />
 	<link href="/ExamSystem/css/iconfont.css" rel="stylesheet" type="text/css" />
 	<link href="/ExamSystem/css/test.css" rel="stylesheet" type="text/css" />
@@ -45,19 +45,17 @@
 					<div class="test">
 						<form action="/ExamSystem/student/exam/commit" method="post">
 						   <div class="test_title">
-						       <p class="test_time">
-							      <i class="icon iconfont"></i><b class="alt-1">${time }</b>
-						       </p>
-						       <font><input type="submit" name="test_jiaojuan" value="交卷"></font>
+						       <font><input type="submit" name="test_jiaojuan" value="提交修改"></font>
 					       </div>
 						   <input type="hidden" name="examId" value="${exam.examId }">
+						   <input type="hidden" name="studentId" value="${student.studentId }">
 						    <#if choiceQuestions??>
 							<div class="test_content">
 								<div class="test_content_title">
 									<h2>单选题</h2>
 									每题 ${choiceScore }分
 									<p>
-										<span>共</span><i class="content_lit">${choiceQuestions?size}</i><span>题，</span><span>合计</span><i class="content_fs">${choiceQuestions?size * choiceScore }</i><span>分</span>
+										<span>共</span><i class="content_lit">${choiceQuestions?size}题</i>
 										<input type="hidden" name="choiceQuestionSize" value="${choiceQuestions?size}">
 									</p>
 								</div>
@@ -67,12 +65,11 @@
 								<#list choiceQuestions as choiceQuestion>
 									<li id="qu_0_${choiceQuestion_index}">
 										<div class="test_content_nr_tt">
-											<i>${choiceQuestion_index+1}</i><span>(1分)</span><font>${choiceQuestion.title}</font><b class="icon iconfont"></b>
+											<i>${choiceQuestion_index+1}</i><span>(${choiceScore }分)</span><font>${choiceQuestion.title}</font><b class="icon iconfont"></b>
 										</div>
 										<div class="test_content_nr_main">
 											<ul>
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_1" value="A"/>
 													<label for="0_answer_${choiceQuestion_index+1}_option_1">
 														A.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice1}</p>
@@ -80,14 +77,12 @@
 												</li>
 												
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_2" value="B"/>
-													<label for="0_answer_${choiceQuestion_index+1}_option_2">
+												     <label for="0_answer_${choiceQuestion_index+1}_option_2">
 														B.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice2}</p>
 													</label>
 												</li>
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_3" value="C"/>
 													<label for="0_answer_${choiceQuestion_index+1}_option_3">
 														C.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice3}</p>
@@ -95,12 +90,17 @@
 												</li>
 												
 												<li class="option">
-													<input type="radio" class="radioOrCheck" name="choiceQuestionAnswer${choiceQuestion_index}" id="0_answer_${choiceQuestion_index+1}_option_4" value="D"/>
 													<label for="0_answer_${choiceQuestion_index+1}_option_4">
 														D.
 														<p class="ue" style="display: inline;">${choiceQuestion.choice4}</p>
 													</label>
-												</li> 
+												</li>
+												<li class="answer">
+												            标准答案：${choiceQuestion.answer }        学生答案：${choiceQuestion.studentAnswer }
+												</li>
+												<li>
+												           得分 ： ${choiceQuestion.studentScore} 
+												</li>
 											</ul>
 										</div>
 									</li>
@@ -370,39 +370,6 @@
 
 			<script src="/ExamSystem/js/jquery-1.11.3.min.js"></script>
 			<script src="/ExamSystem/js/jquery.easy-pie-chart.js"></script>
-			<!--时间js-->
-			<script src="/ExamSystem/js/jquery.countdown.js"></script>
-			<script>
-				window.jQuery(function($) {
-					"use strict";
-
-					$('time').countDown({
-						with_separators : false
-					});
-					$('.alt-1').countDown({
-						css_class : 'countdown-alt-1'
-					});
-					$('.alt-2').countDown({
-						css_class : 'countdown-alt-2'
-					});
-
-				});
-
-
-				$(function() {
-					$('li.option label').click(function() {
-						debugger;
-			var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
-			var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
-			// 设置已答题
-			if(!cardLi.hasClass('hasBeenAnswer')){
-				cardLi.addClass('hasBeenAnswer');
-			}
-			
-		});
-				});
-			</script>
-
 			<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
 				<p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
 			</div>
