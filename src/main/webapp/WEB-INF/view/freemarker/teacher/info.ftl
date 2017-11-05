@@ -17,6 +17,22 @@
         <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
+<style>
+@media (min-width: 768px){
+.navbar {
+    height: 54px;
+}
+.nav>li{
+  height: 54px;
+}
+.nav>li button{
+   margin-top: -10px;
+}
+.nav>li>a{
+  height: 54px;
+}
+}
+</style>
 <body>
 <nav class="navbar navbar-default" role="navigation">
    <div class="container-fluid"> 

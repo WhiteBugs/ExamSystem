@@ -1,0 +1,122 @@
+#ad_tab{
+	margin: 0 auto;
+	border: 2px solid #66ACCC;
+	max-width: 600px;
+	min-width: 400px;
+}
+#ad_tab tr{
+	text-align: center;
+	line-height: 20px;
+
+}
+#ad_tab tr:nth-child(1){
+	font-size: 18px;
+	font-weight: 600;
+
+}
+#ad_tab  tr:nth-child(n+2):hover{
+	line-height: 20px;
+	pointer: default;
+	background:#EDF5E0;
+	color: #66ACCC;
+	font-size: 18px;
+	font-weight: 500;
+}
+#ad_form{
+	width: 300px;
+	display: block;
+	margin: 20px auto;
+}
+#ad_form label{
+	width: 70px;
+}
+#ad_form input{
+	outline: none;
+	border: none;
+	border: 1px solid #333;
+	border-radius: 4px 4px 4px 4px;
+	padding-left: 6px;
+	width: 200px;
+	height: 30px;
+	margin-bottom: 10px;
+}
+#ad_btn{
+	outline: none;
+	border: none;
+	border-radius:6px 6px 6px 6px;
+	background: #66ACCC;
+	margin: 0 auto;
+	display: block;
+	line-height: 35px;
+	font-size: 18px;
+	font-weight: 500;
+	height: 35px;
+	width: 70px;
+	text-align: center;
+}
+#ad_btn:hover{
+	background: #11aacc;
+	color:#f3f3f3;
+}
+
+
+
+#stu_tab{
+	border: 2px solid #66ACCC;
+	margin: 0 auto;
+	max-width: 800px;
+	min-width: 600px;
+	margin-bottom: 20px;
+}
+#stu_tab tr{
+	text-align: center;
+	line-height: 20px;
+
+}
+#stu_tab tr:nth-child(1){
+	font-size: 18px;
+	font-weight: 600;
+
+}
+#stu_tab  tr:nth-child(n+2):hover{
+	line-height: 20px;
+	pointer: default;
+	background:#EDF5E0;
+	color: #66ACCC;
+	font-size: 18px;
+	font-weight: 500;
+}
+
+
+#add_container{
+	margin: 0 auto 20px auto;
+	width: 900px;
+}
+.add_section{
+	margin-bottom: 10px;
+}
+#add_container input[type=checkbox]{
+	margin-left: 10px;
+}
+
+
+#mexa_tab{
+	margin: 0 auto;
+	border: 2px solid #66ACCC;
+	max-width: 600px;
+	min-width: 400px;
+}
+#mexa_tab tr{
+	height: 30px;
+	text-align: center;
+	line-height: 20px;
+
+}
+#mexa_tab  tr:hover{
+	line-height: 20px;
+	pointer: default;
+	background:#EDF5E0;
+	color: #66ACCC;
+	font-size: 18px;
+	font-weight: 500;
+}

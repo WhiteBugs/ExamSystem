@@ -32,12 +32,8 @@ public class LoginController {
     @Resource(name="TeacherService")
     private TeacherService teacherService;
     
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
-	@RequestMapping(value="/loginCheck",method=RequestMethod.POST)
+	
+	@RequestMapping(value="/loginCheck")//,method=RequestMethod.POST)
 	public ModelAndView checkAccount( HttpServletRequest request, HttpServletResponse response){
 		
 		if(request.getSession().getAttribute("user")!=null){
@@ -46,34 +42,11 @@ public class LoginController {
 		String userName = request.getParameter("userName");
 		String userPassword = request.getParameter("userPassword");
 		String countType = request.getParameter("countType");
-		
-		//--------------------------------------------------------------------------------------------------------------------------
-		//--------------------------------------------------------------------------------------------------------------------------
-		//--------------------------------------------------------------------------------------------------------------------------
-		//--------------------------------------------------------------------------------------------------------------------------
-		//--------------------------------------------------------------------------------------------------------------------------
-		if(false){
-			userName = "jason";
-			userPassword = "QPALZM";
-			countType = "teacher";
-		}
-		if(false){
-			userName = "admin";
-			userPassword = "admin";
-			countType = "admin";
-		}
-		if(false){
-			userName = "3115000806";
-			userPassword = "QPALZM";
-			countType = "student";
-		}
-		
-
-		
+			
 		logger.debug("进入loginController");
 		switch (countType) {
 		   case "admin":
-				Adminstrator admin = adminService.findAdminByCount(userName);
+				Adminstrator admin = adminService.findAdminByCount(userName);		    
 				if(admin==null){
 					return new ModelAndView("redirect:../login/wrongAccount");
 				}

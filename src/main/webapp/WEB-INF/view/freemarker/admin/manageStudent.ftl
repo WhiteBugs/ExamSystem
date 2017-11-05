@@ -2,11 +2,28 @@
 <html>
 <head>
    <meta charset="utf-8">
-   <title>管理考官</title>
+   <title>管理学生</title>
+    <link rel="stylesheet" href="../css/adminStyle.css">
    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+@media (min-width: 768px){
+.navbar {
+    height: 54px;
+}
+.nav>li{
+  height: 54px;
+}
+.nav>li button{
+   margin-top: -10px;
+}
+.nav>li>a{
+  height: 54px;
+}
+}
+</style>
 <body>
 <nav class="navbar navbar-default" role="navigation">
    <div class="container-fluid"> 
@@ -30,7 +47,7 @@
    </div>
 </nav>
 <div>
-  <table class="table" border=1>
+  <table class="table" border=1 id="stu_tab">
   <tr><td>学号<td>密码<td>名字<td>身份证号码<td>考生号
   <#list studentList as student>
     <tr><td>${student.studentId}<td>${student.password}<td>${student.name}<td>${student.id }<td>${student.examineeNumber }

@@ -3,6 +3,7 @@
 <head>
    <meta charset="utf-8">
    <title>添加试题</title>
+   <link rel="stylesheet" href="../css/adminStyle.css">
    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -66,6 +67,22 @@
     
    </script>
 </head>
+<style>
+@media (min-width: 768px){
+.navbar {
+    height: 54px;
+}
+.nav>li{
+  height: 54px;
+}
+.nav>li button{
+   margin-top: -10px;
+}
+.nav>li>a{
+  height: 54px;
+}
+}
+</style>
 <body>
 <nav class="navbar navbar-default" role="navigation">
    <div class="container-fluid"> 
@@ -88,38 +105,40 @@
    </div>
    </div>
 </nav>	
+<div id="add_container">
 <h3>添加考试</h3>
 <form action="/ExamSystem/admin/addExam/commit" method="post">
     <div class="panel">
-        <div>
+        <div class="add_section">
         	<label for="examName">考试名称</label>
     	    <input type="text" name="examName">
         </div>
+         <hr>
     	<div>
-    		<label for="examBeginTime">考试开始时间</label>
-    		<div name="examBeginTime">
+    		<div  class="add_section"><label for="examBeginTime">考试开始时间</label></div>
+    		<div name="examBeginTime" class="add_section">
     			<input type="date" name="beginDate">
     			<input type="time" name="beginTime">
     		</div>
-    		<label for="examEndTime">考试结束时间</label>
-    		<div name="examEndTime">
+    		<div  class="add_section"><label for="examEndTime">考试结束时间</label></div>
+    		<div name="examEndTime"  class="add_section">
     		    <input type="date" name="endDate">
     		    <input type="time" name="endTime">
     		</div>
-    		<label for="examTime">考试时间</label>
-    		<div >
+    		<div  class="add_section"><label for="examTime">考试时间</label></div>
+    		<div  class="add_section" >
     		    <input type="time" name="examTime">
     		</div>
     	</div>
+       <hr>
     	<div id="examStaff">
-    		
     	</div>
-    	<div name="selectTeacher" >
-    	    <label for="teachers">添加考官</label>
-    	    <#list teachers as teacher><input type="checkbox" name="teachers" value="${teacher.count}">${teacher.count}</#list>    
-    		
+    	<div name="selectTeacher" class="add_section" >
+    	    <div class="add_section"><label for="teachers">添加考官</label></div>
+    	    <#list teachers as teacher><input type="checkbox" name="teachers" value="${teacher.count}">${teacher.count}</#list>
     	</div>
-    	<div>
+       <hr>
+    	<div  class="add_section">
     		<label for="studentType">添加学生</label>
     		<select id="studentType" onchange="addStudent()">
     		    <option>  </option>
@@ -128,12 +147,12 @@
     			<option value="person">以个体为单位添加</option>
     		</select>
     		<div id="selectStudent">
-    			
     		</div>
     		
     	</div>
     </div>
     
 </form>
+</div>
 </body>
 </html>

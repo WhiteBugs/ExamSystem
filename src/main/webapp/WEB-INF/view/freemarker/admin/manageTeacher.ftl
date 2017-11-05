@@ -3,10 +3,27 @@
 <head>
    <meta charset="utf-8">
    <title>管理考官</title>
+   <link rel="stylesheet" href="../css/adminStyle.css">
    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+@media (min-width: 768px){
+.navbar {
+    height: 54px;
+}
+.nav>li{
+  height: 54px;
+}
+.nav>li button{
+   margin-top: -10px;
+}
+.nav>li>a{
+  height: 54px;
+}
+}
+</style>
 <body>
 <nav class="navbar navbar-default" role="navigation">
    <div class="container-fluid"> 
@@ -30,20 +47,20 @@
    </div>
 </nav>
 <div>
-  <table class="table" border=1>
+  <table class="table" border=1 id="ad_tab">
   <tr><td>账号<td>密码
   <#list teacherList as teacher>
   <tr><td>${teacher.count}<td>${teacher.password} 
      </#list>
   </table>
-  <form action="manageTeacher/addTeacher" method="post">
+  <form action="manageTeacher/addTeacher" method="post" id="ad_form">
       <label for="teacherCount">考官账号</label>
       <input name="teacherCount" type="text" placeholder="请输入英文组成的 账号">
       <p>
         <label for="teacherPassword">密码</label>
         <input name="teacherPassword" type="password" placeholder="请输入密码">
       <p>
-         <button type="submit">提交</button>
+         <button type="submit" id="ad_btn">提交</button>
    </form>
 </div>
 </body>

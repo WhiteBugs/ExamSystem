@@ -1,0 +1,56 @@
+#stu_info,#stu_exam,#stu_list,#stu_resu{
+	padding-left: 20px;
+}
+#stu_detail,#stu_examtab,#stu_listtab{
+	margin-bottom: 50px;
+	margin-left: 40px;
+	font-size: 16px;
+}
+#stu_examtab tr,#stu_examtab td{
+	border: 2px solid #BAC5E8
+}
+#stu_examtab tr{
+	height: 32px;
+}
+#stu_examtab td{
+	min-width: 200px;
+	text-align: center;
+}
+#stu_examtab tr:nth-child(1){
+	height: 40px;
+	font-weight: 600;
+	font-size: 18px;
+}
+#stu_examtab tr:nth-child(n+2):hover{
+	background: #E9D5F1;
+}
+
+#stu_listtab a{
+	color: #BF4840;
+}
+#stu_listtab tr,#stu_examtab td{
+	border: 2px solid #BAC5E8
+}
+#stu_listtab tr{
+	height: 32px;
+}
+#stu_listtab td{
+	min-width: 200px;
+	text-align: center;
+}
+#stu_listtab tr:hover{
+	background: #E9D5F1;
+}
+#stu_prod{
+	width: 410px;
+	margin-top: 20px;
+}
+#stu_prod td{
+	min-width: 200px;
+}
+#stu_prod tr{
+	border: 1px solid #BAC5E8;
+}
+#stu_prod tr:hover{
+	background: #E9D5F1;
+}

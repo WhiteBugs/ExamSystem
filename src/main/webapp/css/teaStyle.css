@@ -1,0 +1,30 @@
+#tea_welcome{
+	padding-left: 20px;
+}
+#tea_add{
+	margin-left: 40px;
+}
+#tea_add input,#tea_add option{
+	margin-bottom: 10px;
+}
+#type{
+	margin-bottom: 10px;
+}
+#tea_btn{
+	outline: none;
+	border: none;
+	border-radius:6px 6px 6px 6px;
+	background: #66ACCC;
+	display: block;
+	line-height: 35px;
+	font-size: 18px;
+	font-weight: 500;
+	height: 35px;
+	width: 70px;
+	text-align: center;
+	margin-bottom: 40px;
+}
+#tea_btn:hover{
+	background: #11aacc;
+	color:#f3f3f3;
+}

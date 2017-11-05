@@ -37,18 +37,43 @@
 
       <form class="form-signin" action="/ExamSystem/login/loginCheck"   method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" name="userName" class="form-control" placeholder="Count" required autofocus>
+        <input type="text" name="userName" class="form-control" id="log_user" placeholder="Count" required autofocus>
         <input type="password" name="userPassword" class="form-control" placeholder="Password" required>
-        <select class="count-type" name="countType"  >
+        <select class="count-type" name="countType"  id="log_id">
              <option value="student">student</option>
              <option value="teacher">teacher</option>
              <option value="admin">adminstrator</option>
         </select>
         
         
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="log_btn">Login in</button>
       </form>
+<script>
+  var user=document.getElementById('log_user');
+  var logId=document.getElementById('log_id');
+  var btn=document.getElementById('log_btn');
+  user.onblur=function(){
+    var userVal=user.value;
+    var reg=/\D/g;
+    var flag=reg.test(userVal);
+    if(logId.value==='student'&&user.value && flag){
+      alert("学生必须用学号登录！");
+      user.value='';
+      user.focus();
+    }
+  }
 
+  logId.onblur=function(){
+    var userVal=user.value;
+    var reg=/\D/g;
+    var flag=reg.test(userVal);
+    if(logId.value==='student'&&user.value && flag){
+      alert("学生必须用学号登录！");
+      user.value='';
+      user.focus();
+    }
+  }
+</script>
     </div> <!-- /container -->
 
 
